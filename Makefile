@@ -1,26 +1,28 @@
+NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 SRCS = ./srcs/main.c
-NAME = minishell
+
 
 # .c -> .o
-OBJS = $(SRCS:%c.=%.o)
+OBJS = $(SRCS:%.c=%.o)
 
 $(NAME) : $(OBJS)
-	# $(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	gcc $(OBJS) -o $(NAME)
 
 .c.o :
 	gcc -c $(CFLAGS) $< -o $(<:.c=.o)
 
 all : $(NAME)
 
-clean : 
-	rm -rf ./srcs/*.o
+clean :
+	$(RM) $(OBJS)
 
-fclean :
-	clean
+fclean : clean 
 	rm $(NAME)
 
-re :
-	fclean all
+re : fclean all
+
+.PHONY: all bonus clean fclean re
 
