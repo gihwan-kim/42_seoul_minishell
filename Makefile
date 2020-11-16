@@ -13,7 +13,8 @@ PARSING_SRCS = \
 
 COMMAND_SRCS = \
 				env.c \
-				path_execve.c
+				path_execve.c \
+				export_env.c
 
 COMMAND_SRCS_DIR = ./srcs/command
 

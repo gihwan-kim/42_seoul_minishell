@@ -9,6 +9,6 @@
 int		get_next_line(char **line);
 int		path_execve(char **info, char **envv);
 int		env(char **envv);
-
+int		export_env(char *str, char ***envv);
 
 #endif

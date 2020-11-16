@@ -6,7 +6,7 @@
 /*   By: sancho <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/16 14:33:16 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/16 23:28:02 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int
 			break ;
 		}
 	result = path_run(info, path, envv);
+	free(path);
 	write(0, "program not found!\n", 19);
 	return (result);
 }
