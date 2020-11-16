@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   path_execve.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancho <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/16 10:56:18 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/16 12:20:03 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
 #include "libft.h"
-
-#include <stdio.h>
 
 char
 	*path_pro(char const *s1, char const *s2)
@@ -54,13 +51,13 @@ int
 	char	*program;
 	char	*origin;
 
-	ret = 123;
+	ret = 0;
 	i = -1;
+	ret = execve(info[0], info, envv);
 	while (path[++i])
 	{
 		origin = info[0];
 		info[0] = path_pro(path[i], info[0]);
-		//printf("%s\n", info[0]);
 		ret = execve(info[0], info, envv);
 		free(info[0]);
 		info[0] = origin;
@@ -89,13 +86,4 @@ int
 	result = path_run(info, path, envv);
 	write(0, "program not found!\n", 19);
 	return (result);
-}
-
-int
-	main(int argc, char **argv, char **envv)
-{
-	char	*info[] = {"host", "-a", NULL};
-
-	path_execve(info, envv);
-	return (0);
 }
