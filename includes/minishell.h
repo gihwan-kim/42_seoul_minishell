@@ -8,7 +8,12 @@
 
 int		get_next_line(char **line);
 int		path_execve(char **info, char **envv);
+<<<<<<< Updated upstream
 int		env(char **envv);
 
+=======
+int		ft_env(char **envv);
+int		ft_export(char *str, char ***envv);
+>>>>>>> Stashed changes
 
 #endif

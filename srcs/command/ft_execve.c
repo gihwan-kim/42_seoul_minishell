@@ -6,7 +6,11 @@
 /*   By: sancho <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
+<<<<<<< Updated upstream:srcs/command/path_execve.c
 /*   Updated: 2020/11/16 14:33:16 by sancho           ###   ########.fr       */
+=======
+/*   Updated: 2020/11/17 01:09:04 by sancho           ###   ########.fr       */
+>>>>>>> Stashed changes:srcs/command/ft_execve.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +68,7 @@ int
 }
 
 int
-	path_execve(char **info, char **envv)
+	ft_execve(char **info, char **envv)
 {
 	int		i;
 	char	**path;
