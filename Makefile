@@ -32,7 +32,6 @@ SRCS_LIST = \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			./srcs/main.c
-
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)
 
@@ -56,6 +55,7 @@ clean :
 	$(RM) $(OBJS)
 
 fclean : clean
+	$(MAKE) -C lib/libft fclean
 	$(RM) $(NAME)
 
 re : fclean all
