@@ -15,12 +15,13 @@
 includes
 // 헤더파일
     libft
-    minishell.h : 
+    minishell.h :
 
 srcs
 // 소스파일
     command : 명령어 관련 파일
-    parsing
+    parsing :
+    utils   :
     error
     main.c : 시작 부분
 ```

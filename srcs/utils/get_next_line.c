@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 23:13:31 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/15 11:28:45 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/15 14:40:17 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "minishell.h"
 
-int		ft_strlen(char *str)
-{
-	int	i;
+// int		ft_strlen(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	return (i);
+// }
 
-char	*ft_calloc(int size, int count)
-{
-	char	*new;
-	int		len;
-	int		i;
+// char	*ft_calloc(int size, int count)
+// {
+// 	char	*new;
+// 	int		len;
+// 	int		i;
 
-	len = size * count;
-	new = (char*)malloc(len);
-	i = 0;
-	while (i < len)
-		new[i++] = 0;
-	return (new);
-}
+// 	len = size * count;
+// 	new = (char*)malloc(len);
+// 	i = 0;
+// 	while (i < len)
+// 		new[i++] = 0;
+// 	return (new);
+// }
 
-int		ft_strchr(char *str, char c)
+static int		ft_gnlstrchr(char *str, char c)
 {
 	int	i;
 
@@ -69,17 +69,17 @@ char	*ft_stradd(char *str, char c)
 	return (new);
 }
 
-char	*ft_substr(char *str, int begin, int len)
-{
-	char	*new;
-	int		i;
+// char	*ft_substr(char *str, int begin, int len)
+// {
+// 	char	*new;
+// 	int		i;
 
-	new = ft_calloc(sizeof(char), len + 1);
-	i = 0;
-	while (str[begin] && i < len)
-		new[i++] = str[begin++];
-	return (new);
-}
+// 	new = ft_calloc(sizeof(char), len + 1);
+// 	i = 0;
+// 	while (str[begin] && i < len)
+// 		new[i++] = str[begin++];
+// 	return (new);
+// }
 
 int		get_next_line(char **line)
 {
@@ -96,15 +96,15 @@ int		get_next_line(char **line)
 		if (buf[0] == '\n')
 			break ;
 	}
-	if ((pos = ft_strchr(s, '\n')) >= 0)
+	if ((pos = ft_gnlstrchr(s, '\n')) >= 0)
 	{
 		*line = ft_substr(s, 0, pos);
 		temp = s;
-		s = ft_substr(s, pos + 1, ft_strchr(s, '\0'));
+		s = ft_substr(s, pos + 1, ft_gnlstrchr(s, '\0'));
 		free(temp);
 		return (1);
 	}
-	*line = ft_substr(s, 0, ft_strchr(s, '\0'));
+	*line = ft_substr(s, 0, ft_gnlstrchr(s, '\0'));
 	free(s);
 	return (0);
 }
