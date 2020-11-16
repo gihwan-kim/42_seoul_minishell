@@ -129,7 +129,7 @@ char	**ft_mininsplit(char *cmd)
 	ret = add_word(ret, &cmd, NULL, ' ');
 	return ret;
 }
-
+/*
 int main(int argc, char **argv)
 {
 	char **ret;
@@ -149,3 +149,4 @@ int main(int argc, char **argv)
 		idx++;
 	}
 }
+*/

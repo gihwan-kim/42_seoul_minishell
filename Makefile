@@ -6,24 +6,31 @@ INC = -I./includes
 RM = rm -rf
 
 
-SRCS = ./srcs/main.c
+#SRCS = ./srcs/main.c
 
 PARSING_SRCS = \
 				ft_minisplit.c
-				# new_minisplit.c
+
+COMMAND_SRCS = \
+				env.c \
+				path_execve.c
+
+COMMAND_SRCS_DIR = ./srcs/command
+
 PARSING_SRCS_DIR = ./srcs/parsing
 
 UTILS_SRCS = \
 			get_next_line.c
-UTILS_SRCS_DIR = ./srcs/utils
 
+UTILS_SRCS_DIR = ./srcs/utils
 
 
 # addprefix : 문자열 붙이기
 SRCS_LIST = \
 			$(addprefix $(PARSING_SRCS_DIR)/, $(PARSING_SRCS)) \
-			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS))
-			# ./srcs/main.c
+			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
+			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
+			./srcs/main.c
 
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)
@@ -47,7 +54,7 @@ clean :
 	$(RM) $(OBJS)
 
 fclean : clean
-	rm $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
 
