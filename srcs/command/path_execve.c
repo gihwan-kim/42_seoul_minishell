@@ -6,13 +6,11 @@
 /*   By: sancho <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/16 12:20:03 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:33:16 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
+#include "minishell.h"
 
 char
 	*path_pro(char const *s1, char const *s2)
@@ -48,7 +46,6 @@ int
 {
 	int		ret;
 	int		i;
-	char	*program;
 	char	*origin;
 
 	ret = 0;
@@ -74,8 +71,9 @@ int
 	char	*temp;
 	int		result;
 
+	path = NULL;
 	i = -1;
-	while (envv[++i])
+	while (NULL != envv[++i])
 		if (ft_strnstr(envv[i], "PATH", 4))
 		{
 			temp = ft_substr(envv[i], 5, ft_strlen(envv[i]));
