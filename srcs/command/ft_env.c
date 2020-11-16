@@ -6,11 +6,11 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:15:09 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 01:08:40 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/17 01:20:17 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "command.h"
 
 int	ft_env(char **envv)
 {
