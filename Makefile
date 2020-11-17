@@ -12,7 +12,7 @@ PARSING_SRCS = \
 				ft_minisplit.c
 
 COMMAND_SRCS = \
-				ft_first_env.c \
+				ft_first_envv.c \
 				ft_env.c \
 				ft_execve.c \
 				ft_export.c \

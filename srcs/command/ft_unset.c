@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 11:18:26 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/17 11:50:16 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int	ft_unset(char *str, char ***envv)
 	int			i;
 	int			last;
 
-	last = -1;
-	while ((*envv)[++last] != NULL);
+	last = 0;
+	while (((*envv)[last]) != NULL)
+		last++;
 	if (last < 1)
 		return (-1);
 	i = -1;
