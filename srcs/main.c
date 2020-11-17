@@ -8,14 +8,22 @@ int main(int argc, char **argv, char **envv)
 	(void)argv;
 	(void)argc;
 
-	ft_export("ABC=DSADSA", &envv);
-	ft_export("ABC=11123SA", &envv);
-	ft_export("ABC=B3SA", &envv);
-	ft_export("ABCD=DSADSA", &envv);
-	ft_export("TERM=DSADSA", &envv);
-	ft_export("TERM=DSADSA", &envv);
-	ft_export("TERM=123123", &envv);
+	ft_first_env(&envv);
+	ft_export("ABC=SETABC", &envv);
+	ft_export("ABC=CHANGEABC", &envv);
+	ft_export("ABC=LASTCHANGE", &envv);
+	ft_export("ABCD=OTHER", &envv);
+	ft_export("TERM=TERM!!!!!!", &envv);
+	ft_export("TERM=TERM@@@2222", &envv);
 	ft_export("EEE=HELLO", &envv);
+	ft_unset("ABCDF", &envv);
+	ft_unset("ABC", &envv);
+	ft_unset("USER", &envv);
+	ft_export("FFF=FFF", &envv);
+	ft_export("FFFF=FFFF", &envv);
+	ft_unset("A", &envv);
+	ft_unset("unsetdo not", &envv);
+	ft_unset("FFF=", &envv);
 	ft_env(envv);
 
 	if(!fork())
