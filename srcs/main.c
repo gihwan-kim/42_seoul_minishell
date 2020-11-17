@@ -25,7 +25,6 @@ int main(int argc, char **argv, char **envv)
 	ft_unset("unsetdo not", &envv);
 	ft_unset("FFF=", &envv);
 	ft_env(envv);
-
 	if(!fork())
 		ft_execve(pro, envv);
 	while(1);
