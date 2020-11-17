@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_execve.c                                      :+:      :+:    :+:   */
+/*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
-<<<<<<< Updated upstream:srcs/command/path_execve.c
-/*   Updated: 2020/11/16 14:33:16 by sancho           ###   ########.fr       */
-=======
-/*   Updated: 2020/11/17 01:09:04 by sancho           ###   ########.fr       */
->>>>>>> Stashed changes:srcs/command/ft_execve.c
+/*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
+/*   Updated: 2020/11/17 01:18:35 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "command.h"
 
 char
 	*path_pro(char const *s1, char const *s2)
@@ -86,6 +82,7 @@ int
 			break ;
 		}
 	result = path_run(info, path, envv);
+	free(path);
 	write(0, "program not found!\n", 19);
 	return (result);
 }

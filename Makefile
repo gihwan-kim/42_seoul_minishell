@@ -12,8 +12,9 @@ PARSING_SRCS = \
 				ft_minisplit.c
 
 COMMAND_SRCS = \
-				env.c \
-				path_execve.c
+				ft_env.c \
+				ft_execve.c \
+				ft_export.c
 
 COMMAND_SRCS_DIR = ./srcs/command
 
@@ -31,16 +32,12 @@ SRCS_LIST = \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			./srcs/main.c
-
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)
 
 # $(NAME) : $(OBJS)
 # 	$(MAKE) -C lib/libft bonus
 # 	gcc $(OBJS) -o $(NAME)
-$(NAME) : $(OBJS)
-	$(MAKE) -C lib/libft bonus
-	$(CC) $(CFLAGS) $(INC) $(SRCS_LIST) $(LIBFT_FLAGS) -o $(NAME)
 
 
 # .c.o :
@@ -49,11 +46,16 @@ $(NAME) : $(OBJS)
 
 all : $(NAME)
 
+$(NAME) : $(OBJS)
+	$(MAKE) -C lib/libft bonus
+	$(CC) $(CFLAGS) $(INC) $(SRCS_LIST) $(LIBFT_FLAGS) -o $(NAME)
+
 clean :
 	$(MAKE) -C lib/libft clean
 	$(RM) $(OBJS)
 
 fclean : clean
+	$(MAKE) -C lib/libft fclean
 	$(RM) $(NAME)
 
 re : fclean all
