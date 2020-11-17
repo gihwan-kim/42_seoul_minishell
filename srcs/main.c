@@ -8,7 +8,7 @@ int main(int argc, char **argv, char **envv)
 	(void)argv;
 	(void)argc;
 
-	ft_first_env(&envv);
+	ft_first_envv(&envv);
 	ft_export("ABC=SETABC", &envv);
 	ft_export("ABC=CHANGEABC", &envv);
 	ft_export("ABC=LASTCHANGE", &envv);
