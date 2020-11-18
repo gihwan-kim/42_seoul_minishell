@@ -16,7 +16,9 @@ COMMAND_SRCS = \
 				ft_env.c \
 				ft_execve.c \
 				ft_export.c \
-				ft_unset.c
+				ft_unset.c \
+				ft_cd.c \
+				ft_pwd.c
 
 COMMAND_SRCS_DIR = ./srcs/command
 
