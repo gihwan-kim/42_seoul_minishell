@@ -8,6 +8,7 @@ int main(int argc, char **argv, char **envv)
 	(void)argv;
 	(void)argc;
 
+	write(0, "0.----------------\n", 19);
 	ft_first_envv(&envv);
 	ft_export("ABC=SETABC", &envv);
 	ft_export("ABC=CHANGEABC", &envv);
@@ -25,6 +26,25 @@ int main(int argc, char **argv, char **envv)
 	ft_unset("unsetdo not", &envv);
 	ft_unset("FFF=", &envv);
 	ft_env(envv);
+	write(0, "1.----------------\n", 19);
+	write(0, "pwd->\n", 6);
+	ft_pwd();
+	write(0, "cd srcs\n", 8);
+	ft_cd("srcs", envv);
+	ft_pwd();
+	write(0, "cd ~\n", 5);
+	ft_cd("~", envv);
+	ft_pwd();
+	write(0, "cd error\n", 9);
+	ft_cd(".1./", envv);
+	ft_pwd();
+	write(0, "cd ../\n", 7);
+	ft_cd("../", envv);
+	ft_pwd();
+	/*
+	write(0, "env-----\n", 10);
+	ft_env(envv);
+	*/
 	if(!fork())
 		ft_execve(pro, envv);
 	while(1);

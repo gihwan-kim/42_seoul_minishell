@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 01:18:35 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/18 14:21:37 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int
 	path = NULL;
 	i = -1;
 	while (NULL != envv[++i])
-		if (ft_strnstr(envv[i], "PATH", 4))
+		if (ft_strnstr(envv[i], "PATH=", 5))
 		{
 			temp = ft_substr(envv[i], 5, ft_strlen(envv[i]));
 			path = ft_split(temp, ':');
