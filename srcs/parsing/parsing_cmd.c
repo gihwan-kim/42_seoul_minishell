@@ -1,57 +1,20 @@
 #include "minishell.h"
-/*
-
-""
-Double quotes 안에서는 $ ` ! 특수기능을 하는 문자들이 해석되어 실행되고 공백과 개행이 유지됩니다.
-변수 사용 시에도 동일하게 적용되므로 quote 을 하지 않으면 공백과 개행이 유지되지 않습니다
-
-''
-별다른 기능 없이 모든 문자를 있는 그대로 표시합니다. escape 도 되지 않습니다.
-이 안에서 single quotes 을 사용하려면 뒤에 이어지는 $' ' 을 사용해야 합니다.
+/**
+ * < bash 에서 ', " 규칙 >
+ * ""
+ * Double quotes 안에서는 $ ` ! 특수기능을 하는 문자들이 해석되어 실행되고 공백과 개행이 유지됩니다.
+ * 변수 사용 시에도 동일하게 적용되므로 quote 을 하지 않으면 공백과 개행이 유지되지 않습니다
+ *
+ * ''
+ * 별다른 기능 없이 모든 문자를 있는 그대로 표시합니다. escape 도 되지 않습니다.
+ * 이 안에서 single quotes 을 사용하려면 뒤에 이어지는 $' ' 을 사용해야 합니다.
+ *
 */
 
-
-// 이중 포인터 배열들을 합칠때 복제하고 합쳐줘야함
-// 나중에 합치고 나서 free 할때 동일한 메모리를 가리키고 있어서
-// 이전 배열들을 free 하면 값이 다사라짐 복제해둬야함
-
-char	**ft_splitjoin(char **split1, char **split2)
-{
-	char	** ret;
-	int		i1;
-	int		i2;
-
-	i1 = 0;
-	while (split1[i1])
-		i1++;
-	i2 = 0;
-	while (split2[i2])
-		i2++;
-	if (!(ret = ft_calloc(i2 + i1 + 1, sizeof(char*))))
-		return (ret);
-	i1 = -1;
-	while (split1[++i1])
-		ret[i1] = ft_strdup(split1[i1]);
-	i2 = -1;
-	while (split2[++i2])
-		ret[i1 + i2] = ft_strdup(split2[i2]);
-	return (ret);
-}
-
-// 이중 배열 free 함수
-void	free_double_ptr(char **ptr)
-{
-	int idx;
-
-	idx = 0;
-	if (ptr)
-	{
-		while (ptr[idx])
-			free(ptr[idx++]);
-		free(ptr);
-	}
-}
-
+/**
+ * make_word()		: 이전 split 한 배열과 새로 생성한 split 한 배열을
+ * 					  합쳐주고 이전것들을 free 해줌
+ */
 char	**make_word(char **cmd, char **next_word)
 {
 	char **ret;
@@ -59,23 +22,22 @@ char	**make_word(char **cmd, char **next_word)
 
 	cur_word = cmd;
 	ret = ft_splitjoin(cur_word, next_word);
-	free_double_ptr(cur_word);
-	free_double_ptr(next_word);
+	free_double_str(cur_word);
+	free_double_str(next_word);
 	return (ret);
 }
 
 // char * -> char **
+/**
+ * add_word()		: 공백일 경우 공백으로 split 해주고 ', " 일 경우 다음
+ * 					  ', " 문자가 없으면 에러 있으면 잘라줌
+ */
 char	**add_word(char **word_set, char **cmd, char *quote_loc, char seperator)
 {
-	char	**ret;
 	char	**next_words;
 	char	*quote_loc_close;
 	char	tmp;
 
-	ret = NULL;
-	if (!(ret = ft_calloc(1, sizeof(char*))))
-		return (ret);
-	ret[0] = 0;
 	if (seperator == ' ')
 	{
 		next_words = ft_split(*cmd, seperator);
@@ -95,7 +57,10 @@ char	**add_word(char **word_set, char **cmd, char *quote_loc, char seperator)
 	return (make_word(word_set, next_words));
 }
 
-char	**ft_mininsplit(char *cmd)
+/**
+ * parsing_cmd()	: gnl 로 입력받은 문자열을 공백, ', " 로 나누는 함수
+ */
+char	**parsing_cmd(char *cmd)
 {
 	char	**ret;
 	char	*s_quote_loc;
@@ -130,6 +95,8 @@ char	**ft_mininsplit(char *cmd)
 	return ret;
 }
 /*
+ test 함수
+
 int main(int argc, char **argv)
 {
 	char **ret;

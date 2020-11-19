@@ -5,12 +5,6 @@ LIBFT_FLAGS = -lft -L./lib/libft
 INC = -I./includes
 RM = rm -rf
 
-
-#SRCS = ./srcs/main.c
-
-PARSING_SRCS = \
-				ft_minisplit.c
-
 COMMAND_SRCS = \
 				ft_first_envv.c \
 				ft_env.c \
@@ -22,10 +16,15 @@ COMMAND_SRCS = \
 
 COMMAND_SRCS_DIR = ./srcs/command
 
+PARSING_SRCS = \
+				parsing_cmd.c \
+				parsing_set_cmd_list.c
+
 PARSING_SRCS_DIR = ./srcs/parsing
 
 UTILS_SRCS = \
-			get_next_line.c
+			get_next_line.c \
+			double_ptt_utils.c
 
 UTILS_SRCS_DIR = ./srcs/utils
 
@@ -50,7 +49,7 @@ OBJS = $(SRCS:%.c=%.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(SRCS_LIST)
 	$(MAKE) -C lib/libft bonus
 	$(CC) $(CFLAGS) $(INC) $(SRCS_LIST) $(LIBFT_FLAGS) -o $(NAME)
 

@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/19 16:57:39 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/11/16 16:18:52 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/11/19 16:58:55 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef	UTILS_H
+#define	UTILS_H
+int		get_next_line(char **line);
 
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include "../lib/libft/libft.h"
-#include "utils.h"
-#include "parsing.h"
-#include "command.h"
-# define FALSE 0
-# define TRUE 1
-
+// double str funtion
+char	**ft_splitjoin(char **split1, char **split2);
+void	free_double_str(char **ptr);
+char	**add_double_str(char **ptr, char *str);
+int		double_str_len(char **str);
 #endif
