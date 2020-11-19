@@ -6,15 +6,19 @@ INC = -I./includes
 RM = rm -rf
 
 COMMAND_SRCS = \
-				env.c \
-				path_execve.c
+				ft_first_envv.c \
+				ft_env.c \
+				ft_execve.c \
+				ft_export.c \
+				ft_unset.c \
+				ft_cd.c \
+				ft_pwd.c
 
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
 				parsing_cmd.c \
 				parsing_set_cmd_list.c
-				# make_cmd_list.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
@@ -31,16 +35,12 @@ SRCS_LIST = \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			./srcs/main.c
-
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)
 
 # $(NAME) : $(OBJS)
 # 	$(MAKE) -C lib/libft bonus
 # 	gcc $(OBJS) -o $(NAME)
-$(NAME) : $(OBJS)
-	$(MAKE) -C lib/libft bonus
-	$(CC) $(CFLAGS) $(INC) $(SRCS_LIST) $(LIBFT_FLAGS) -o $(NAME)
 
 
 # .c.o :
@@ -48,6 +48,10 @@ $(NAME) : $(OBJS)
 
 
 all : $(NAME)
+
+$(NAME) : $(OBJS) $(SRCS_LIST)
+	$(MAKE) -C lib/libft bonus
+	$(CC) $(CFLAGS) $(INC) $(SRCS_LIST) $(LIBFT_FLAGS) -o $(NAME)
 
 clean :
 	$(MAKE) -C lib/libft clean

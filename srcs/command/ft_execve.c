@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_execve.c                                      :+:      :+:    :+:   */
+/*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 10:50:41 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/16 17:42:01 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
+/*   Updated: 2020/11/19 16:59:13 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "command.h"
 
 char
 	*path_pro(char const *s1, char const *s2)
@@ -64,7 +64,7 @@ int
 }
 
 int
-	path_execve(char **info, char **envv)
+	ft_execve(char **info, char **envv)
 {
 	int		i;
 	char	**path;
@@ -74,7 +74,7 @@ int
 	path = NULL;
 	i = -1;
 	while (NULL != envv[++i])
-		if (ft_strnstr(envv[i], "PATH", 4))
+		if (ft_strnstr(envv[i], "PATH=", 5))
 		{
 			temp = ft_substr(envv[i], 5, ft_strlen(envv[i]));
 			path = ft_split(temp, ':');
@@ -82,6 +82,7 @@ int
 			break ;
 		}
 	result = path_run(info, path, envv);
+	free(path);
 	write(0, "program not found!\n", 19);
 	return (result);
 }

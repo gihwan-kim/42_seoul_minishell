@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/19 16:57:39 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/11/18 13:39:04 by sancho            #+#    #+#             */
+/*   Updated: 2020/11/18 13:51:54 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include "../lib/libft/libft.h"
-#include "utils.h"
-#include "parsing.h"
 #include "command.h"
-# define FALSE 0
-# define TRUE 1
 
-#endif
+int	ft_pwd(void)
+{
+	char	*buf;
+
+	if (!(buf = malloc(sizeof(char) * 1000)))
+		return (-1);
+	getcwd(buf, 1000);
+	write(0, buf, ft_strlen(buf));
+	write(0, "\n", 1);
+	free(buf);
+	return (0);
+}

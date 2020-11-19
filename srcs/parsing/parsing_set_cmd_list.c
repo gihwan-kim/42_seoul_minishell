@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new.c                                              :+:      :+:    :+:   */
+/*   parsing_set_cmd_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 15:02:29 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/19 16:06:28 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/11/19 17:27:27 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,33 @@
  *
  * check_flag : boundary 문자 까지 인덱스 값을 리턴
  *
- * [명령 집합 목록]
- * 0 -> (명령 집합) : command 구조체 - command 구조체  : flag 있는 경우
- * 1 -> (명령 집합) : command 구조체					: falg 없는 경우
+ * 	   [ cmd struct ]
+ *		double char ptr - arry		: 	cmd arg arg ...
+ *		cmd	flag		- flag		: ; or > or >> or | or or <
+ *		cmd return val	- dollar	:
+ *
+ *
+ * 	   [명령 집합 목록]							[ 명령 집합 ]
+ * 		content
+ *  ---------------------
+ * | | content	- NULL | |    | content	- cmd struct |    | content	- cmd struct |
+ * | | next		-------|-|--->| next	-------------|--->| next	-------------|  ...
+ * |   next				 |
+ *  ---------------------
+ *		↓
+ *  ---------------------
+ * | | content	- NULL | |    | content	- cmd struct |    | content	- cmd struct |
+ * | | next		-------|-|--->| next	-------------|--->| next	-------------|  ...
+ * |   next				 |
+ *  ---------------------
+ *		↓
+ *  ---------------------
+ * | | content	- NULL | |    | content	- cmd struct |    | content	- cmd struct |
+ * | | next		-------|-|--->| next	-------------|--->| next	-------------| ...
+ * |   next				 |
+ *  ---------------------
+ *
+ * 			...
  */
 
 int		check_flag(char *word, t_info *info)
@@ -145,7 +169,7 @@ t_list	*set_cmd_list(char **cmd,
 	return cmd_set_list;
 }
 
-t_list	*get_cmd_list(char **cmd)
+t_list	*parsing_set_cmd_list(char **cmd)
 {
 	t_list	*cmd_set_list;
 	t_list	*cmd_set;
