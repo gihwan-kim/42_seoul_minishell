@@ -17,14 +17,13 @@ COMMAND_SRCS = \
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
-				parsing_cmd.c \
-				parsing_set_cmd_list.c
+				ft_parsing.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
 UTILS_SRCS = \
 			get_next_line.c \
-			double_ptt_utils.c
+			double_ptr_utils.c
 
 UTILS_SRCS_DIR = ./srcs/utils
 

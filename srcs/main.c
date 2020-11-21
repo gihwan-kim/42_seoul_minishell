@@ -1,64 +1,37 @@
 #include "minishell.h"
 
-
-/**
- * print_cmd_set
- * ft_lstiter 함수로 각 node 별로 함수를 적용시키면 될듯?
- *
- *
- */
-
-void	print_cmd(void *content)
+void	print(void *content)
 {
-	t_cmd	*cmd;
-	char	**tmp;
-	int		idx;
+	t_cmd *something = (t_cmd*)content;
+	char **temp;
+	int	idx;
 
 	idx = 0;
-	cmd =(t_cmd*)content;
-	tmp = cmd->arry;
-	while (tmp[idx])
+	temp = something->program;
+	printf("|%p|\n", content);
+	while (temp[idx])
 	{
-		printf("최종 |%s| flag :|%s|\n", tmp[idx], cmd->flag);
+		printf("최종 :|%s|\n", temp[idx]);
 		idx++;
 	}
 }
 
-void	print_cmd_set(void *content)
+int main()
 {
-	// 각 명령어 별로 실행
-	t_list *cmd_set;
+	char *line;
+	t_list	*wow;
 
-	cmd_set = ((t_list*)(content))->next;
-	printf("\t명령 집합\n");
-	ft_lstiter(cmd_set, print_cmd);
-}
-
-int main(int argc, char **argv)
-{
-	char 	**ret;
-	char	*check;
-	t_list	*cmd_set_list;
-	int idx;
-	(void)argc;
-	(void)argv;
-	idx = 0;
-
-	get_next_line(&check);
-	ret = parsing_cmd(check);
-	if (!ret)
-		printf("error\n");
-	printf("<<<파싱 결과>>>\n");
-	while (ret[idx])
+	line = NULL;
+	get_next_line(&line);
+	wow = ft_parsing(line);
+	if (wow)
+		ft_lstiter(wow->next, print);
+	else
 	{
-		printf("%s\n", ret[idx]);
-		idx++;
+		printf("memory freed\n");
 	}
-	printf("\n\n");
-	printf("<<<리스트에 명령어 담은 결과>>>\n");
-	cmd_set_list = parsing_set_cmd_list(ret);
-	// 각 명령집합별로 실행
-	ft_lstiter(cmd_set_list, print_cmd_set);
+	free(line);
+	while(1);
 }
 
 
