@@ -27,12 +27,17 @@ UTILS_SRCS = \
 
 UTILS_SRCS_DIR = ./srcs/utils
 
+ERROR_SRCS = \
+				parsing_error.c
+
+ERROR_SRCS_DIR = ./srcs/error
 
 # addprefix : 문자열 붙이기
 SRCS_LIST = \
 			$(addprefix $(PARSING_SRCS_DIR)/, $(PARSING_SRCS)) \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
+			$(addprefix $(ERROR_SRCS_DIR)/, $(ERROR_SRCS)) \
 			./srcs/main.c
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)

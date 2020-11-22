@@ -9,9 +9,10 @@ void	print(void *content)
 	idx = 0;
 	temp = something->program;
 	printf("|%p|\n", content);
+	printf("최종 : content|%p|\n", temp);
 	while (temp[idx])
 	{
-		printf("최종 :|%s|\n", temp[idx]);
+		printf("최종 : |%s||%p| flag |%d|\n", temp[idx], temp[idx], something->flag);
 		idx++;
 	}
 }
@@ -24,12 +25,35 @@ int main()
 	line = NULL;
 	get_next_line(&line);
 	wow = ft_parsing(line);
+
+	// wow 에서 확인 0 : 실패  >0 : 성공
 	if (wow)
-		ft_lstiter(wow->next, print);
-	else
 	{
-		printf("memory freed\n");
+		ft_lstiter(wow->next, print);
+			t_list *tmp;
+
+		tmp  = wow->next;
+		while(tmp)
+		{
+			t_cmd	*tmp_c;
+
+			tmp_c = (t_cmd*)(tmp->content);
+			int idx =0;
+			char **arry;
+			arry = tmp_c->program;
+			while (arry[idx])
+			{
+				free(arry[idx]);
+				idx++;
+			}
+			free(arry);
+			tmp = tmp->next;
+		}
 	}
+	else
+		printf("memory freed\n");
+
+
 	free(line);
 	while(1);
 }

@@ -1,111 +1,129 @@
-#include "minishell.h"
+#include "parsing.h"
 
-void	free_program(void *content)
+int		space_count(char *str)
 {
-	t_cmd *command;
+	int	count;
+	int i;
 
-	command = (t_cmd*)content;
-	if (command)
-		free_double_str(command->program);
-	free(command);
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int push_content(t_info *info, t_list *ret, char *str, int wow)
+{
+	int check;
+
+	check = 1;
+	if (wow == 3)
+		info->i++;
+	info->content->flag = wow;
+	if (*(info->buff)) // 공백 말고 붙어있는 상황에서 명령어 묶음이 끝날 경우 버퍼에 남아있는 것을 담아주고 버퍼 비우기
+	{
+		info->content->program[info->p_i] = ft_strdup((info->buff));
+		info->content->program[info->p_i + 1] = NULL;
+		(info->p_i)++;
+		ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
+		info->j = 0;
+	}
+	if ((info->content->program)[0] == 0) // flag 가 여러개 중복될 경우 옛날에는 content 를 리스트에 계속 추가시켰음
+		check = parsing_error((info->buff), ret, SYNTAX_ERROR);
+	else
+	{
+		ft_lstadd_back(&(ret), ft_lstnew((info->content)));
+		(info->content) = ft_calloc(1, sizeof(t_cmd));
+		(info->content)->program = ft_calloc(space_count(str) + 2, sizeof(char*));
+		info->p_i = 0;
+	}
+	return (check);
+}
+
+int		init(t_info *info, t_list **ret, char *str)
+{
+	info->p_i = 0;
+	info->i = -1;
+	info->quote = 0;
+	info->j = 0;
+	*ret = ft_lstnew(NULL);
+	if (!(info->buff = ft_calloc(ft_strlen(str) + 1, sizeof(char))))
+		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
+	if (!(info->content = ft_calloc(1, sizeof(t_cmd))))
+		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
+	if (!(info->content->program = ft_calloc(space_count(str) + 2, sizeof(char*))))
+		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
+	return (1);
 }
 
 t_list *ft_parsing(char *str)
 {
-	t_list *ret;
+	t_list	*ret;
+	t_info	info;
+	int flag_check;
 
-	t_cmd	*content;
-	int		i;		// str index
-	int		j;		// buff index
-	char	flag;
-	char	*buff;	// 문자"문자" 같이 quote 앞에 다른게 있을 경우 임시로 저장해두는 배열
-
-	flag = 0;
-
-	j = 0;
-	ret = ft_lstnew(NULL);
-	buff = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-	content = ft_calloc(1, sizeof(t_cmd));
-	i = -1;
-	int count = 0;
-	while (str[++i])
-		if (str[i] == ' ')
-			count++;
-	content->program = ft_calloc(count + 2, sizeof(char*));
-	int p_i;
-
-	p_i = 0;
-	i = -1;
-
+	ret = NULL;
+	if (!(init(&info, &ret, str)))
+		return (NULL);
+	flag_check = 1;
 	// flag : 0 , 아직 quote안나옴 -> str[i] 가 quote 랑 같을 경우
 	// flag 에 quote 넣기
 	// str[i] 에서 flag 랑 같은 값이 나오면 flag 0
-	while (str[++i])
+	while (str[++(info.i)])
 	{
-		if (str[i] == flag)
-			flag = 0;
-		else if (flag == 0 && str[i] == '\'')
-			flag = '\'';
-		else if (flag == 0 && str[i] == '\"')
-			flag = '\"';
 		// ; 0, | 1, > 2 , >> 3, < 4
-		else if (flag == 0 && ft_strchr(";|><", str[i]))
+		if (str[info.i] == info.quote)
+			info.quote = 0;
+		else if (info.quote == 0 && (str[info.i] == '\'' || str[info.i] == '\"'))
+			info.quote = str[info.i];
+		else if (info.quote == 0 && str[info.i] == ';')
+			flag_check = push_content(&info, ret, str, 0);
+		else if (info.quote == 0 && str[info.i] == '|')
+			flag_check = push_content(&info, ret, str, 1);
+		else if (info.quote == 0 && str[info.i] == '>' && str[info.i + 1] != '>')
+			flag_check = push_content(&info, ret, str, 2);
+		else if (info.quote == 0 && str[info.i] == '>' && str[info.i + 1] == '>')
+			flag_check = push_content(&info, ret, str, 3);
+		else if (info.quote == 0 && str[info.i] == '<')
+			flag_check = push_content(&info, ret, str, 4);
+		else if (info.quote == 0 && str[info.i] == ' ')
 		{
-			if (str[i] == ';')
-				content->flag = 0;
-			else if (str[i] == '|')
-				content->flag = 1;
-			else if (str[i] == '>')
+			if (*(info.buff))
 			{
-				if (str[i + 1] == '>')
-					content->flag = 2;
-				else
-					content->flag = 3;
-			}
-			else
-				content->flag = 4;
-			// 기존  t_cmd 리스트에 추가
-			ft_lstadd_back(&(ret), ft_lstnew(content));
-			// 새로운 t_cmd 생성
-			content = ft_calloc(1, sizeof(t_cmd));
-			content->program = ft_calloc(count + 2, sizeof(char*));
-			p_i = 0;
-		}
-		else if (flag == 0 && str[i] == ' ')
-		{
-			if (*buff)
-			{
-				content->program[p_i] = ft_strdup(buff);
-				content->program[p_i + 1] = NULL;
-				p_i++;
-				ft_bzero(buff, ft_strlen(buff) + 1);
-				j = 0;
+				info.content->program[(info.p_i)] = ft_strdup(info.buff);
+				info.content->program[(info.p_i) + 1] = NULL;
+				(info.p_i)++;
+				ft_bzero(info.buff, ft_strlen(info.buff) + 1);
+				info.j = 0;
 			}
 		}
 		else
-		{
-			buff[j] = str[i];
-			j++;
-		}
+			info.buff[info.j++] = str[info.i];
+		if (!flag_check)
+			return (ret); // free 해줘야됨
 	}
 	// 버퍼에 남은것 넣기
-	if (*buff)
+	if (*(info.buff))
 	{
-		content->program[p_i] = ft_strdup(buff);
-		content->program[p_i + 1] = NULL;
-		ft_lstadd_back(&(ret), ft_lstnew(content));
+		info.content->program[(info.p_i)] = ft_strdup(info.buff);
+		info.content->program[(info.p_i) + 1] = NULL;
+		ft_lstadd_back(&(ret), ft_lstnew(info.content));
 	}
 	// 해제
-	free(buff);
-
 	// 에러확인
-	if (flag != 0)
+	free(info.buff);
+	info.buff = 0;
+	if (info.quote != 0)
 	{
-		ft_lstclear(&(ret), free_program);
-		//error
-		// 리스트 해제
+		printf("quote error");
+		printf("buff |%p|\n", info.buff);
+		// ft_lstclear(&(ret), free_program);
+		parsing_error(NULL, ret, QUOTE_ERROR);
 		ret = 0;
 	}
-
 	return (ret);
 }

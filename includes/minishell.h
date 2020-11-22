@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/19 16:57:39 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/11/22 15:52:11 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <signal.h>
 #include "../lib/libft/libft.h"
 #include "utils.h"
+#include "error.h"
 #include "parsing.h"
 #include "command.h"
 # define FALSE 0
