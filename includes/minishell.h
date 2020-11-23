@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/23 11:23:18 by gihkim           ###   ########.fr       */
+/*   Updated: 2020/11/22 15:52:11 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
 #include "command.h"
 # define FALSE 0
 # define TRUE 1
-# define ERRROR 0
-# define SUCCESS 1
 
 #endif

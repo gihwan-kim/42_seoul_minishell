@@ -17,8 +17,7 @@ COMMAND_SRCS = \
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
-				parsing_error.c \
-				parsing.c
+				ft_parsing.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
@@ -29,7 +28,7 @@ UTILS_SRCS = \
 UTILS_SRCS_DIR = ./srcs/utils
 
 ERROR_SRCS = \
-				error_free_utils.c
+				parsing_error.c
 
 ERROR_SRCS_DIR = ./srcs/error
 
@@ -42,6 +41,15 @@ SRCS_LIST = \
 			./srcs/main.c
 # .c -> .o
 OBJS = $(SRCS:%.c=%.o)
+
+# $(NAME) : $(OBJS)
+# 	$(MAKE) -C lib/libft bonus
+# 	gcc $(OBJS) -o $(NAME)
+
+
+# .c.o :
+# 	gcc -c $(CFLAGS) $< -o $(<:.c=.o)
+
 
 all : $(NAME)
 
