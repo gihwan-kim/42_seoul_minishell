@@ -16,15 +16,16 @@ int		space_count(char *str)
 	return (count);
 }
 
+// falg 일 경우 버퍼에 담아둔 문자들을 content 가 가진 program 이중 포인터 배열에 담아준다.
 int push_content(t_info *info, t_list *ret, char *str, int wow)
 {
-	int check;
-
-	check = 1;
 	if (wow == 3)
 		info->i++;
 	info->content->flag = wow;
-	if (*(info->buff)) // 공백 말고 붙어있는 상황에서 명령어 묶음이 끝날 경우 버퍼에 남아있는 것을 담아주고 버퍼 비우기
+	// 공백 말고 문자들이 붙어있는 상황에서 flag 에 의해
+    // 명령어 묶음이 끝날 경우 버퍼에 남아있는 것을 담아주고 버퍼 비우기
+    // ex) cmd arg;cmd arg;
+	if (*(info->buff))
 	{
 		info->content->program[info->p_i] = ft_strdup((info->buff));
 		info->content->program[info->p_i + 1] = NULL;
@@ -32,19 +33,25 @@ int push_content(t_info *info, t_list *ret, char *str, int wow)
 		ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
 		info->j = 0;
 	}
-	if ((info->content->program)[0] == 0) // flag 가 여러개 중복될 경우 옛날에는 content 를 리스트에 계속 추가시켰음
-		check = parsing_error((info->buff), ret, SYNTAX_ERROR);
+	// flag 가 나올때마다 content 를 리스트에 추가시켜 줬는데
+    // flag 가 연속해서 나열될 경우 버퍼에 문자열이 담기지 않은채로 빈 content 가 생성되어 리스트에
+    // 추가되는 것을 방지
+	if ((info->content->program)[0] == 0)
+		return (ERRROR);
 	else
 	{
 		ft_lstadd_back(&(ret), ft_lstnew((info->content)));
-		(info->content) = ft_calloc(1, sizeof(t_cmd));
-		(info->content)->program = ft_calloc(space_count(str) + 2, sizeof(char*));
+		if (info->i < (int)ft_strlen(str) - 1)
+		{
+			(info->content) = ft_calloc(1, sizeof(t_cmd));
+			(info->content)->program = ft_calloc(space_count(str) + 2, sizeof(char*));
+		}
 		info->p_i = 0;
 	}
-	return (check);
+	return (SUCCESS);
 }
 
-int		init(t_info *info, t_list **ret, char *str)
+void	*init(t_info *info, t_list **ret, char *str)
 {
 	info->p_i = 0;
 	info->i = -1;
@@ -52,12 +59,12 @@ int		init(t_info *info, t_list **ret, char *str)
 	info->j = 0;
 	*ret = ft_lstnew(NULL);
 	if (!(info->buff = ft_calloc(ft_strlen(str) + 1, sizeof(char))))
-		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
+		return (parsing_error(info, NULL, MEMORY_ERROR));
 	if (!(info->content = ft_calloc(1, sizeof(t_cmd))))
-		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
+		return (parsing_error(info, NULL, MEMORY_ERROR));
 	if (!(info->content->program = ft_calloc(space_count(str) + 2, sizeof(char*))))
-		return (parsing_error(info->buff, NULL, MEMORY_ERROR));
-	return (1);
+		return (parsing_error(info, NULL, MEMORY_ERROR));
+	return (info);
 }
 
 t_list *ft_parsing(char *str)
@@ -104,7 +111,7 @@ t_list *ft_parsing(char *str)
 		else
 			info.buff[info.j++] = str[info.i];
 		if (!flag_check)
-			return (ret); // free 해줘야됨
+			return (parsing_error(&info, ret, SYNTAX_ERROR));
 	}
 	// 버퍼에 남은것 넣기
 	if (*(info.buff))
@@ -113,17 +120,8 @@ t_list *ft_parsing(char *str)
 		info.content->program[(info.p_i) + 1] = NULL;
 		ft_lstadd_back(&(ret), ft_lstnew(info.content));
 	}
-	// 해제
-	// 에러확인
-	free(info.buff);
-	info.buff = 0;
 	if (info.quote != 0)
-	{
-		printf("quote error");
-		printf("buff |%p|\n", info.buff);
-		// ft_lstclear(&(ret), free_program);
-		parsing_error(NULL, ret, QUOTE_ERROR);
-		ret = 0;
-	}
+		return (parsing_error(&info, ret, QUOTE_ERROR));
+	free(info.buff);
 	return (ret);
 }
