@@ -1,16 +1,34 @@
 #include "minishell.h"
 
+<<<<<<< Updated upstream
 void	print(void *content)
+=======
+/**
+ * print_cmd_set
+ * ft_lstiter 함수로 각 node 별로 함수를 적용시키면 될듯?
+ *
+ *
+ */
+
+void	print_cmd(void *content)
+>>>>>>> Stashed changes
 {
 	t_cmd *something = (t_cmd*)content;
 	char **temp;
 	int	idx;
 
 	idx = 0;
+<<<<<<< Updated upstream
 	temp = something->program;
 	printf("|%p|\n", content);
 	printf("최종 : content|%p|\n", temp);
 	while (temp[idx])
+=======
+	cmd =(t_cmd*)content;
+	tmp = cmd->arry;
+	printf("!!\n");
+	while (tmp[idx])
+>>>>>>> Stashed changes
 	{
 		printf("최종 : |%s||%p| flag |%d|\n", temp[idx], temp[idx], something->flag);
 		idx++;
@@ -50,11 +68,19 @@ int main()
 			tmp = tmp->next;
 		}
 	}
+<<<<<<< Updated upstream
 	else
 		printf("memory freed\n");
 
 
 	free(line);
+=======
+	printf("\n\n");
+	printf("<<<리스트에 명령어 담은 결과>>>\n");
+	cmd_set_list = parsing_set_cmd_list(ret);
+	// 각 명령집합별로 실행
+	ft_lstiter(cmd_set_list, print_cmd_set);
+>>>>>>> Stashed changes
 	while(1);
 }
 
