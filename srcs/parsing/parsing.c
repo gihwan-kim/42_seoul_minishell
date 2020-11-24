@@ -119,6 +119,7 @@ t_list *ft_parsing(char *str)
 	printf("p_i %d\n", info.p_i);
 	if (*(info.buff) || info.p_i != 0)
 	{ // echo abc ;   echo | abc |  |NULL
+		printf("버퍼에 남은게 있거나 ");
 		info.content->program[(info.p_i)] = ft_strdup(info.buff);
 		info.content->program[(info.p_i) + 1] = NULL;
 		ft_lstadd_back(&(ret), ft_lstnew(info.content));
