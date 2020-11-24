@@ -8,8 +8,8 @@ void	print(void *content)
 
 	idx = 0;
 	temp = something->program;
-	printf("|%p|\n", content);
-	printf("최종 : content|%p|\n", temp);
+	// printf("|%p|\n", content);
+	// printf("최종 : content|%p|\n", temp);
 	while (temp[idx])
 	{
 		printf("최종 : |%s||%p| flag |%d|\n", temp[idx], temp[idx], something->flag);

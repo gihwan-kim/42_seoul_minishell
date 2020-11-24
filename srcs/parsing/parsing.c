@@ -41,6 +41,7 @@ int push_content(t_info *info, t_list *ret, char *str, int wow)
 	else
 	{
 		ft_lstadd_back(&(ret), ft_lstnew((info->content)));
+		printf("while i %d str len %lu\n", info->i, ft_strlen(str));
 		if (info->i < (int)ft_strlen(str) - 1)
 		{
 			(info->content) = ft_calloc(1, sizeof(t_cmd));
@@ -113,15 +114,51 @@ t_list *ft_parsing(char *str)
 		if (!flag_check)
 			return (parsing_error(&info, ret, SYNTAX_ERROR));
 	}
-	// 버퍼에 남은것 넣기
-	if (*(info.buff))
-	{
+	// cmd ' 일때 방법 1
+	// if (*(info.buff) || info.p_i != 0)
+	printf("p_i %d\n", info.p_i);
+	if (*(info.buff) || info.p_i != 0)
+	{ // echo abc ;   echo | abc |  |NULL
 		info.content->program[(info.p_i)] = ft_strdup(info.buff);
 		info.content->program[(info.p_i) + 1] = NULL;
 		ft_lstadd_back(&(ret), ft_lstnew(info.content));
+		info.p_i = 0;
 	}
 	if (info.quote != 0)
+	{
+		
+		// 에러가 발생할 경우 parsing_error 함수를 호출 시키는데
+		// 이때 info 의 내용과 list 의 내용을 프리해줘야됨
+		// info.content 의 내용을 list 의 content 에 lstadd_back 으로
+		// 넣어주는데 lstadd_back 을 사용하지 않고 끝나는 경우가 있음
+		// cmd ' 일때 방법 2
 		return (parsing_error(&info, ret, QUOTE_ERROR));
+	}
 	free(info.buff);
+	info.buff = 0;
 	return (ret);
 }
+
+// 정상적으로 리스트에 추가되면 P_i 가 0 이된다.
+
+// echo abc;
+// echo abc | abc
+// echo "abc|fd'erweqv;f"
+// echo "abc|fd'erweqv;f"abc
+// echo "abc|fd'erweqv;f"abc;
+// echo "abc|fd'erweqv;f"abc|echo
+// echo "abc|fd'erweqv;f"abc 
+// echo;
+// echo 'hioho'hoh
+// 문자열뒤에 공백이 있을 경우 지금 에러 발생함 : 11/24 1103
+//	echo ' sdfaf
+// echo ' : 리스트에 추가안되고  info.content 에만 남아있는 경우 info.p_i != 0 인 경우
+
+// 버퍼에 담는다
+// 버퍼담긴건 무조건 컨텐츠에 담는다.
+// 컨텐츠에 담긴건 무조건 리스트에 담는다.
+// 에러 ('하나일 경우 같은.)는 리스트랑 버퍼를 프리한다. 
+
+
+
+	

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_ptt_utils.c                                 :+:      :+:    :+:   */
+/*   double_ptr_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:04:49 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/18 12:42:48 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/11/24 09:11:05 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@ void	free_double_str(char **ptr)
 	if (ptr)
 	{
 		while (ptr[idx])
-			free(ptr[idx++]);
+		{
+			free(ptr[idx]);
+			ptr[idx] = NULL;
+			idx++;
+		}
 		free(ptr);
+		ptr = NULL;
 	}
 }
 
