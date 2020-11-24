@@ -6,7 +6,7 @@
 /*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/23 11:23:18 by gihkim           ###   ########.fr       */
+/*   Updated: 2020/11/24 12:48:04 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include "parsing.h"
 #include "command.h"
 # define FALSE 0
-# define TRUE 1
+# define TRUE 
 # define ERRROR 0
-# define SUCCESS 1
+# define SUCCESS 11
 
 #endif

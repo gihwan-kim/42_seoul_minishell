@@ -11,6 +11,7 @@ void	print(void *content)
 	// printf("|%p|\n", content);
 	// printf("최종 : content|%p|\n", temp);
 	while (temp[idx])
+
 	{
 		printf("최종 : |%s||%p| flag |%d|\n", temp[idx], temp[idx], something->flag);
 		idx++;
@@ -52,8 +53,6 @@ int main()
 	}
 	else
 		printf("memory freed\n");
-
-
 	free(line);
 	while(1);
 }

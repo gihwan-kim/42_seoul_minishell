@@ -152,6 +152,7 @@ t_list *ft_parsing(char *str)
 // echo;
 // echo 'hioho'hoh
 // 문자열뒤에 공백이 있을 경우 지금 에러 발생함 : 11/24 1103
+// 길이 비교해서 content 를 생성해주는데 길이가 작을때 끝날 경우 동적할당을 해서 그런듯
 //	echo ' sdfaf
 // echo ' : 리스트에 추가안되고  info.content 에만 남아있는 경우 info.p_i != 0 인 경우
 
@@ -159,6 +160,8 @@ t_list *ft_parsing(char *str)
 // 버퍼담긴건 무조건 컨텐츠에 담는다.
 // 컨텐츠에 담긴건 무조건 리스트에 담는다.
 // 에러 ('하나일 경우 같은.)는 리스트랑 버퍼를 프리한다. 
+
+
 
 
 
