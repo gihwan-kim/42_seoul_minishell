@@ -17,7 +17,8 @@ COMMAND_SRCS = \
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
-				ft_parsing.c
+				parsing_error.c \
+				parsing.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
@@ -28,28 +29,18 @@ UTILS_SRCS = \
 UTILS_SRCS_DIR = ./srcs/utils
 
 ERROR_SRCS = \
-				parsing_error.c
+				error_free_utils.c
 
 ERROR_SRCS_DIR = ./srcs/error
 
-# addprefix : 문자열 붙이기
 SRCS_LIST = \
 			$(addprefix $(PARSING_SRCS_DIR)/, $(PARSING_SRCS)) \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			$(addprefix $(ERROR_SRCS_DIR)/, $(ERROR_SRCS)) \
 			./srcs/main.c
-# .c -> .o
+
 OBJS = $(SRCS:%.c=%.o)
-
-# $(NAME) : $(OBJS)
-# 	$(MAKE) -C lib/libft bonus
-# 	gcc $(OBJS) -o $(NAME)
-
-
-# .c.o :
-# 	gcc -c $(CFLAGS) $< -o $(<:.c=.o)
-
 
 all : $(NAME)
 
