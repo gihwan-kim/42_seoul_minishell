@@ -1,40 +1,5 @@
 #include "parsing.h"
 
-int		space_count(char *str)
-{
-	int		count;
-	int		i;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int		check_next_is_space(char *str)
-{
-	int		index;
-	int		count;
-
-	index = ft_strlen(str) - 1;
-	count = 0;
-	while ((0 <= index) && (str[index] == ' '))
-	{
-		if (ft_strchr(";|><", str[index]))
-			break;
-		count++;
-		index--;
-	}
-	if (index <= 0)
-		count = 0;
-	return (count);
-}
-
 void	*init(t_info *info, t_list **ret, char *str)
 {
 	info->p_i = 0;
@@ -73,7 +38,7 @@ void	parsing_check(char *str, t_info *info, t_list *ret, int *flag_check)
 			push_buff(info);
 	}
 	else
-		info->buff[info->j++] = str[info->i];	
+		info->buff[info->j++] = str[info->i];
 }
 
 t_list	*ft_parsing(char *str)

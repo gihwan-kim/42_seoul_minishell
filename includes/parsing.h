@@ -6,7 +6,7 @@
 /*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:13:02 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/24 12:46:22 by gihkim           ###   ########.fr       */
+/*   Updated: 2020/11/26 16:24:21 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 #include "minishell.h"
+#include "command.h"
 
 typedef struct	s_cmd
 {
@@ -32,7 +33,12 @@ typedef struct	s_parsing_info
 	t_cmd	*content;
 }				t_info;
 
-t_list *ft_parsing(char *str);
+int		check_next_is_space(char *str);
+int		space_count(char *str);
+int		push_content(t_info *info, t_list *ret, char *str, int wow);
+void	push_buff(t_info *info);
 void	*parsing_error(t_info *ptr1, t_list *ptr2, char *comment);
 void	free_program(void *content);
+t_list	*ft_parsing(char *str);
+char	*str_to_env(char *str, char **envv);
 #endif

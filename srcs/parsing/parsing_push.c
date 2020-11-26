@@ -1,5 +1,41 @@
 #include "parsing.h"
 
+int		space_count(char *str)
+{
+	int		count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int		check_next_is_space(char *str)
+{
+	int		index;
+	int		count;
+
+	index = ft_strlen(str) - 1;
+	count = 0;
+	while ((0 <= index) && (str[index] == ' '))
+	{
+		if (ft_strchr(";|><", str[index]))
+			break;
+		count++;
+		index--;
+	}
+	if (index <= 0)
+		count = 0;
+	return (count);
+}
+
+
 int 	push_content(t_info *info, t_list *ret, char *str, int wow)
 {
 	if (wow == 3)

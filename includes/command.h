@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:58:00 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/19 16:58:27 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/11/26 16:23:32 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	ft_export(char *str, char ***envv);
 int	ft_unset(char *str, char ***envv);
 int	ft_cd(char *src, char **envv);
 int	ft_pwd(void);
+int check_unset(char *str, char *envv);
 
 #endif

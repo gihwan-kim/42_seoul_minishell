@@ -10,15 +10,19 @@ void *parsing_error(t_info *ptr1, t_list *ptr2, char *comment)
 			free(ptr1->buff);
 			ptr1->buff = NULL;
 		}
-		if (ptr1->content)
+		// 이중 프리 방지 이후 lst clear 에서
+		if (ptr1->quote == 0)
 		{
-			if (ptr1->content->program)
+			if (ptr1->content)
 			{
-				free_double_str(ptr1->content->program);
-				ptr1->content->program = NULL;
+				if (ptr1->content->program)
+				{
+					free_double_str(ptr1->content->program);
+					ptr1->content->program = NULL;
+				}
+				free(ptr1->content);
+				ptr1->content = NULL;
 			}
-			free(ptr1->content);
-			ptr1->content = NULL;
 		}
 	}
 	if (ptr2)
