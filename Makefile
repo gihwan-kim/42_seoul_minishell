@@ -18,6 +18,8 @@ COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
 				parsing_error.c \
+				parsing_push.c \
+				str_to_env.c \
 				parsing.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
@@ -38,7 +40,7 @@ SRCS_LIST = \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			$(addprefix $(ERROR_SRCS_DIR)/, $(ERROR_SRCS)) \
-			./srcs/main.c
+			./srcs/test.c
 
 OBJS = $(SRCS:%.c=%.o)
 

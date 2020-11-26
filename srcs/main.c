@@ -1,109 +1,42 @@
 #include "minishell.h"
 
-void	print(void *content)
-{
-	t_cmd *something = (t_cmd*)content;
-	char **temp;
-	int	idx;
 
-	idx = 0;
-	temp = something->program;
-	printf("list |%p|\n", temp);
-	while (temp[idx])
-	{
-		printf("최종 : |%s| flag |%d|\n", temp[idx], something->flag);
-		idx++;
-	}
+void	prompt()
+{
+	ft_putstr_fd("minishell >", 1);
 }
 
-int main()
+void	fun(char **envp, t_list **cmd_list)
 {
-	char *line;
-	t_list	*wow;
-
-	line = NULL;
-	get_next_line(&line);
-	wow = ft_parsing(line);
-
-	// wow 에서 확인 0 : 실패  >0 : 성공
-	if (wow)
-	{
-		ft_lstiter(wow->next, print);
-			t_list *tmp;
-
-		tmp  = wow->next;
-		while(tmp)
-		{
-			t_cmd	*tmp_c;
-
-			tmp_c = (t_cmd*)(tmp->content);
-			int idx =0;
-			char **arry;
-			arry = tmp_c->program;
-			while (arry[idx])
-			{
-				free(arry[idx]);
-				idx++;
-			}
-			free(arry);
-			tmp = tmp->next;
-		}
-	}
-	else
-		printf("memory freed\n");
-	free(line);
-	while(1);
+	// 달러 처리를 한다?
 }
 
 
+int		main(int argc, char **argv, char **envp)
+{
+	// init
+	ft_first_envv(&envp);
+	// 새로운 envp 가된다.
 
-// #include <stdio.h>
 
-// int main(int argc, char **argv, char **envv)
-// {
-// 	char *pro[] = {"echo", "this","is" ,"test", "program", NULL};
-// 	(void)argv;
-// 	(void)argc;
+	/*i
+	  입력받는 무한루프
+	  	입력받기
+		  어떤 명령어인지
+		  		프로세스를 만들어야 한다.
+					1. |
+					2. 외부 프로그램
+				안만들어도 됨
+					1. | 없음
+					2. 
 
-// 	write(0, "0.----------------\n", 19);
-// 	ft_first_envv(&envv);
-// 	ft_export("ABC=SETABC", &envv);
-// 	ft_export("ABC=CHANGEABC", &envv);
-// 	ft_export("ABC=LASTCHANGE", &envv);
-// 	ft_export("ABCD=OTHER", &envv);
-// 	ft_export("TERM=TERM!!!!!!", &envv);
-// 	ft_export("TERM=TERM@@@2222", &envv);
-// 	ft_export("EEE=HELLO", &envv);
-// 	ft_unset("ABCDF", &envv);
-// 	ft_unset("ABC", &envv);
-// 	ft_unset("USER", &envv);
-// 	ft_export("FFF=FFF", &envv);
-// 	ft_export("FFFF=FFFF", &envv);
-// 	ft_unset("A", &envv);
-// 	ft_unset("unsetdo not", &envv);
-// 	ft_unset("FFF=", &envv);
-// 	ft_env(envv);
-// 	write(0, "1.----------------\n", 19);
-// 	write(0, "pwd->\n", 6);
-// 	ft_pwd();
-// 	write(0, "cd srcs\n", 8);
-// 	ft_cd("srcs", envv);
-// 	ft_pwd();
-// 	write(0, "cd ~\n", 5);
-// 	ft_cd("~", envv);
-// 	ft_pwd();
-// 	write(0, "cd error\n", 9);
-// 	ft_cd(".1./", envv);
-// 	ft_pwd();
-// 	write(0, "cd ../\n", 7);
-// 	ft_cd("../", envv);
-// 	ft_pwd();
-// 	/*
-// 	write(0, "env-----\n", 10);
-// 	ft_env(envv);
-// 	*/
-// 	if(!fork())
-// 		ft_execve(pro, envv);
-// 	while(1);
-// 	return 0;
-// }
+	1. 프롬프트에서 명령문을 작성한후 enter 키
+	2. 명령문을 token(단어) 로 분리
+	3. 해석해야할 표현식이 있는 경우
+		변수확장
+		산술확장
+		명령치환
+	4. 최종 명령문 완성
+	5. 불필요한 quote 삭제처리
+	*/
+}
