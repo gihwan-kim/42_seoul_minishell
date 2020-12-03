@@ -1,20 +1,8 @@
 #include "minishell.h"
 
-void	print(void *content)
-{
-	t_cmd *something = (t_cmd*)content;
-	char **temp;
-	int	idx;
 
-	idx = 0;
-	temp = something->program;
-	printf("list |%p|\n", temp);
-	while (temp[idx])
-	{
-		printf("최종 : |%s| flag |%d|\n", temp[idx], something->flag);
-		idx++;
-	}
-}
+int		g_exit_status = 0;
+char	**envp = NULL;
 
 int main(int argc, char **argv, char **envv)
 {
@@ -26,10 +14,10 @@ int main(int argc, char **argv, char **envv)
 	t_list	*wow;
 
 	line = NULL;
-	get_next_line(&line);
+	get_next_line(0, &line);
 	// str = 	str_to_env(line, envv);
 	// printf("str : |%s|\n", str);
-	wow = ft_parsing(line);
+	wow = parsing_first(line);
 	printf("before free");
 	// wow 에서 확인 0 : 실패  >0 : 성공
 	if (wow)

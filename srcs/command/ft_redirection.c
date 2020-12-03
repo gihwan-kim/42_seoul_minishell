@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 14:15:09 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 01:20:17 by sancho           ###   ########.fr       */
+/*   Created: 2020/12/02 15:06:57 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/03 20:59:18 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "minishell.h"
 
-int	ft_env(char **envv)
+t_list	*ft_redirection_overwirte()
 {
-	int	i;
+	return (NULL);
+}
 
-	i = 0;
-	while (envv[i])
-	{
-		write(0, envv[i], ft_strlen(envv[i]));
-		write(0, "\n", 1);
-		i++;
-	}
-	return (0);
+t_list	*ft_redirection_wirte()
+{
+	return (NULL);
+}
+
+t_list	*ft_redirection_read()
+{
+	return (NULL);
+}
+
+t_list	*ft_redirection_insert()
+{
+	return (NULL);
 }

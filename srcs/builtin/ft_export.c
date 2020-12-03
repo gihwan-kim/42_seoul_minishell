@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 11:32:27 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/30 22:41:38 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "builtin.h"
 
 int	check_env(char *str, char *envv)
 {

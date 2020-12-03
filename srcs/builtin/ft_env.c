@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_first_env.c                                     :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 11:24:20 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/17 11:49:00 by sancho           ###   ########.fr       */
+/*   Created: 2020/11/16 14:15:09 by sancho            #+#    #+#             */
+/*   Updated: 2020/11/30 22:44:33 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "builtin.h"
 
-int	ft_first_envv(char ***envv)
+int	ft_env(char **envv)
 {
-	int			i;
-	char		**new;
+	int	i;
 
 	i = 0;
-	while ((*envv)[++i] != NULL)
+	while (envv[i])
+	{
+		write(0, envv[i], ft_strlen(envv[i]));
+		write(0, "\n", 1);
 		i++;
-	if (!(new = malloc(sizeof(char*) * (i + 1))))
-		return (-1);
-	i = -1;
-	while ((*envv)[++i])
-		new[i] = ft_strdup((*envv)[i]);
-	new[i] = NULL;
-	*envv = new;
+	}
 	return (0);
 }
