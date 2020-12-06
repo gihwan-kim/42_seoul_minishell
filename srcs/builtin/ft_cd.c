@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 13:04:12 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/18 14:46:27 by sancho           ###   ########.fr       */
+/*   Updated: 2020/11/30 22:41:20 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "builtin.h"
 
 int		ft_cd(char *src, char **envv)
 {

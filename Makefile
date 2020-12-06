@@ -1,11 +1,11 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 LIBFT_FLAGS = -lft -L./lib/libft
 INC = -I./includes
 RM = rm -rf
 
-COMMAND_SRCS = \
+BUILTIN_SRCS = \
 				ft_first_envv.c \
 				ft_env.c \
 				ft_execve.c \
@@ -14,33 +14,45 @@ COMMAND_SRCS = \
 				ft_cd.c \
 				ft_pwd.c
 
+BUILTIN_SRCS_DIR = ./srcs/builtin
+
+COMMAND_SRCS = \
+				ft_pipe.c \
+				ft_redirection.c \
+				ft_semicolon.c \
+				ft_controller.c
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
-				parsing_error.c \
-				parsing_push.c \
-				str_to_env.c \
-				parsing.c
+				ft_parsing_push.c \
+				ft_parsing_second.c \
+				ft_parsing_first.c
+				# str_to_env.c \
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
 UTILS_SRCS = \
-			get_next_line.c \
-			double_ptr_utils.c
+			double_ptr_utils.c \
+			list_print.c
+			# get_next_line.c \
 
 UTILS_SRCS_DIR = ./srcs/utils
 
 ERROR_SRCS = \
-				error_free_utils.c
+				ft_error_free_utils.c \
+				ft_command_error.c \
+				ft_parsing_error.c \
 
 ERROR_SRCS_DIR = ./srcs/error
 
 SRCS_LIST = \
 			$(addprefix $(PARSING_SRCS_DIR)/, $(PARSING_SRCS)) \
 			$(addprefix $(UTILS_SRCS_DIR)/, $(UTILS_SRCS)) \
+			$(addprefix $(BUILTIN_SRCS_DIR)/, $(BUILTIN_SRCS)) \
 			$(addprefix $(COMMAND_SRCS_DIR)/, $(COMMAND_SRCS)) \
 			$(addprefix $(ERROR_SRCS_DIR)/, $(ERROR_SRCS)) \
-			./srcs/test.c
+			./srcs/main.c
+			# ./srcs/test.c
 
 OBJS = $(SRCS:%.c=%.o)
 

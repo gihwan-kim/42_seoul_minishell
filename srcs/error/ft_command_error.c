@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_command_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 13:39:04 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/18 13:51:54 by sancho           ###   ########.fr       */
+/*   Created: 2020/12/03 22:51:38 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/04 00:49:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "error.h"
 
-int	ft_pwd(void)
+/*
+** just display error stirng
+*/
+
+int		command_error_int(char *comment)
 {
-	char	*buf;
-
-	if (!(buf = malloc(sizeof(char) * 1000)))
-		return (-1);
-	getcwd(buf, 1000);
-	write(0, buf, ft_strlen(buf));
-	write(0, "\n", 1);
-	free(buf);
-	return (0);
+	ft_putstr_fd(comment, 1);
+	return (ERROR);
+}
+t_list	*command_error_list(char *comment)
+{
+	ft_putstr_fd(comment, 1);
+	return (ERROR);
 }

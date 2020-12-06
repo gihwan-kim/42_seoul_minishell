@@ -1,0 +1,519 @@
+- [출처](https://mug896.github.io/bash-shell/quotes.html)
+
+# quote
+
+    ## 기본내용
+
+        ```
+        123, "123", '123' 모두 스트링으로 인식
+        공백으로 분리되는 여러 개의 스트링을 하나의 인수로 만들 때
+        라인 개행이나 둘 이상의 공백을 유지하기 위해
+        단어분리, globbing 발생을 방지하기 위해
+        shell 키워드, 메타문자, alias 와 같이 shell 에서 특수기능을 하는 문자, 단어를 단순히 명령문의 스트링으로 만들기위해
+        문자 그대로 스트링을 강조하기 위해
+        !!! 명령이 실행될 때는 사용된 qutoe 가 제거된 후에 인수가 전달된다.
+        ```
+
+    ## 특수 기능을 갖는 문자
+
+        - $ : 매개변수 확장, 산술확ㅑ장, 명령치환에 사용
+        - ' : 명령치환 (mandatory 에서는 안씀)
+        - ! : history 확장에 사용 (mandatory 에서는 안씀)
+
+    ## 특수 기능을 갖는 문자나 단어를 escpae 하는 법
+        ```
+        \ 문자 사용
+        quote 를 사용 하면 특수기능이 없어지고 단순히 스트링으로 사용
+        ```
+
+    ## no quotes
+        - escape 하고 나면 \ 는 사라지는듯?
+        - quote 가 없는 상태에서는 기본적으로 모든 문자가 escpae 된다.
+        - shell 키워드, 메타문자, alias, glob, quote, whitespace 문자를 escpae 하여 해당기능을 차단할 수 있다.
+            ```
+            $ echo \a\b\c\d\ \!\@\$\%\^\&\*\(\)\{\}\[\]\<\>\/\\ ...     # no quotes
+            abcd !@$%^&*(){}[]<>/\ ...
+
+            $ echo "\a\b\c\d" ...        # double quotes
+            \a\b\c\d ...
+
+            $ echo '\a\b\c\d' ...        # single quotes
+            \a\b\c\d
+            ```
+
+        - 명령행 상에서 공백은 인수를 구분하는데 사용한다.
+        - 둘 이상의 공백은 의미가 없어 하나의 공백으로 대체
+        - quote 가 없는 경우 공백도 escape 할 수 있다. -> 공백을 escpape 하면 두개의 인수가 하나가 된다.
+        - escape 는 문자하나당 하나씩된다.
+            ```
+            \공백 o
+
+            \공백공백 x
+
+            다음과 같이 하면 \t \n 이 echo 명령에 전달되어 escape 문자가 처리된다.
+            $ echo -e foo\\tbar\\n123
+            foo    bar
+            123
+            ```
+
+        - \ 문자를 escpae 할 수 있다.
+            ```
+            # no quotes 상태에서는 모든문자가 escape 되므로 'tr : n' 와 같아진다.
+            # \ 는 n 을 Escpae
+            $ echo 111:222:333 | tr : \n
+            111n222n333
+
+            # \ 는 \ 을 Escpae 해서 \n 이됨
+            $ echo 111:222:333 | tr : \\n     # tr : '\n' 와 같은 결과
+            111
+            222
+            333
+            ```
+
+        - " , ' quote 문자 escape 할 수 있다.
+            ```
+            $ echo double quotes \" , single quotes \'
+            double quotes " , single quotes '
+            ```
+
+    ## Double quote (" ")
+
+        - $ ` ! 특수기능을 하는 문자들이 해석되어 실행되고 공백과 개행이 유지
+        - ", $, `, \, newline 인 특수기능을 가진 문자들을 \ 문자로 escpae 할 수 있다.
+            escpae 하고나면 \ 는 사라진다.
+
+            ```
+            $ echo '\$ \` \\'      # single quotes
+            \$ \` \\
+
+            $ echo "\$ \` \\"      # double quotes
+            $ ` \
+
+            ```
+    ## Single quotes ( ' ' )
+        - 별다른 기능 없이 모든 문자를 있는 그대로 표시합니다. 
+        - escape 도 되지 않습니다. 이 안에서 single quotes 을 사용하려면 뒤에 이어지는 $' ' 을 사용해야 합니다.
+
+    ## Quote 들 간의 공백
+    - quote 를 분리해서 작성하게 되면 중간의 공백들이 하나의 space 로 변경된다.
+
+# Variables
+
+    - 알파벳, 숫자, _ 로 만들 수 있음
+    - 첫 문자로 숫자 불가능
+
+    ## Variables states
+        - 변수의 상태를 3 가지로 구분할 수 있다.
+
+        1. 변수가 존재하지 않는 상태 또는 unset 상태
+            - 변수에 값을 한번도 대입한 적이 없는 상태
+            - 값을 할당하지 않고 선언만한 상태
+        2. NULL 값인 상태
+            - 변수가 존재하고 NULL 값인 상태
+            ```
+            AA=  AA=""  AA=''
+            ```
+        3. NULL 이외의 값을 가진 상태
+    
+    ## 값 구분
+
+    ## 변수값으로 NUL 문자(\0) 저장 불가능
+
+    ## Subshell 과 스크립트 파일에서는 현재 shell 의 변수 값을 변경 불가능
+        - 현재 shell 과는 다른 프로세스에서 실행되고 있기 떄문
+
+# Exit Status
+
+    - 터미널에서는 명령을 단계적으로 실행해서 하나의 작업을 완성히기 위해서는 연속되는 명령들이 정상적으로 실행돼야 한다.
+    - 앞선 명령이 정상적으로 실행을 완료 했는지 오류가 발생했느지 판단하는 방법이 종료 상태값을 사용하는 것
+
+    - shell 에서 실행되는 모든 명령은 빠짐없이 종료 상태 값을 반환한다.
+    
+    - 정상 종료 : 0 리턴
+    - 이외의 값 : 오류를 분류하는 용도로 사용
+    - $? 변수를 통해 알아 볼 수 있다.
+
+    ## 종료 상태 값 지정
+        - 스크립트 파일이나 Subshell 은 프로세스가 새로 생성되는 것이므로 종료 상태값을 지정할때 exit 명령으로 한다.
+        - unction 이나 source 명령으로 읽어들이는 경우에는 return 명령으로
+        - 종료 상태 값을 지정하지 않으면 마지막으로 실행된 명령의 종료 상태 값이 사용
+
+        0   : 정상종료
+        1   : 일반적 에러
+        2   : syntax error
+        126 : 명령을 실행할 수 없음, 권한 문제 또는 실행할 수 없는 경우
+        127 : 파일이 존재하지 않음, path 문제?
+        128 + N : Signal N 에의한 종료, kill -9 PID 로 종료됐다면 $? 값은 139
+
+    ## pipe 로 연결된 명령의 종료 상태 값
+        - 마지막 명령의 종료 상태값이 사용된다.
+
+# Subshells
+
+    ## child process
+        - 외부 명령을 실행할 경우
+        - Shell 에서 명령을 실행하면 새로운 프로세스가 생성되어 실행된다.
+            명령을 호출한 process 가 parent, 새로 실행되는 명령이 child process
+    ## bash child process
+        - 스크립트 파일을 만들어서 실행시킬경우
+            bash child process 가 하나 더 생성되고 그 아래서 스크립트 파일의 명령이 실행된다.
+    ## Subshell
+        - shell script 파일을 실행한 것도 아닌데 bash child process 가 하나더 생성되고 명령어가 실행됨
+        - ( ) $( ) ` ` | & 를 이용해서 실행될때 bash child process 가 하나 더 생성되고 그 아래서 명령이 실행된다.
+
+    ## Process Creation
+
+        ### Process 생성 단계
+
+        1. ls 명령 실행
+        2. fork 
+            - 유닉스에서 새로운 프로세스를 만드는 방법
+            - 현재 프로세스와 동일한 주소 공간을 갖는 프로세스를 생성 
+                현재 bash shell 과 동일한 환경
+                export 하지 않은 변수, 함수들도 사용할 수 있음
+            - subshell 상태임!!
+        3. exec 단계 : exec ls
+            - 새로운 프로세스가 생성된 상태에서 기존 프로그램의 주소공간을 삭제하고 새로 실행될 프로그램을 메모리로 로드하여 실행
+            - 기존 bash 프로그램 주소공간이 exec 에 의해 ls 프로그램 주소공간으로 대체됨
+                기존 bash 에서 사용하던 변수, 프로그램들을 사용할 수 없게됨
+            - exec 함수를 실행할때 환경변수를 인수로 전달 해서 child process 에서 사용할 수 이게됨
+        4. exit 단계
+            - child 프로세스가 exit 함수를 실행하면 자신이 사용하던 모든 자원을 해제하고 종료하게 된다.
+            - 종료 상태 값을 PCB 항목에 설정한다. -> wait 함수를 통해 값을 얻을 수 있음
+
+        5. continue
+
+    ## Thread
+
+# Commands
+
+    - 명령을 찾는 우선순위 : 는 alias, keyword, function, builtin, 외부 명령 순
+
+    ## 외부 명령
+        - /usr/bin/find 명령 같이 시스템 디렉토리에 위치한 명령
+
+    ## shell Builtins
+        - shell 에 builtin 돼서 제공되는 명령
+        - 새로 프로세스를 만들지 않아도 된다.
+        - shell 내부 상태 정보를 조회, 변경할 수 있다.
+    
+    ## Compound Commands
+        - redirection, pipe 를 붙여 사용할 수 있다.
+        
+        ### 명령들을 구성할 수 있는 방법
+
+            1. 한줄에 하나씩
+                ```
+                command1
+                command2
+                command3
+                ...
+                ```
+            2. ;  문자를 이용해서 안줄에 여러 명령
+                ```
+                command1; command2; command3 ...
+                ```
+                - ; 문자는 newline 과 같은 역할
+                - 명령이 순서대로 진행됨
+                - 종료되어야 다음 명령어가 실행
+
+                    ```
+                    sleep 10 ; sleep 9 ; sleep 5;
+                    1. sleep 10
+                    \-+= 29888 gihkim bash
+                        \--= 33748 gihkim sleep 10
+
+                    2. sleep 9
+                    \-+= 29888 gihkim bash
+                        \--= 33764 gihkim sleep 9
+
+                    3. sleep 5
+                    \-+= 29888 gihkim bash
+                        \--= 33769 gihkim sleep 5
+                    
+                    ```
+
+            3. 파이프를 이용해 여려 명령을 동시에 실행
+                ```
+                command1 | command2 | command3
+                ```
+                - 파이프에 연결된 명령들은 동시에 실행된다.
+                     ```
+                    sleep 10 | sleep 9 | sleep 5;
+
+                    \-+= 29888 gihkim bash
+                        |--= 33696 gihkim sleep 10
+                        |--- 33697 gihkim sleep 9
+                        \--- 33698 gihkim sleep 5
+                    ```
+                    command1 의 stdout 출력이 command2 의 stdin 입력으로 들어가고 
+                    command2 의 stdout 출력이 command3 의 stdin 입력으로 들어가고 
+                    최종적으로 command3 의 stdout 출력이 터미널로 표시
+
+                    ->  command1 의 실행결과가 command2 의 입력으로 들어간다고 하지만 실제로는 아님
+                        파이프로 연결된 프로그램들이 실행될떄는 동시에 실행된다.
+                        command2 가 먼저 종료될 수도 있음
+                    
+                    ->  파이프로 연결된 명령들은 $? 변수로 이전 명령의 종료 상태값을 확인할 수 없다.
+                        종료상태 값은 마지막 명령의 종료 상태 값이 된다.
+                        -> waitpid() 사용
+
+
+                    ->  파이프로 연결된 명령들은 process group 을 형셩한다.
+                        여러 명령들을 동시에 실행 시키면 process group 이 만들어진다.
+                        첫번째 명령이 PGID (Process group ID)가 된다.
+                        -> fork 밖에 사용할 수 없어서 pgid 는 부모 프로세스 밖에 안될듯.
+                        -> pstree 를 통해 프로세스 계층 구조를 알 수 있다.
+                            pstree -p PID
+                            이때 맥에서 '-' 문자 대신 '=' 문자로 돼있는 프로세스는 프로세스 그룹 리더이다.
+
+
+                    표준에러의 경우 모두 터미널로 연결되어 있다. 
+                    -> 명령이 파이프로 연결되어있더라도 stderr 로 출력을 하면 파이프로 전달되지 않고 터미널로 표시됨
+
+                관련함수
+                    - pipe
+                        #include <unistd.h>
+                        int pipe(int pipefd[2]);
+
+                        프로세스 끼리 데이터를 주고받을 수 있도록 해줌
+                        하나의 파이프 및 파이프를 참조하는 두 개의 파일 디스크립터 생성
+                        하나의 파이프(단 방향 데이터 채녈)를 프로세스들이 공유한다.
+
+                        pipefd[0] : 함수 호출 후 fd[0] 에 데이터를 입력 받을 수 있는 파일 디스크립터
+                        pipefd[1] : 함수 호출 후 fd[1] 에 데이터를 출력할 수 있는 파일 디스크립터
+                        성공 : 0 리턴
+                        실패 : -1 리턴
+                    
+                    - dup
+                        https://ehclub.co.kr/1321
+
+                        #include <unistd.h>
+                        int dup(int oldfd);
+
+                        oldfd 에대한 복사본 파일 디스크립터를 생성한다.
+                        oldfd 로 열려진 파일 디스크립터를 전달하면 같은 파일을 연 새로운 파일 디스크립터를 반환한다.
+                        oldfd 와 리턴 값은 같은 파일을 참조하게 됨
+
+                    - dup2
+                        int dup2(int oldfd, int newfd);
+
+                        첫 번째 인자로 열려진 파일 디스크립터를 전달하고 두 번째 인자로 파일 디스크립터를 전달하면
+                        newfd 도 oldfd 가 참조하는 것을 같이 참조한다.
+                        newfd 가 이미 열려진 파일 디스크립터일 경우 해당 꺼를 닫고 복제한다.
+                        
+                        파일을 표준 출력으로 사용할 때 많이 사용한다.
+
+                    - fork
+                        #include <sys/type.h>
+                        #include <unistd.h>
+                        pid_t fokr(void);
+
+                        호출 성공시 
+                            부모프로세스 : 자식프로세스의 id
+                            자식프로세스 : 0
+                        호출 실패시
+                            -1 리턴
+
+                    - waitpid
+                        ```
+                        #include <sys/types.h>
+                        #include <sys/wait.h>
+                        pid_t waitpid(pid_t pid, int *stat_loc, int options);
+                        ```
+                        pdix : 종료를 기다리는 ㅔid
+                        stat_loc : 종료 상태 값을 저장할 주소
+                        options : waitpid 함수의 리턴 조건
+                            Ex.
+                                WNOHANG : 부모프로세스가 자식프로세스를 기다리지 않고 자기할일 하도록
+                                0       : 부모프로세스가 자식 프로세스를 기다림, wiat 함수와 같음
+                    !!ls | echo 가 안먹는 이유
+                        echo 는 stdin 을 받지 않기 떄문
+
+
+                계획
+                    pstree 를 통해 확인할 수 있다.
+
+                구현.
+                    command1 | command2
+
+                    
+                    parent 프로세스에서 pipe 시스템 콜을 이용해 파이프 생성
+                    command1 에 해당하는 child process 에서 
+
+    ## 우선순위
+        - 파이프보다는 리다이렉션이 우선순위가 더 높음
+# Internal Commands and Builtins
+    - [참고](http://wiki.kldp.org/HOWTO/html/Adv-Bash-Scr-HOWTO/internal.html)
+
+    - builtin 은 bash 에 포함된 명령어
+    - 시스템 명령어와 이름이 같을 수도 있지만 bash 가 내부적으로 다시 구현해 놓은 것
+        > 예를 들어, 하는 일이 거의 동일한 bash의 echo는 /bin/echo와 다릅니다.
+
+
+# 명령문 파싱과정
+    1. 명령문 작성후 enter 
+        줄 단위로 읽어온다. (gnl)
+        \ 문자로 끝날 경우 다른 줄을 읽어들이도록 기다렸다가 추가로 입력한 줄을 추가시킴
+        -> 구현안해도될듯
+    2. 명령문을 단어들로 분리    
+        키워드, 메타문자, 대입연산, quotes, \ 문자를 이요한 escpae 처리
+        2-1. quote 처리
+            quote 찾기
+                첫번째 quote 를 찾는다면 동일한 다음 따옴표를 찾을때까지 모든 문자에 대해 quote 상태로 인식
+                    "" : $ " ` \ 문자들을 제외하고 기능을 잃게됨, ' 포함
+                    '' : 모든 문자는 기능을 잃음, \ 또한 기능을 잃어서 single quote 의 기능을 못 잃게함
+                            ex.
+                                $ echo 'Don\'t do this'
+                                >
+                                (\' 일 경우 원래 ' 문자가 되는데 \ 의 기능을 잃었으니 그냥 ' 가 홀수개 되서 입력 더 받게됨)
+                                -> 원래는 다시 1번 명령어 작성으로 돌아가는데 minishell 은 구현 x
+        2-2. quote 제거
+                어떤 문자들을 escape 할지 알기 때문에 2-1 을 결정하는데 사용된 quote 들을 삭제한다.
+                    Step Input:
+                        echo "What's your name?"
+
+                    Step Output:
+                        echo What's your name?
+                
+                --> 삭제하지 말고 일단 두기
+        2-3. 읽은 데이터를 명령어들로 쪼개기
+            ; 를 구분자로해서 명령들을 분할하기
+            이전 단계에서 quote 되거나 escpae 된 문자들은 의미를 가지지 않으며 명령 분할에 사용되지 않음
+                Step Input:
+                    read name; echo $name
+
+                Step Output:
+                    read name
+
+                    and
+
+                    echo $name
+-- 아래 부터는 분할한 각 명령어 별로 실행되는 단계 --
+    3. 특별한 연산자 분석
+        {..}, <(..), < ..., <<< .., .. | .., 와 같은 특별한 연산자가 있는지 확인한다.
+
+
+    4. 해석할 표현식이 있을 경우 변수확장, 산술확장, 명령치환을 거쳐 최종 명령문을 만듬
+        4-1. Brace expansion (= 괄호확장)
+                괄호 구현안하니까 패스
+        4-2. Tilde expansion
+                ~ 문자를 이용해 디렉토리 정보 표시 구현안할 꺼니까 패스
+        4-3. 다음 4 개는 left-to-right 순서로 동시에 처리 됩니다.
+                Parameter expansion (매개변수 확장)
+                    ex1) AA=cde , AA 라는 변수를 만들고 cde 값을 지정해본다.
+                            $ 문자를 사용해서 변수 이름 앞에 붙여 구분한다.
+                            "ab$AAfg" 와 같이 사용한다면 변수 'AA' 가 아닌 'AAfg' 로 인식하게 된다.
+                            'AAfg' 는 아직 등록안해서 null 로 나온다.
+                            -> 여기는 구현!
+
+                            -> 앞에서 quote 제거를 하면 $ 가 문자로 적용되는지 아닌지 어떻게 확인하지?
+                    ex2) 나머지와 구분하기 위해 { } 를 사용한다.
+                            -> 중괄호({}) 는 구현안할꺼같다.
+                Arithmetic expansion (산술연산 확장)
+                    구현안할 꺼임
+                Command substitution (명령치환)
+                        $( <COMMANDS> )
+                        `<COMMANDS>`
+                Process substitution
+                        <( <COMMANDS> )
+                        >( <COMMANDS> )
+     5. Word splitting (명령을 명령어 이름과 인자로 분할)
+                - 첫 단어 : 명령어 이름
+                - 나머지  : 인자
+                - shell 은 변수의 값을 표시할 때 IFS 변수에 설정되어있는 값을 이용해 단어를 분리
+                - 기본 값은 whitespace
+                - whitespace 를 기준으로 분리하고 나면 whitespace(space, tab, newline) 는 제거되고 남은 거는 단어라고 부름
+                - 변수를 quote 하면 단어분리는 발생하지 않는다.
+                    ex.
+                        aa="echo hi"
+                        "$aa" 이렇게 quote 하면 "echo hi" 문자열이 됨
+                        $aa 이렇게 사용하면 ifs 에 따라 단어 분리가 되어 echo hi 
+                - Ex
+                Step Input:
+                    echo "/home/lhunath/docs has these files that match *.txt :" bar.txt foo.txt
+
+                Step Output:
+                    Command Name: 'echo'
+                    Argument 1: '/home/lhunath/docs has these files that match *.txt :'
+                    Argument 2: 'bar.txt'
+                    Argument 3: 'foo.txt'
+    6. 실행
+        - 명령어 이름과 인자로 구분된 명령을 bash 가 실행한다.
+        - 명령이 함수 또는 builtin 일 경우 명령은 동일한 bash process 에서 실행된다.
+        - 이외의 경우는 fork 해서 새로운 bash process 를 생성하고 이 명령에서 분석된 설정 (리다이렉션들, 인자들 등등) 으로 
+          새로운 process 를 초기화하고 생성한 프로세스에서 명령을 실행한다.
+            -> 부모는 명령을 완료되기를 기다린다.
+          Ex.
+            Step Input:
+                sleep 5
+
+            Causes:
+                ├┬· 33321 lhunath -bash
+                │├──· 46931 lhunath sleep 5
+        -> 이 단계이후 다음 명령 또는 다음 줄이 진행됨 다끝나면 실행했던 마지막 명령의 exit code 를 리턴
+
+
+[ 할일 ]
+    1. 명령어 입력 과정 다시 정리
+    2. 서브쉘, 자식 프로세스 으미
+        command1 | command2 | command3
+
+(sleep 10 | sleep 9); (sleep 5 | sleep 7);
+(sleep 10 | sleep 9); {sleep 5 | sleep 7};
+
+sleep 10 | sleep 9; sleep 5 | sleep 7;
+
+[ 차이점 ]
+    3. 디버깅 세팅
+
+
+
+# 파이프
+    ## 유닉스 시스템 프로그래밍에서
+        - 두 프로세스 간에 통신을 할 수 있도록 인터페이스를 제공한다.
+        - 보통 그냥 파이프라고 하면 이름 없는 파이프를 의미한다.
+        
+        ### 이름없는 파이프
+            - 부모-지삭 프로세스 간에 통신을 할 수 있게 해준다.
+            - 부모 프로세스에서 fork 함수를 사용해 자식 프로세스를 생성하고, 부모 프로세스와 자식 프로세스간에 통
+            - 파이프는 기본적으로 단방향이다.
+            - 부모 프로세스가 출력한 내용을 자식 프로세스가 읽을 것인지, 자식 프로세스가 출력한 내용을 부모 프로세스가 읽을 것인지 결정해야한다.
+
+            #### 간단하게 만들기
+                - popen 함수로 파이프를 생성하고 pclose 함수로 파이프를 닫아준다.
+            
+            #### 복잡하게 만들기
+                - popen 함수로 간단하게 파이프를 생성할 수 있지만 셸을 사용해야하는 단점이 있다.
+
+                ```
+                #include <unistd.h>
+                int pipe(int fildes[2]);
+                // fildes[2] : 파이프로 사용할 파일 기술자 2개
+                ```
+                fildes[0] 은 읽기전용, fildes[1] 은 쓰기 전용
+                성공시 0, 실패시 -1 리턴
+            
+            #### pipe() 함수로 통신하는 과정
+
+                파이프를 생성하고 나면 알빈적으로 fork 함수를 호출해 자식 프로세스를 생성한다.
+                자식 프로세스는 부모 프로세스가 pipe 함수로 생성한 fd 들도 복사한다.
+                이 파이프를 이용해 한 프로세스에는 쓰기를 다른 프로세스에서는 읽기를 수행하며 통신을 하면 된다.
+
+                1. pipe 함수를 호출해 파이프에 사용할 fd 를 얻는다.
+                    - 파이프도 파일의 일종이기 때문에 파일(파이프)를 읽고 쓸 fd 가 필요하므로 pipe 함수가 생성해준다.
+                2. fork 함수를 호출해 자식프로세스를 생성한다.
+                    - 1 에서 생성한 파이프와 fd 가 자식프로세스에 복사되어 부모, 자식 모두 가지게 된다.
+                3. 파이프는 당방향 통신이기 떄문에 통신 방향을 정해준다.
+                    - 부모에서 쓰기 자식에서 읽기를 한다고 하면 부모에서는 fildes[0], 자식에서는 fildes[1] 을 닫아준다.
+                        부모에서 쓴다음 자식에서 읽어주면 된다.
+
+                
+                파이프에서 빌트인 명령이 있을 경우는 자식프로세스를 생성하지 않는데 어떻게 통신하지?
+                    Each command in a pipeline is executed in its own subshell, 
+                    which is a separate process (see Command Execution Environment). 
+                    If the lastpipe option is enabled using the shopt builtin 
+                    (see The Shopt Builtin), 
+                    the last element of a pipeline may be run by the shell process.
+                    파이프라인에서 각 명령어는 자신의 서브셸에서 실행된다고 한다. (개별적인 프로세스)
+                리다이렉션에서는 모든 명령어에서 fork 를 사용하는가? (파이프도 동일하게 궁금함)

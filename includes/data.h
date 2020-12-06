@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 15:13:02 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/03 23:52:32 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/12/03 23:52:52 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/03 23:53:01 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
-
 #include "minishell.h"
-#include "command.h"
 
+typedef struct	s_cmd
+{
+	char	**program;
+	int		flag;
 
-int		check_next_is_space(char *str);
-int		space_count(char *str);
-int		push_content(t_info *info, t_list *ret, char *str, int wow);
-void	push_buff(t_info *info);
-// t_list	*ft_parsing(char *str);
-t_list	*parsing_first(char *str);
-// char	*str_to_env(char *str, char **envv);
+}				t_cmd;
 
-char	**parsing_second(char **program, const char **envp);
-#endif
+typedef struct	s_parsing_info 
+{
+	int		p_i;
+	int		i;
+	int		j;
+	char	quote;
+	char	*buff;
+	t_cmd	*content;
+}				t_info;

@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 22:43:24 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/03 22:43:25 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/11/19 16:58:00 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/11/30 22:40:11 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-#define COMMAND_H
-#include "minishell.h"
 
-int		check_command_is_builtin(const char *command);
-t_list	*ft_pipe(t_list *cur_node);
-t_list	*ft_redirection_overwirte();
-t_list	*ft_redirection_wirte();
-t_list	*ft_redirection_read();
-t_list	*ft_redirection_insert();
-t_list	*ft_semicolon();
-void	controller(t_list *cmd_list);
+#ifndef BUILTIN_H
+# define BUILTIN_H
+
+# include "minishell.h"
+
+// int	ft_first_envv(char ***envv);
+
+char	**ft_first_envv(char **envv);
+int	ft_env(char **envv);
+int	ft_execve(char **info, char **envv);
+int	ft_export(char *str, char ***envv);
+int	ft_unset(char *str, char ***envv);
+int	ft_cd(char *src, char **envv);
+int	ft_pwd(void);
+int check_unset(char *str, char *envv);
 
 #endif

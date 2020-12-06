@@ -1,42 +1,59 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/01 14:34:39 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/04 00:12:35 by gihwan-kim       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 void	prompt()
 {
-	ft_putstr_fd("minishell >", 1);
+	ft_putstr_fd("minishell$ ", 1);
 }
 
-void	fun(char **envp, t_list **cmd_list)
+int		g_exit_status = 0;
+char	**envp = NULL;
+
+int		minishell()
 {
-	// 달러 처리를 한다?
+	t_list	*cmd_list;
+	char	*line;
+
+	line = NULL;
+	while (1)
+	{
+		prompt();
+		get_next_line(0, &line);
+		if ((cmd_list = parsing_first(line)))
+		{
+			printf("first parsing end\n");
+			ft_lstiter(cmd_list->next, print);
+			controller(cmd_list);
+		}
+		else
+		{
+			continue;
+		}
+	}
 }
 
-
-int		main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envv)
 {
+	(void)argc;
+	(void)argv;
+
+	// signal(SIGINT, SIG_IGN); // ctr + c 무시하겠다는 신호
+
 	// init
-	ft_first_envv(&envp);
-	// 새로운 envp 가된다.
+	// 새로운 envv 가된다.
+	envp = ft_first_envv(envv);
 
-
-	/*i
-	  입력받는 무한루프
-	  	입력받기
-		  어떤 명령어인지
-		  		프로세스를 만들어야 한다.
-					1. |
-					2. 외부 프로그램
-				안만들어도 됨
-					1. | 없음
-					2. 
-
-	1. 프롬프트에서 명령문을 작성한후 enter 키
-	2. 명령문을 token(단어) 로 분리
-	3. 해석해야할 표현식이 있는 경우
-		변수확장
-		산술확장
-		명령치환
-	4. 최종 명령문 완성
-	5. 불필요한 quote 삭제처리
-	*/
+	// signall check
+	minishell();
 }

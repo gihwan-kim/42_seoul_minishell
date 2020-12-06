@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/29 01:47:11 by sancho            #+#    #+#              #
-#    Updated: 2020/04/08 16:08:36 by sancho           ###   ########.fr        #
+#    Updated: 2020/12/03 22:11:22 by gihwan-kim       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ ft_putchar_fd.c\
 ft_putstr_fd.c\
 ft_putendl_fd.c\
 ft_putnbr_fd.c\
+./get_next_line/get_next_line.c\
+# ./get_next_line/get_next_line_utils.c\
 
 BONUSES	=	ft_lstnew.c\
 ft_lstadd_front.c\

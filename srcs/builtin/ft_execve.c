@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/19 16:59:13 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/11/30 22:44:31 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "builtin.h"
 
 char
 	*path_pro(char const *s1, char const *s2)

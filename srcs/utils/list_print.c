@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   list_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 16:18:52 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/03 22:42:06 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/12/03 22:40:23 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/03 22:41:48 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	UTILS_H
-#define	UTILS_H
-#include "minishell.h"
-// int		get_next_line(char **line);
+#include "utils.h"
 
-// double str funtion
-char	**ft_splitjoin(char **split1, char **split2);
-void	free_double_str(char **ptr);
-char	**add_double_str(char **ptr, char *str);
-int		double_str_len(char **str);
-void	print(void *content);
-#endif
+void	print(void *content)
+{
+	t_cmd   *something = (t_cmd*)content;
+	char    **temp;
+	int     idx;
+
+	idx = 0;
+	temp = something->program;
+	printf("new node\n");
+	while (temp[idx])
+	{
+		printf("최종 : |%s| flag |%d|\n", temp[idx], something->flag);
+		idx++;
+	}
+}
