@@ -12,7 +12,9 @@ BUILTIN_SRCS = \
 				ft_export.c \
 				ft_unset.c \
 				ft_cd.c \
-				ft_pwd.c
+				ft_echo.c \
+				ft_pwd.c \
+				ft_exit.c
 
 BUILTIN_SRCS_DIR = ./srcs/builtin
 
@@ -20,28 +22,28 @@ COMMAND_SRCS = \
 				ft_pipe.c \
 				ft_redirection.c \
 				ft_semicolon.c \
-				ft_controller.c
+				ft_controller.c \
+				ft_command_utils.c
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
 				ft_parsing_push.c \
 				ft_parsing_second.c \
 				ft_parsing_first.c
-				# str_to_env.c \
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
 UTILS_SRCS = \
 			double_ptr_utils.c \
 			list_print.c
-			# get_next_line.c \
+			# get_next_line.c \	-> libft 안에 넣어놨음
 
 UTILS_SRCS_DIR = ./srcs/utils
 
 ERROR_SRCS = \
 				ft_error_free_utils.c \
-				ft_command_error.c \
-				ft_parsing_error.c \
+				ft_error.c \
+				ft_parsing_error.c
 
 ERROR_SRCS_DIR = ./srcs/error
 
@@ -53,6 +55,7 @@ SRCS_LIST = \
 			$(addprefix $(ERROR_SRCS_DIR)/, $(ERROR_SRCS)) \
 			./srcs/main.c
 			# ./srcs/test.c
+						# ./srcs/main.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -72,4 +75,6 @@ fclean : clean
 
 re : fclean all
 
+norminette : 
+	norminette $(SRCS_LIST)
 .PHONY: all bonus clean fclean re

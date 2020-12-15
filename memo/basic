@@ -350,170 +350,126 @@
     - 시스템 명령어와 이름이 같을 수도 있지만 bash 가 내부적으로 다시 구현해 놓은 것
         > 예를 들어, 하는 일이 거의 동일한 bash의 echo는 /bin/echo와 다릅니다.
 
+# 메모리 동적할당 수명
+    malloc(byte)    : byte 수 만큼 메모리를 할당하고 메모리 블록의 첫번쨰 주소를 리턴한다. 
+    free()          : malloc() 이 리턴했던 주소를 인자로 사용하여 할당했던 메모리를 해제한다.
+    할당된 메모리의 수명 : malloc() 이 호출되어 메모리가 할당된 시점 부터 free() 를 호출하여 해제할떄 까지 
+    => 일부 운영체제는 자동으로 할당된 메모리를 해제할 수도 있지만 모든 운영체제가 해제해주는 것은 아니다. 
 
-# 명령문 파싱과정
-    1. 명령문 작성후 enter 
-        줄 단위로 읽어온다. (gnl)
-        \ 문자로 끝날 경우 다른 줄을 읽어들이도록 기다렸다가 추가로 입력한 줄을 추가시킴
-        -> 구현안해도될듯
-    2. 명령문을 단어들로 분리    
-        키워드, 메타문자, 대입연산, quotes, \ 문자를 이요한 escpae 처리
-        2-1. quote 처리
-            quote 찾기
-                첫번째 quote 를 찾는다면 동일한 다음 따옴표를 찾을때까지 모든 문자에 대해 quote 상태로 인식
-                    "" : $ " ` \ 문자들을 제외하고 기능을 잃게됨, ' 포함
-                    '' : 모든 문자는 기능을 잃음, \ 또한 기능을 잃어서 single quote 의 기능을 못 잃게함
-                            ex.
-                                $ echo 'Don\'t do this'
-                                >
-                                (\' 일 경우 원래 ' 문자가 되는데 \ 의 기능을 잃었으니 그냥 ' 가 홀수개 되서 입력 더 받게됨)
-                                -> 원래는 다시 1번 명령어 작성으로 돌아가는데 minishell 은 구현 x
-        2-2. quote 제거
-                어떤 문자들을 escape 할지 알기 때문에 2-1 을 결정하는데 사용된 quote 들을 삭제한다.
-                    Step Input:
-                        echo "What's your name?"
+# 표준 스트림 
 
-                    Step Output:
-                        echo What's your name?
-                
-                --> 삭제하지 말고 일단 두기
-        2-3. 읽은 데이터를 명령어들로 쪼개기
-            ; 를 구분자로해서 명령들을 분할하기
-            이전 단계에서 quote 되거나 escpae 된 문자들은 의미를 가지지 않으며 명령 분할에 사용되지 않음
-                Step Input:
-                    read name; echo $name
+- [위키: 표준 스트림](https://ko.wikipedia.org/wiki/%ED%91%9C%EC%A4%80_%EC%8A%A4%ED%8A%B8%EB%A6%BC#%ED%91%9C%EC%A4%80_%EC%98%A4%EB%A5%98_(stderr))
+> 표준 스트림(standard streams)은 특정한 프로그래밍 언어 인터페이스뿐 아니라 
+> 유닉스 및 유닉스 계열 운영 체제(어느 정도까지는 윈도에도 해당함)에서 
+> 컴퓨터 프로그램과 그 환경(일반적으로 단말기) 사이에 [ 미리 연결된 입출력 통로 ] 를 가리킨디.
 
-                Step Output:
-                    read name
+- 표준 입력, 표준 출력, 표준 에러 스트림 3개가 사용자의 터미널에 부착된다.
+- 시스템 콘솔의 키보드와 모니터에서의 입출력을 추상화 한 것
+- 자식 프로세스에 상속된다. 
+    ### 표준 입력
+        - 프로그램은 read 명령을 이용하여 데이터 전송을 요청한다. 
+    ### 표준 출력 (stdout)
+        - 프로그램은 write 명령을 이용하여 데이터 전송을 요청한다
+    ### 표준 오류 (stderr)
+        - 표준 오류는 프로그램이 오류 메시지나 진단을 출력하기 위해 일반적으로 쓰이는 또다른 출력 스트림이다.
+# ctrl + c, ctrl + d, ctrl + \ 구현
 
-                    and
+## Signal and Traps
 
-                    echo $name
--- 아래 부터는 분할한 각 명령어 별로 실행되는 단계 --
-    3. 특별한 연산자 분석
-        {..}, <(..), < ..., <<< .., .. | .., 와 같은 특별한 연산자가 있는지 확인한다.
+    ### 시그널이란? 
+        - 시그널은 프로세스에 뭔가 발생 했음을 알리는 간단한 메시지를 비동기적으로 보내는 것이다.
+            > 다른일을 하며 해당 이벤트가 발생하면 어떤일을 함.
+            > 동기적 : 해당 이벤트가 발생할 때까지 기다림.
+        - 무엇이 발생했는지를 표시하는 미리 정의된 상수를 사용한다.
 
+            1. 시그널 발생경우 
+                - 프로그램에서 예외적인 상황 발생 : 0 으로 나누기
+                - 시그널을 보내는 함수를 사용해 다른 프로세스에 시그널을 보내는 경우
+                - 인터럽트 키를 입력한 경우
+                    인터럽트
+                        > 마이크로프로세서에서 인터럽트(interrupt, 문화어: 중단, 새치기)란
+                        > 마이크로프로세서(CPU)가 프로그램을 실행하고 있을 때, 입출력 하드웨어 등의
+                        > 장치나 또는 예외상황이 발생하여 처리가 필요할 경우에 마이크로프로세서에게
+                        > 알려 처리할 수 있도록 하는 것을 말한다
+                    Ex. ctrl + c 같은 인터럽트 키
+            2. 시그널 처리 방법의 종류
+                - 받은 시그널의 기본 동작을 수행한다.
+                    > 각 시그널에는 기본 동작이 지정돼있다. 
+                        Ex. 프로세스 종료, 시그널 무시, 일시 중지, 재시작 등
+                - 받은 시그널을 무시한다.
+                    > 프로세스에 시그널을 전달하지 않는다.
+                - 시그널 핸들러(= 함수)를 지정할 수 있다. 
+                    > 시그널 핸들러의 동작이 완료되면 기존 작업을 계속 수행한다.
+                - 특정 부분이 실행되는 동안 시그널이 발생하지 않도록 할 수 있다.
 
-    4. 해석할 표현식이 있을 경우 변수확장, 산술확장, 명령치환을 거쳐 최종 명령문을 만듬
-        4-1. Brace expansion (= 괄호확장)
-                괄호 구현안하니까 패스
-        4-2. Tilde expansion
-                ~ 문자를 이용해 디렉토리 정보 표시 구현안할 꺼니까 패스
-        4-3. 다음 4 개는 left-to-right 순서로 동시에 처리 됩니다.
-                Parameter expansion (매개변수 확장)
-                    ex1) AA=cde , AA 라는 변수를 만들고 cde 값을 지정해본다.
-                            $ 문자를 사용해서 변수 이름 앞에 붙여 구분한다.
-                            "ab$AAfg" 와 같이 사용한다면 변수 'AA' 가 아닌 'AAfg' 로 인식하게 된다.
-                            'AAfg' 는 아직 등록안해서 null 로 나온다.
-                            -> 여기는 구현!
+            3. 시그널의 종류 
 
-                            -> 앞에서 quote 제거를 하면 $ 가 문자로 적용되는지 아닌지 어떻게 확인하지?
-                    ex2) 나머지와 구분하기 위해 { } 를 사용한다.
-                            -> 중괄호({}) 는 구현안할꺼같다.
-                Arithmetic expansion (산술연산 확장)
-                    구현안할 꺼임
-                Command substitution (명령치환)
-                        $( <COMMANDS> )
-                        `<COMMANDS>`
-                Process substitution
-                        <( <COMMANDS> )
-                        >( <COMMANDS> )
-     5. Word splitting (명령을 명령어 이름과 인자로 분할)
-                - 첫 단어 : 명령어 이름
-                - 나머지  : 인자
-                - shell 은 변수의 값을 표시할 때 IFS 변수에 설정되어있는 값을 이용해 단어를 분리
-                - 기본 값은 whitespace
-                - whitespace 를 기준으로 분리하고 나면 whitespace(space, tab, newline) 는 제거되고 남은 거는 단어라고 부름
-                - 변수를 quote 하면 단어분리는 발생하지 않는다.
-                    ex.
-                        aa="echo hi"
-                        "$aa" 이렇게 quote 하면 "echo hi" 문자열이 됨
-                        $aa 이렇게 사용하면 ifs 에 따라 단어 분리가 되어 echo hi 
-                - Ex
-                Step Input:
-                    echo "/home/lhunath/docs has these files that match *.txt :" bar.txt foo.txt
+                시그널      번호    기본 처리       발생 요건
+                SIGINT      2       종료            인터럽트, 사용자가 ctrl + C 입력시 발생
+                SIGQUIT     3       코어 덤프       종료신호, 사용자가 ctrl + \ 입력시 발생
+                SIGSTP      24      중지            사용자가 ctrl + z 로 중지할 떄 발생
 
-                Step Output:
-                    Command Name: 'echo'
-                    Argument 1: '/home/lhunath/docs has these files that match *.txt :'
-                    Argument 2: 'bar.txt'
-                    Argument 3: 'foo.txt'
-    6. 실행
-        - 명령어 이름과 인자로 구분된 명령을 bash 가 실행한다.
-        - 명령이 함수 또는 builtin 일 경우 명령은 동일한 bash process 에서 실행된다.
-        - 이외의 경우는 fork 해서 새로운 bash process 를 생성하고 이 명령에서 분석된 설정 (리다이렉션들, 인자들 등등) 으로 
-          새로운 process 를 초기화하고 생성한 프로세스에서 명령을 실행한다.
-            -> 부모는 명령을 완료되기를 기다린다.
-          Ex.
-            Step Input:
-                sleep 5
+                - 종료 : 프로세스가 종료되는 것
+                - 코어 덤프 : 코어 파일을 만들고 종료하는 것
 
-            Causes:
-                ├┬· 33321 lhunath -bash
-                │├──· 46931 lhunath sleep 5
-        -> 이 단계이후 다음 명령 또는 다음 줄이 진행됨 다끝나면 실행했던 마지막 명령의 exit code 를 리턴
+                ### 코어 덤프
+                - 코어덤프, 시스템 덤프, 메모리 덤프 : 프로그램이 실행중에 작업중이던 특정 시점의 메모리 상태를 기록한 것
+                - 코어 덤프는 프로그램 오류 진단과 디버깅에 쓰인다
+        - 시그널 또한 자식프로세스에 상속된다.
 
 
-[ 할일 ]
-    1. 명령어 입력 과정 다시 정리
-    2. 서브쉘, 자식 프로세스 으미
-        command1 | command2 | command3
+## ctrl + c 구현 : bash, minishell 
+    - SIGINT 인터럽트를 프로세스에 보냅니다 (일반적으로 프로세스가 종료됩니다)
 
-(sleep 10 | sleep 9); (sleep 5 | sleep 7);
-(sleep 10 | sleep 9); {sleep 5 | sleep 7};
+    ### 현재 상황
+    - ctrl +  c 일경우 SIGINT 로 해당 시그널을 무시하도록 해놨는데 bash 의 경우 입력을 다시 받는 기능이 있어
+      signal() 함수를 사용하여 ctrl + C 에 해당하는 시그널인 SIGINT 에 대한 핸들러 함수를 구현해두었다.
+    ```
+    void handler(int signo)
+    {
+        (void)signo;
+        write(1, "\b\b  \n", 7);
+        prompt();
+    }
+    ```
 
-sleep 10 | sleep 9; sleep 5 | sleep 7;
+## Ctrl + d 구현 : bash, minishell
+    - EOF(end-of-file) 마커를 보냅니다.
+    - 쉘에 입력될 경우 쉘을 종료합니다.
 
-[ 차이점 ]
-    3. 디버깅 세팅
+    => EOF 를 보내기 때문에 gnl 은 0 을 리턴하게 된다.
+        리턴 값이 0 이고 빈 문자열 "\0" 일 경우 프로세스를 종료하도록 구현하였다. 
+        ```
+        if (!get_next_line(0, &line) && !ft_strlen(line))	// ctrl + d
+		{
+			g_signal = 0;
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit(BASH_SUCCESS);
+		}
+        ```
+## SIGTERM : bash, minishell
+    시그널      번호    기본 처리       발생 요건
+    SIGTERM      15       종료          소프트웨어적 종료
+    - bash 는 SIGTERM 을 무시한다.
 
 
+## Operating System scheduling
+- 실행되는 모든 프로세스는 CPU 의 관점에서 2가지 상태를 오가며 실행된다.
+    1. 실제 CPU instruction 을 실행하는 상태 (cpu burst)
+    2. I/O 를 위해서 wait 하는 상태 (I/O burst)
+        Ex. porcess A 가 wait 상태가 되면 CPU 는 idle 상태가 되어 OS 스케쥴러에 의해 porcess B 로 실행이 변경된다. 
+    ### context switching
+        - CPU 의 실행이 process A 에서 process B 로 변경되늰 것
+        - process A 의 상태 값이 백업되고 이전의 저장된 process B 의 상태 값을 불러와 실행한다. 
 
-# 파이프
-    ## 유닉스 시스템 프로그래밍에서
-        - 두 프로세스 간에 통신을 할 수 있도록 인터페이스를 제공한다.
-        - 보통 그냥 파이프라고 하면 이름 없는 파이프를 의미한다.
-        
-        ### 이름없는 파이프
-            - 부모-지삭 프로세스 간에 통신을 할 수 있게 해준다.
-            - 부모 프로세스에서 fork 함수를 사용해 자식 프로세스를 생성하고, 부모 프로세스와 자식 프로세스간에 통
-            - 파이프는 기본적으로 단방향이다.
-            - 부모 프로세스가 출력한 내용을 자식 프로세스가 읽을 것인지, 자식 프로세스가 출력한 내용을 부모 프로세스가 읽을 것인지 결정해야한다.
+    ### 프로세스의 상태
+        1. new
+        2. ready
+        3. running
+        4. waiting
+        5. terminated
 
-            #### 간단하게 만들기
-                - popen 함수로 파이프를 생성하고 pclose 함수로 파이프를 닫아준다.
-            
-            #### 복잡하게 만들기
-                - popen 함수로 간단하게 파이프를 생성할 수 있지만 셸을 사용해야하는 단점이 있다.
-
-                ```
-                #include <unistd.h>
-                int pipe(int fildes[2]);
-                // fildes[2] : 파이프로 사용할 파일 기술자 2개
-                ```
-                fildes[0] 은 읽기전용, fildes[1] 은 쓰기 전용
-                성공시 0, 실패시 -1 리턴
-            
-            #### pipe() 함수로 통신하는 과정
-
-                파이프를 생성하고 나면 알빈적으로 fork 함수를 호출해 자식 프로세스를 생성한다.
-                자식 프로세스는 부모 프로세스가 pipe 함수로 생성한 fd 들도 복사한다.
-                이 파이프를 이용해 한 프로세스에는 쓰기를 다른 프로세스에서는 읽기를 수행하며 통신을 하면 된다.
-
-                1. pipe 함수를 호출해 파이프에 사용할 fd 를 얻는다.
-                    - 파이프도 파일의 일종이기 때문에 파일(파이프)를 읽고 쓸 fd 가 필요하므로 pipe 함수가 생성해준다.
-                2. fork 함수를 호출해 자식프로세스를 생성한다.
-                    - 1 에서 생성한 파이프와 fd 가 자식프로세스에 복사되어 부모, 자식 모두 가지게 된다.
-                3. 파이프는 당방향 통신이기 떄문에 통신 방향을 정해준다.
-                    - 부모에서 쓰기 자식에서 읽기를 한다고 하면 부모에서는 fildes[0], 자식에서는 fildes[1] 을 닫아준다.
-                        부모에서 쓴다음 자식에서 읽어주면 된다.
-
-                
-                파이프에서 빌트인 명령이 있을 경우는 자식프로세스를 생성하지 않는데 어떻게 통신하지?
-                    Each command in a pipeline is executed in its own subshell, 
-                    which is a separate process (see Command Execution Environment). 
-                    If the lastpipe option is enabled using the shopt builtin 
-                    (see The Shopt Builtin), 
-                    the last element of a pipeline may be run by the shell process.
-                    파이프라인에서 각 명령어는 자신의 서브셸에서 실행된다고 한다. (개별적인 프로세스)
-                리다이렉션에서는 모든 명령어에서 fork 를 사용하는가? (파이프도 동일하게 궁금함)
+    ### Signal handler
+        - 시그널과 하드웨어 인터럽트의 차이점 
+            > 시그널은 유저모드에서 사용자 프로그램에 의해서도 처리되는데
+            > 인터럽트는 커널 모드에서 OS 에 의해 처리된다.

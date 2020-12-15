@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"command.h": "c"
+		"command.h": "c",
+		"chrono": "c",
+		"sstream": "c",
+		"iterator": "c"
 	}
 }

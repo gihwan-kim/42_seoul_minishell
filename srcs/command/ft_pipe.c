@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:07:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/04 01:17:34 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/15 12:44:40 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 
 extern int	g_exit_status;
-extern char	**envp;
+extern char	**g_envp;
 
 static int		count_pipe_element(t_list *list)
 {
@@ -29,136 +29,146 @@ static int		count_pipe_element(t_list *list)
 	while (list)
 	{
 		cmd = (t_cmd *)(list->content);
-		if (cmd->flag == 1)
+		list = list->next;
+		if (cmd->flag == 1 && list)
 			num++;
 		else
 			break;
-		list = list->next;
 	}
 	return (num);
 }
 
-static char		**get_cur_program(int idx, t_list *cur_node)
-{
-	t_cmd	*cmd;
-	int		i;
-
-	i = 1;
-	while (i < idx)
-	{
-		cur_node = cur_node->next;
-		i++;
-	}
-	cmd = (t_cmd*)(cur_node->content);
-	return (cmd->program);
-}
-
 static void		write_process(int idx, int *pipe_fd, t_list *cur_node)
 {
-	const char	*cmd;
 	char		**cur_program;
 	int			check_cmd_type;
 
 	cur_program = get_cur_program(idx, cur_node);
-	cmd = (const char*)cur_program[0];
 	close(pipe_fd[0]);						// todo : error 처리
-	if (pipe_fd[1] != 1)
+	if (pipe_fd[1] != STDOUT_FILENO)
 	{
-		dup2(pipe_fd[1], 1);				// todo : error 처리
+		close(1);
+		dup2(pipe_fd[1], STDOUT_FILENO);				// todo : error 처리
 		close(pipe_fd[1]);					// todo : error 처리
 	}
-	check_cmd_type = check_command_is_builtin(cmd);
-	if (check_cmd_type)
-	{ /* TODO 12/4 : waitpid 및 프로세스의 리턴값에 대해 알아보고 보충하기 */
-		exit(0);
+	if ((check_cmd_type = check_command_is_builtin((const char*)cur_program[0])))
+	{
+		execute_built_in(check_cmd_type, cur_program);
+		exit(g_exit_status);
 	}
 	else
-		ft_execve(cur_program, envp);
+		if(ft_execve(cur_program, g_envp) < 0)
+			exit(BASH_ERR_NOF);
 }
 
-static void		read_process(int idx, int *pipe_fd, t_list *cur_node)
+static void		read_and_write_process(int idx, int **pipe_fd, t_list *cur_node, int pipe_elem_num)
 {
-	const char	*cmd;
 	char		**cur_program;
 	int			check_cmd_type;
 
 	cur_program = get_cur_program(idx, cur_node);
-	cmd = (const char*)cur_program[0];
-	close(pipe_fd[1]);
-	if (pipe_fd[0] != 0)
+	close(pipe_fd[idx - 2][1]);
+	if (pipe_fd[idx - 2][0] != STDIN_FILENO)
 	{
-		dup2(pipe_fd[0], 0);
-		close(pipe_fd[0]);
+		close(STDIN_FILENO);
+		dup2(pipe_fd[idx - 2][0], STDIN_FILENO);
+		close(pipe_fd[idx - 2][0]);
 	}
-	check_cmd_type = check_command_is_builtin(cmd);
-	if (check_cmd_type)
-	{ /* TODO 12/4 : waitpid 및 프로세스의 리턴값에 대해 알아보고 보충하기 */
-		exit(100);
+	if (idx < pipe_elem_num)
+	{
+		close(pipe_fd[idx - 1][0]);						// todo : error 처리
+		if (pipe_fd[idx - 1][1] != STDOUT_FILENO)
+		{
+			close(STDOUT_FILENO);
+			dup2(pipe_fd[idx - 1][1], STDOUT_FILENO);				// todo : error 처리
+			close(pipe_fd[idx - 1][1]);					// todo : error 처리
+		}
+	}
+	if ((check_cmd_type = check_command_is_builtin((const char*)cur_program[0])))
+	{
+		execute_built_in(check_cmd_type, cur_program);
+		exit(g_exit_status);
 	}
 	else
-		ft_execve(cur_program, envp);
+		if(ft_execve(cur_program, g_envp) < 0)
+			exit(BASH_ERR_NOF);
 }
 
-static t_list	*get_next_node(int pipe_element_num, t_list *cur_node)
-{
-	t_list	*ret;
-	int		idx;
-
-	idx = 0;
-	while (idx < pipe_element_num)
-	{
-		ret = cur_node;
-		cur_node = cur_node->next;
-		idx++;
-	}
-	return (ret);
-}
-
-
+// 명령어 수만큼 pipe 생성
 int		init_pipe_fd(int pipe_element_num, int ***pipe_fd)
 {
 	int idx;
 
-	if(!((*pipe_fd) = ft_calloc(pipe_element_num, sizeof(int*))))
-		return (command_error_int(MEMORY_ERROR));
 	idx = -1;
-	while (++idx < pipe_element_num)
+	if(!((*pipe_fd) = (int**)ft_calloc(pipe_element_num, sizeof(int*))))
+		return (strerror_int(errno));
+	while (++idx < pipe_element_num - 1)
     {
 		if(!((*pipe_fd)[idx] = malloc(sizeof(int) * 2)))
-			return (command_error_int(MEMORY_ERROR));
+			return (strerror_int(errno));
 		if (pipe((*pipe_fd)[idx]) == -1)
-			return (command_error_int(PIPE_ERROR));
+			return (strerror_int(errno));
     }
+	(*pipe_fd)[idx] = NULL;
 	return (SUCCESS);
 }
 
+// 명령어 수만큼 프로세스 생성
 int		init_sub_shell_arry(int pipe_element_num,
 								pid_t **sub_shell_arry,
 								pid_t *only_parent,
 								int *idx)
 {
-	// element 별로 process 생성해주기
+	*only_parent = 1;
 	if (!((*sub_shell_arry) = ft_calloc(pipe_element_num, sizeof(pid_t))))
-		return (command_error_int(MEMORY_ERROR));
+		return (strerror_int(errno));
 	(*idx) = -1;
 	while (++(*idx) < pipe_element_num && *only_parent)			// parent process 에서만 fork 하기위해 only_parent 값 확인
 	{
 		if ((*only_parent = fork()) == -1)						// fork 실패시 에인
-			return (command_error_int(FORK_ERROR));
+			return (strerror_int(errno));
 		(*sub_shell_arry)[(*idx)] = *only_parent;
 	}
 	return (SUCCESS);
 }
 
-void	execute_pipe(int idx, int **pipe_fd, t_list *cur_node)
+void	close_pipe(int *pipe_fd)
 {
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+}
+
+/*
+** close_dont_use_pipe()
+** 	This function closes pipe_fd which is not used in each child process
+*/
+
+void	close_dont_use_pipe(int idx, int **pipe_fd, int pipe_elem_num)
+{
+	int i;
+
+	i = idx - 1;
+	if (idx == 1)
+		while (++i < pipe_elem_num - 1)
+			close_pipe(pipe_fd[i]);
+	else
+	{
+		while (++i < pipe_elem_num - 1)
+			close_pipe(pipe_fd[i]);
+		i = -1;
+		while (++i < idx - 2)
+			close_pipe(pipe_fd[i]);
+	}
+}
+
+void	execute_pipe(int idx, int **pipe_fd, t_list *cur_node,
+					int pipe_elem_num)
+{
+	close_dont_use_pipe(idx, pipe_fd, pipe_elem_num);
 	if (idx == 1)
 		write_process(idx, pipe_fd[0], cur_node);
 	else
-	{
-		read_process(idx, pipe_fd[idx - 2], cur_node);
-		write_process(idx, pipe_fd[idx - 1], cur_node);
-	}	
+		read_and_write_process(idx, pipe_fd, cur_node, pipe_elem_num);
 }
 
 /*
@@ -177,58 +187,29 @@ t_list	*ft_pipe(t_list *cur_node)
 	int		pipe_elem_num;
 	int		idx;
 
-	pipe_elem_num = count_pipe_element(cur_node);
-	if (pipe_elem_num == 1) 									// 원래는 " 명령어 | " 요거 밖에 없을 경우 입력을 더 받게 됨
+	if ((pipe_elem_num = count_pipe_element(cur_node)) == 1) 	// 원래는 " 명령어 | " 요거 밖에 없을 경우 입력을 더 받게 됨
 		return (get_next_node(pipe_elem_num, cur_node));	   	// 어케할지 몰라서 일단 명령어 실행안하고 나오게함
-	only_parent = 1;
-	if (!init_pipe_fd(pipe_elem_num, &pipe_fd) ||
-		!init_sub_shell_arry(pipe_elem_num, &sub_shell_arry, &only_parent, &idx))
-		return (ERROR);
+	if (!init_pipe_fd(pipe_elem_num, &pipe_fd))
+		return (get_next_node(pipe_elem_num, cur_node));
+	if (!init_sub_shell_arry(pipe_elem_num, &sub_shell_arry, &only_parent, &idx))
+		return (get_next_node(pipe_elem_num, cur_node));
 	if (only_parent)
-	{	/* TODO 12/4 : waitpid 및 프로세스의 리턴값에 대해 알아보고 보충하기 */
-		waitpid(sub_shell_arry[pipe_elem_num - 1], &g_exit_status, 0);	// 파이프는 마지막 명령어의 종료 상태 값을 받아옵니다.
+	{
+		idx = -1;
+		while (pipe_fd[++idx])
+			close_pipe(pipe_fd[idx]);
+		idx = -1;
+		while (++idx < pipe_elem_num)
+		{
+			waitpid(sub_shell_arry[idx], &g_exit_status, 0);
+			g_exit_status = g_exit_status / 256;
+			if (g_exit_status) 							// ft_execve() 에서 해당되는 명령어 없을 경우
+				bash_error(g_exit_status, ((t_cmd*)(get_next_node(idx, cur_node)->content))->program);
+		}
+		// 파이프는 마지막 명령어의 종료 상태 값을 받아옵니다.
 		return (get_next_node(pipe_elem_num, cur_node));
 	}
 	else
-		execute_pipe(idx, pipe_fd, cur_node);
-		// if (idx == 1)
-		// 	write_process(idx, pipe_fd[0], cur_node);
-		// else
-		// {
-		// 	read_process(idx, pipe_fd[idx - 2], cur_node);
-		// 	write_process(idx, pipe_fd[idx - 1], cur_node);
-		// }
+		execute_pipe(idx, pipe_fd, cur_node, pipe_elem_num);
 	return (NULL);
 }
-
-
-// /bin/ls -al | /usr/bin/grep  hi.c | /bin/cat -e
-
-
-// 나름 줄여보기 전 코드
-	// if(!(pipe_fd = ft_calloc(pipe_element_num, sizeof(int*))))
-	// 	return (command_error(MEMORY_ERROR));
-	// idx = -1;
-	// while (++idx < pipe_element_num)
-    // {
-	// 	if(!(pipe_fd[idx] = malloc(sizeof(int) * 2)))
-	// 		return (command_error(MEMORY_ERROR));
-	// 	if (pipe(pipe_fd[idx]) == -1)
-	// 		return (command_error(PIPE_ERROR));
-    // }
-	// if (init_pipe_fd(pipe_element_num, &pipe_fd) == ERROR)
-	// 	return (ERROR);
-
-	// // element 별로 process 생성해주기
-	// // if (!(sub_process_array = ft_calloc(pipe_element_num, sizeof(pid_t))))
-	// // 	return (command_error(MEMORY_ERROR));
-	// // idx = -1;
-	// // while (++idx < pipe_element_num && only_parent)			// parent process 에서만 fork 하기위해 only_parent 값 확인
-	// // {
-	// // 	if ((only_parent = fork()) == -1)						// fork 실패시 에인
-	// // 		return (command_error(FORK_ERROR));
-	// // 	sub_process_array[idx] = only_parent;
-	// // }
-	// if (init_sub_process_array(pipe_element_num,
-	// 							&sub_process_array, &only_parent, &idx) == ERROR)
-	// 	return (ERROR);

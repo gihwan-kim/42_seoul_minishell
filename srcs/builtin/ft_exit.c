@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command_error.c                                 :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 22:51:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/04 00:49:24 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/12/08 23:35:53 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/09 01:48:15 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "builtin.h"
 
-/*
-** just display error stirng
-*/
-
-int		command_error_int(char *comment)
+void	ft_exit(int exit_status)
 {
-	ft_putstr_fd(comment, 1);
-	return (ERROR);
-}
-t_list	*command_error_list(char *comment)
-{
-	ft_putstr_fd(comment, 1);
-	return (ERROR);
+	ft_putendl_fd("exit", 1);
+	exit(exit_status);
 }
