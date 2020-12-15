@@ -1,0 +1,172 @@
+> 유닉스 시스템 프로그래밍 기준.  
+
+# 파일 입출력
+    1. 파일 ?
+        관련있는 데이터의 집합
+        하드 디스크 같은 저장 장치에 저장된다.
+        데이터 저장, 전송, 장치에 접근하는데 사용된다.
+        - 종류
+            일반(ordinary)      : 사용자 프로그램, 시스템 유틸리티 프로그램에 의해 입력된 정보를 포함하는 파일이다.
+            디렉터리(directory) : 파일의 이름과 아이노드를 위한 포인터를 포함한다. 디렉터리는 계층적으로 구성되며, 디렉터리 파일은 쓰기 보호 속성을 가진 일반 파일로서 파일 시스템만이 이 파일에 기록을 할 수 있고, 사용자 프로그램은 읽기만 허용된다.
+            특별(special)       : 터미널이나 프린터와 같은 입출력 장치들의 접근을 위해 사용된다.
+            지명(named)         : 지명 파이프이다.
+
+    ### 유닉스에서 파일을 읽고 쓰는 방법
+        1. 저수준 파일 입출력 (low-level)
+            - 유닉스 커널 시스템 호출을 사용하여 파일 입출력을 수행한다.
+            - 바이트 단위로 파일의 내용을 다룸
+            - 열린 파일을 참조하는데 file descriptor 사용
+            
+        2. 고수준 파일 입출력 (high-level) = standard input/output library
+            - c 언어의 표준 함수로 제공
+            - 버퍼를 이용해 한꺼번에 읽기, 쓰기 진행 
+            - 열린 파일을 참조하는데 file pointer 를 사용
+                file pointer
+                    : 열린 파일의 정보를 저장하는 구조체를 가리키는 포인터
+                    : 구조체의 항목 중 하나가 file descriptor 
+
+                        low-level               high-level
+
+        파일 지시자     int fd                  FILE *fp
+
+        특       징     빠르다.                 사용하기 쉽다.
+                        바이트 단위로           버퍼 단위로
+                        특수 파일 접근 가능     데이터의 입출력 동기화 쉬움
+                                                여러가지 형식 지원
+                        
+        주 요 함 수     open, close, write      fopen, fclose, fread, fwrite
+                        dup, dup2, fcntl        fputs, fgets, fprintf, fscanf
+                        lseek, fscync           freopen, fseek
+
+    ### 저수준 파일 입출력
+        - 바이트 단위로 입출력을 하기 때문에 함수 자체는 단순하다.
+        - 일반 파일 뿐만 아니라 특수 파일도 읽을 수 있다.
+
+        1. file descriptor (파일 기술자)
+            - 모든 저수준 파일 입출력 함수는 파일 기술자를 사용한다.
+            - 현재 열려있는 파일을 구분하기 위해서 번호를 붙인 것
+            - 0 : 표준 입력
+            - 1 : 표준 출력
+            - 2 : 표준 오류
+
+        2. file offset 지정
+            - 파일을 읽거나 쓸때 현재 읽을, 쓸 위치를 알려주는 offset 이 자동으로 변경된다.
+            - offset : 파일의 시작지점에서 현재 위치까지의 바이트 수
+            - 파일을 열면 offset 이 파일의 시작지점인 0 이지만 read 함수를 호출해서 읽은 바이트 수 
+              만큼 offset 이 이동한다. (write 함수도 동일)
+
+# Redirection
+
+    - 지금은 터미널 프로그램을 열면 다른 설정 없이 명령을 입력하고 출력을 확인할 수 있다.
+    
+    - unix 이전의 os 의 경우 프로그래머가 입, 출력 장치를 설정해주어야 했다.
+    
+    - unix 에서는 data stream 이라는 개념을 사용해서 장치를 추상화 시켜 프로그래머가 어떤 종류의
+      장치를 사용하는지 알 필요 없이 장치들을 동일하게 read, open, close 하면 되고
+      프로그램 실행시 자동으로 입, 출력 장치를 연결해주어 편해졌다.
+      =>  컴퓨터에 연결되는 장치들은 비트 값들의 입, 출력에 의해 동자되기 때문에
+          OS 에서 추상화가 가능하다고 한다.
+
+    ### stream
+        - 디스크 상의 파일, 컴퓨터에 연결되는된 여러 장치들을 통일되게 다루는 개념
+        1. standard stream
+            프로세스가 생성되면 기본적으로 입, 출력을 하기위해 생성되는 채널
+            > 터미널을 열면 stdin, stdout, stderr 가 모두 터미널에 연결되어 사용가능하다.
+        2. 유닉스는 보통 모든 장치들을 파일로 관리한다.
+            standard stream 또한 dev/stdin, /dev/stdout, /dev/stderr 에 파일로 존재
+            => 프로그램 실행시에는 이름이 아닌 FD 라는 양의 정수로 구분하여 사용한다.
+        
+
+
+    명령어가 실행되기 전에 명렁어의 입력, 출력이 재지시 된다.
+    Redirection 을 명령어의 파일 다룸이 복제되고 열리고 닫히고 다른 파일을 참조하도록 한다.
+    명령어가 읽거나 쓸 파일을 바꿀 수 있다.
+    나타나는 순서대로 왼쪽에서 오른쪽으로 실행된다. 
+
+
+    (입력0) 왼쪽  <   오른쪽
+    (출력1) 왼쪽  >   오른쪽 
+    (출력1) 왼쪽  >>  오른쪽
+
+    왼쪽 은 fd, 오른쪽은 fd 또는 파일이름 을 넣어줘야한다.
+    ex.
+        wc 0< infile 1> outfile
+                    
+        >, >, >> 기호의 좌측값은 공백 없이 붙여야한다. 붙이지 않을 경우 인수로 생각
+
+        redirection 기호를 사용할때 fd 번호를 적어줘야 하는데 적지 않을 경우
+        standard stream 으로 사용된다.
+            < 기호는 입력이므로 좌측값을 0 을 기본값
+            >, >> 기호는 출력이므로 좌측값을 1을 기본값으로 한다.
+    
+    입력   : <
+    출력   : >  ( 이 기호를 파일로 연결하면 먼저 기존 파일 내용이 삭제됩니다 )
+    append : >> ( 기존 파일 내용이 삭제되지 않고 이후부터 append 됩니다 )
+
+    Redirection 기호의 위치
+        redirection 기호의 명령 행상 위치는 어디에 와도 상관없습니다.
+
+    ### 외부 함수 
+
+    1. open 
+
+        ```
+        #include <fcntl.h>
+        int
+        open(const char *path, int oflag, ...);
+        ```
+
+        - path 로 특정된 파일 이름을 열어 oflag 를 통해 특정된 상황으로 읽기 또는 쓰기 를 진행.
+        - 호출하고 있는 프로세스에 file descriptor 를 리턴, tlfvotl -1, errno 설정 
+        - oflag : 파일이 없을 경우 파일을 생성해야한다고 알릴 수도 있음 (O_CREATE  flag)
+            > oflag 는 아래 3 가지중 하나는 무조건 가지고 있어야함. 
+                ```
+                O_RDONLY        open for reading only
+                O_WRONLY        open for writing only
+                O_RDWR          open for reading and writing
+                ```
+            > 부가적으로 추가할 수 있는 olfag 들 
+                ``` 
+                O_NONBLOCK      do not block on open or for data to become available
+                
+                O_APPEND        append on each write            
+                // write 할때마다 파일의 끝에 추가된다. 
+                
+                O_CREAT         create file if it does not exist
+                
+                O_TRUNC         truncate size to 0              
+                // 파일이 이미 존재할 경우 내용을 모두 지우고 파일 길이를 0 으로
+
+                O_EXCL          error if O_CREAT and the file exists
+                O_SHLOCK        atomically obtain a shared lock
+                O_EXLOCK        atomically obtain an exclusive lock
+                O_NOFOLLOW      do not follow symlinks
+                O_SYMLINK       allow open of symlinks
+                O_EVTONLY       descriptor requested for event notifications only
+                O_CLOEXEC       mark as close-on-exec
+                ```
+        - mode  
+            > 파일의 접근 권한을 설정한다.
+            > O_CREAT flag 를 지정해 파일을 생성할때만 사용한다.
+            > 숫자로 지정해줘도 되고 <sys/stat.h> 헤더파일의 정의된 플래그를 써도 된다.
+            ```
+            S_IRUSR    : 소유자 읽기 허용
+
+            S_IWUSR    : 소유자 쓰기 허용
+
+            S_IXUSR    : 소유자 실행 허용
+
+            S_IRGRP    : 그룹 읽기 허용
+
+            S_IWGRP    : 그룹 쓰기 허용
+
+            S_IXGRP    : 그룹 실행 허용
+
+            S_IROTH    : Other 읽기 허용
+
+            S_IWOTH    : Other 쓰기 허용
+
+            S_IXOTH    : Other 실행 허용
+            ```
+
+

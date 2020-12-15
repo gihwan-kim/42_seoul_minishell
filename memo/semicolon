@@ -1,0 +1,19 @@
+# 사용한 외부함수
+
+    # execve()
+        ```
+        #include <unistd.h>
+        int execve(const char *path, 
+                    char *const argv[], 
+                    char *const envp[]);
+        ```
+        ### 설명
+            - execve 를 호출 하고 있는 프로세스에서 새로운 프로세스로 전환
+            - 현재 파일에서 path 를 통해 전달된 위치의 파일로 바뀐다.
+            - 해당파일
+                1. 실행가능한 object 파일
+                2. interpreter 를 위한 파일이나 데이터
+            - 호출하는 프로세스에서 fd 가 열려있는게 있다면 새로운 프로세스에서도 유지된다.
+        ### 리턴
+            - 성공시 리턴 값 없음
+            - 에러 발생시 -1 리턴, errno 값 설정됨

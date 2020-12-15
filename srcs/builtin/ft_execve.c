@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
-/*   Updated: 2020/11/30 22:44:31 by gihkim           ###   ########.fr       */
+/*   Updated: 2020/12/10 14:33:19 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int
 	return (ret);
 }
 
+/*
+** if execve() function call is failed (no correct progarm)
+** 	ft_execve() return -1
+** if execve() function call is success
+** 	no return value. process is changed to new process
+*/
+
 int
 	ft_execve(char **info, char **envv)
 {
@@ -83,6 +90,5 @@ int
 		}
 	result = path_run(info, path, envv);
 	free(path);
-	write(0, "program not found!\n", 19);
 	return (result);
 }

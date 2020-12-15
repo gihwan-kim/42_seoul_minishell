@@ -30,6 +30,6 @@ void *parsing_error(t_info *ptr1, t_list *ptr2, char *comment)
 		ft_lstclear(&(ptr2->next), free_program);
 		free(ptr2);
 	}
-	ft_putstr_fd(comment, 1);
+	ft_putendl_fd(comment, STDERR_FILENO);
 	return (NULL);
 }
