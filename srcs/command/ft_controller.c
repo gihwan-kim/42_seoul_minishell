@@ -150,11 +150,11 @@ t_list	*check_flag(t_list *cur_node)
 	else if (cmd->flag == 1)
 		return (ft_pipe(cur_node));
 	else if (cmd->flag == 2)
-		return (ft_redirection_overwirte(cur_node));
+		return (redirection(cur_node));
 	else if (cmd->flag == 3)
-		return (ft_redirection_append(cur_node));
+		return (redirection(cur_node));
 	else if (cmd->flag == 4)
-		return (ft_redirection_read(cur_node));
+		return (redirection(cur_node));
 	else
 		return (cur_node);
 }
@@ -179,7 +179,7 @@ void controller(t_list *cmd_list)
 	{
 		parsing_each_node(cur_loc); // 1. second parsing
 		cur_loc = check_flag(cur_loc);
-    	cur_loc = cur_loc->next;
+		// ft_lstiter(cur_loc, print);
 	}
 	ft_lstclear(&(cmd_list->next), free_program);
 	// 메모리 해제

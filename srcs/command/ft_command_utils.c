@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 00:48:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/14 15:34:03 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/16 23:10:07 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,33 @@ char		**get_cur_program(int count, t_list *cur_node)
 ** N = count
 */
 
+
 t_list	*get_next_node(int count, t_list *cur_node)
 {
-	t_list	*ret;
 	int		idx;
 
 	idx = 0;
-	ret = cur_node;
-	while (idx < count)
+	while (idx < count && cur_node)
 	{
-		ret = cur_node;
 		cur_node = cur_node->next;
 		idx++;
 	}
-	return (ret);
+	return (cur_node);
 }
+
+
+// t_list	*get_next_node(int count, t_list *cur_node)
+// {
+// 	t_list	*ret;
+// 	int		idx;
+
+// 	idx = 0;
+// 	ret = cur_node;
+// 	while (idx < count)
+// 	{
+// 		ret = cur_node;
+// 		cur_node = cur_node->next;
+// 		idx++;
+// 	}
+// 	return (ret);
+// }
