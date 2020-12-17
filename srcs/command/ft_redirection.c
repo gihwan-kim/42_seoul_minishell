@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:06:57 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/15 13:01:18 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/17 12:02:33 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,92 +21,127 @@ extern char	**g_envp;
 ** command < file	: file's data is input of command
 */
 
-static int		execute(char **program, char *file, char *cmd,
-						t_rediret_info info)
+char	**final_program(t_list *cur_node, char **cur_program)
+{
+	char	**tmp;
+	char	**program;
+	int		idx;
+
+	idx = 1;
+	if (cur_program)
+		program = cur_program;
+	else
+		program = NULL;
+	while ((cur_node = cur_node->next))
+	{
+		cur_program = ((t_cmd*)(cur_node->content))->program;
+		tmp = program;
+		program = ft_splitjoin(tmp, cur_program + 1);
+		if (idx >= 2)
+			free_double_str(tmp);
+		idx++;
+	}
+	return (program);
+}
+
+
+char	**set_program(t_list *cur_node)
+{
+	char	**cur_program;
+
+	cur_program = get_cur_program(1, cur_node);
+	if (!(cur_node->next))
+		return (NULL);								// 'cmd >'	or  '>'
+	if (cur_program[0])								// cmd arg1 > file arg2 arg3 => final_porgarm : cmd arg1 arg2 arg3
+		return (final_program(cur_node, cur_program));
+	else											// > file cmd arg1 arg2 => final_program : cmd arg1 arg2
+		return (final_program(cur_node, NULL));
+}
+
+
+int		file_open(int oflag, int mode, char *file)
 {
 	int		fd;
+
+	fd = open(file, oflag, mode);
+	if (fd < 0)
+	{
+		g_exit_status = 1;
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(file, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		strerror_list(errno);
+		errno = 0;
+	}
+	return (fd);
+}
+
+t_list	*execute_redirection(t_list *node, char **program, int fd, int flag)
+{
 	int		check_cmd_type;
+	int		stream;
 	int		stream_copy;
 
-	stream_copy = dup(info.stream);
-	fd = open(file, info.oflag, info.mode);
-	if (fd < 0)
-		return (ERROR);
-	dup2(fd, info.stream);
+	if (flag == 4)
+		stream = STDIN_FILENO;
+	else
+		stream = STDOUT_FILENO;
+	stream_copy = dup(stream);
+	dup2(fd, stream);
 	close(fd);
-	if ((check_cmd_type = check_command_is_builtin((const char*)cmd)))
+	if ((check_cmd_type = check_command_is_builtin((const char*)program[0])))
 	{
 		execute_built_in(check_cmd_type, program);
 		if (g_exit_status)
 		{
-			dup2(stream_copy, info.stream);
+			dup2(stream_copy, stream);
 			bash_error(g_exit_status, program);
-			return (SUCCESS);
 		}
 	}
 	else
-		if (execute_external_cmd(program) == ERROR)
-			return (ERROR);
-	dup2(stream_copy, info.stream);
-	return (SUCCESS);
+		execute_external_cmd(program);
+	dup2(stream_copy, stream);
+	return (node);	
 }
 
-
-static t_list	*ft_redirection(t_list *cur_node, t_list *next_node,
-								t_rediret_info info)
+t_list	*recursive(t_list *node, char **program, int flag)
 {
-	char	**cur_program;
-	char	**next_program;
-	char	**program;
-	int		check;
+	t_cmd	*cur_cmd;
+	int		mode;
+	int		fd;
 
-	cur_program = get_cur_program(1, cur_node);
-	next_program = get_cur_program(1, next_node);
-	check = SUCCESS;
-	if (!next_node)
+	mode = S_IRUSR | S_IRGRP | S_IROTH;
+	cur_cmd = ((t_cmd*)(node->content));
+	fd = 1;
+	if (flag == 2)												// overwrite
+		fd = file_open(O_CREAT | O_RDWR | O_TRUNC, S_IWUSR | mode, cur_cmd->program[0]);
+	if (flag == 3)												// append
+		fd = file_open(O_CREAT | O_RDWR | O_APPEND, S_IWUSR | mode, cur_cmd->program[0]);
+	if (flag == 4)												// read
+		fd = file_open(O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH, cur_cmd->program[0]);
+	if (fd < 0)													// open 실패
+		return (node);
+	if (cur_cmd->flag <= 1 || node->next == NULL)				// 다음 명령어 없음 또는 리다이렉션이 아님
+		return (execute_redirection(node, program, fd, flag));
+	else														// > >> <
+		return (recursive(node->next, program, cur_cmd->flag));	// 계속 반복하기
+}
+
+t_list	*redirection(t_list *cur_node)
+{
+	char	**program;
+	t_cmd	*cur_cmd;
+	t_list	*ret;
+
+	program = set_program(cur_node);
+	if (program == NULL)
 	{
 		command_error_list(SYNTAX_ERROR);
-		return (cur_node);							// 'cmd >'	or  '>'
+		return (cur_node->next);
 	}
-	if (cur_program[0])								// cmd arg1 > file arg2 arg3 => final_porgarm : cmd arg1 arg2 arg3
-	{
-		program = ft_splitjoin(cur_program, next_program + 1);
-		check = execute(program, next_program[0], cur_program[0], info); // program file cmd
-		free_double_str(program);
-	}
-	else if (next_program[1])						// > file cmd arg1 arg2 => final_program : cmd arg1 arg2
-		check = execute(next_program + 1, next_program[0], next_program[1], info);
-	if (check == ERROR)								// 명령어 실패시 errno 가 설정되는 경우
-		strerror_list(errno);						// 빌트인 명령어는 내부적으로 errno 있을 경우 출력해줌
-	return (next_node);
-}
-
-t_list			*ft_redirection_overwirte(t_list *cur_node)
-{
-	t_rediret_info	info;
-
-	info.oflag = O_CREAT | O_RDWR | O_TRUNC;
-	info.mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	info.stream =  STDOUT_FILENO;
-	return (ft_redirection(cur_node, cur_node->next, info));
-}
-
-t_list			*ft_redirection_append(t_list *cur_node)
-{
-	t_rediret_info	info;
-
-	info.oflag = O_CREAT | O_RDWR | O_APPEND;
-	info.mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	info.stream = STDOUT_FILENO; 
-	return (ft_redirection(cur_node, cur_node->next, info));
-}
-
-t_list			*ft_redirection_read(t_list *cur_node)
-{
-	t_rediret_info	info;
-
-	info.oflag = O_RDONLY;
-	info.mode = S_IRUSR | S_IRGRP | S_IROTH;
-	info.stream = STDIN_FILENO;
-	return (ft_redirection(cur_node, cur_node->next, info));
+	cur_cmd = ((t_cmd*)(cur_node->content));
+	ret = recursive(cur_node->next, program, cur_cmd->flag);
+	if (g_exit_status && errno)
+		strerror_list(errno);
+	return (ret->next);
 }

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/11 14:47:13 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/16 23:10:40 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	check_unset_2(char *str, char *envv)
 	int		i;
 
 	i = 0;
-	printf("str %s\n", str);
 	if(ft_strlen(str) != ft_strlen(envv))
 		return (FALSE);
 	while (str[i] && envv[i] && (str[i] == envv[i]))
