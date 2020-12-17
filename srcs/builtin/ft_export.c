@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/14 16:22:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/17 20:53:30 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	check_env(char *str, char *envv)
 		return (1);
 	return (0);
 }
+
 
 /*
 ** if program is only export string
@@ -49,38 +50,6 @@ int	print_export(char **envv)
 	return (SUCCESS);
 }
 
-static char	**set_new_envv(char **new, char **old, char *str, int i)
-{
-	new[i] = ft_strdup(str);
-	new[i + 1] = NULL;
-	free(old);
-	return (new);
-}
-
-/*
-	export + something
-		name=value
-			목록에 name 있는지 없는지 확인
-				o
-					value 로 수정
-				x
-					새로 추가
-		name= or name="" or name=''
-			목록에 name 있는지 없는지 확인
-				o
-					값 바뀜
-				x				
-					value 가 NULL, 빈문자열로 새로 추가됨
-		name
-			목록에 name 있는지 없는지 확인
-				o
-					값 안바뀜
-				x				
-					value 가 NULL, 빈문자열로 새로 추가됨
-	export + something
-		envv 출력 -> echo 사용?
-*/
-
 int	ft_export(char *str, char ***envv)
 {
 	int			i;
@@ -90,11 +59,8 @@ int	ft_export(char *str, char ***envv)
 	while ((*envv)[++i] != NULL)
 		if (check_env(str, (*envv)[i]))
 		{
-			if (ft_strchr(str, '=')) // =value 또는 = 이 없고 name 만 있을 경우 아무일도 없도록
-			{
-				free((*envv)[i]);
-				(*envv)[i] = ft_strdup(str);
-			}
+			free((*envv)[i]);
+			(*envv)[i] = ft_strdup(str);
 			return (SUCCESS);
 		}
 	if (!(new = malloc(sizeof(char*) * (i + 2))))
@@ -105,10 +71,10 @@ int	ft_export(char *str, char ***envv)
 		new[i] = ft_strdup((*envv)[i]);
 		free((*envv)[i]);
 	}
-	new = set_new_envv(new, *envv, str, i);
-	// new[i] = ft_strdup(str);
-	// new[i + 1] = NULL;
-	// free(*envv);
-	// *envv = new;
+	new[i] = ft_strdup(str);
+	new[i + 1] = NULL;
+	free(*envv);
+	*envv = new;
 	return (SUCCESS);
 }
+

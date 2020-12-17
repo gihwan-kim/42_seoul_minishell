@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:06:57 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/17 00:23:38 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/17 12:02:33 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,18 @@ t_list	*recursive(t_list *node, char **program, int flag)
 	mode = S_IRUSR | S_IRGRP | S_IROTH;
 	cur_cmd = ((t_cmd*)(node->content));
 	fd = 1;
-	if (flag == 2)					// overwrite
+	if (flag == 2)												// overwrite
 		fd = file_open(O_CREAT | O_RDWR | O_TRUNC, S_IWUSR | mode, cur_cmd->program[0]);
-	if (flag == 3)					// append
+	if (flag == 3)												// append
 		fd = file_open(O_CREAT | O_RDWR | O_APPEND, S_IWUSR | mode, cur_cmd->program[0]);
-	if (flag == 4)					// read
+	if (flag == 4)												// read
 		fd = file_open(O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH, cur_cmd->program[0]);
-	if (fd < 0)						// open 실패
+	if (fd < 0)													// open 실패
 		return (node);
-	if (cur_cmd->flag <= 1 || node->next == NULL)		// 다음 명령어 없음 또는 리다이렉션이 아님
+	if (cur_cmd->flag <= 1 || node->next == NULL)				// 다음 명령어 없음 또는 리다이렉션이 아님
 		return (execute_redirection(node, program, fd, flag));
-	else			// > >> <
-		return (recursive(node->next, program, cur_cmd->flag));
+	else														// > >> <
+		return (recursive(node->next, program, cur_cmd->flag));	// 계속 반복하기
 }
 
 t_list	*redirection(t_list *cur_node)
