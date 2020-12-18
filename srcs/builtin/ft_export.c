@@ -6,13 +6,12 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/17 20:53:30 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/18 21:38:14 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-// name, name= 인 경우 찾아줌
 int	check_env(char *str, char *envv)
 {
 	int		i;
@@ -23,11 +22,11 @@ int	check_env(char *str, char *envv)
 		i++;
 	if (i == 0)
 		return (0);
-	if (((envv[i] == '=') && (str[i] == '=')) || ((envv[i] == '=') || str[i] == 0))
+	if (((envv[i] == '=') && (str[i] == '=')) ||
+		((envv[i] == '=') || str[i] == 0))
 		return (1);
 	return (0);
 }
-
 
 /*
 ** if program is only export string
@@ -42,7 +41,7 @@ int	print_export(char **envv)
 	int	i;
 
 	i = -1;
-	while(envv[++i])
+	while (envv[++i])
 	{
 		ft_putstr_fd(envv[i], 1);
 		write(1, "\n", 1);
@@ -52,8 +51,8 @@ int	print_export(char **envv)
 
 int	ft_export(char *str, char ***envv)
 {
-	int			i;
-	char		**new;
+	int		i;
+	char	**new;
 
 	i = -1;
 	while ((*envv)[++i] != NULL)
@@ -77,4 +76,3 @@ int	ft_export(char *str, char ***envv)
 	*envv = new;
 	return (SUCCESS);
 }
-

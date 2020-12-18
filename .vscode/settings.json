@@ -3,6 +3,7 @@
 		"command.h": "c",
 		"chrono": "c",
 		"sstream": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"cstring": "cpp"
 	}
 }

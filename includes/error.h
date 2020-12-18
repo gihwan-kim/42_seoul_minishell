@@ -18,21 +18,3 @@ int		command_error_int(char *comment);
 void	bash_error(int type, char **program);
 #endif
 
-// next_node = cur_node->next;
-// tmp = cur_node;
-// while (next_node)
-// {
-// 	cmd = (t_cmd*)(next_node->content);
-// 	if (cmd->flag == 2 || cmd->flag == 3 || cmd->flag == 0)
-// 	{
-// 		tmp  = tmp->next;
-// 		next_node = next_node->next;
-// 	}
-// 	else
-// 	{
-// 		if (ft_redirection(cur_node, next_node, info) == cur_node)
-// 			return (cur_node);
-// 		return (tmp);
-// 	}
-// }
-// return (ft_redirection(cur_node, next_node, info));

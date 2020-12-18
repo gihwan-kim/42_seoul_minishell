@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_push.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/18 21:48:46 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/12/18 21:49:57 by gihwan-kim       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 
 int		space_count(char *str)
@@ -26,7 +38,7 @@ int		check_next_is_space(char *str)
 	while ((0 <= index) && (str[index] == ' '))
 	{
 		if (ft_strchr(";|><", str[index]))
-			break;
+			break ;
 		count++;
 		index--;
 	}
@@ -35,8 +47,13 @@ int		check_next_is_space(char *str)
 	return (count);
 }
 
+/*
+** if ((info->content->program)[0] == 0 && info->content->flag <= 1)
+** 	> hi echo wow	: error x,	(Ex. '>', '>>', '<' )
+** 	| cmd			: error		(Ex. ';', '|')
+*/
 
-int 	push_content(t_info *info, t_list *ret, char *str, int wow)
+int		push_content(t_info *info, t_list *ret, char *str, int wow)
 {
 	if (wow == 3)
 		info->i++;
@@ -49,18 +66,6 @@ int 	push_content(t_info *info, t_list *ret, char *str, int wow)
 		ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
 		info->j = 0;
 	}
-	/*
-		if ((info->content->program)[0] == 0)
-		{
-			return (ERROR);
-		}
-		원래는 이거 였는데
-
-		> hi echo wow	: 가능
-		| cmd			: 에러 
-		redirection 의 경우 redirection 기호가 명령줄의 어느 위치에 와도 상관 없기 때문에
-		redirectino 이외의 경우는 에러 로 처리한다.
-	*/
 	if ((info->content->program)[0] == 0 && info->content->flag <= 1)
 		return (ERROR);
 	else
@@ -69,7 +74,8 @@ int 	push_content(t_info *info, t_list *ret, char *str, int wow)
 		if (info->i < ((int)ft_strlen(str) - check_next_is_space(str) - 1))
 		{
 			(info->content) = ft_calloc(1, sizeof(t_cmd));
-			(info->content)->program = ft_calloc(space_count(str) + 2, sizeof(char*));
+			(info->content)->program = ft_calloc(space_count(str) + 2,
+													sizeof(char*));
 		}
 	}
 	info->p_i = 0;

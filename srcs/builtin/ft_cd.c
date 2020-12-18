@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 13:04:12 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/14 16:12:40 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/18 21:46:41 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*find_old_pwd(char **envv)
 	return (NULL);
 }
 
-int		ft_cd(char *src, char **envv)
+int			ft_cd(char *src, char **envv)
 {
 	int		ret;
 	char	*buf;

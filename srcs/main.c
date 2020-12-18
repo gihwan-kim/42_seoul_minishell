@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:34:39 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/15 13:00:49 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/17 21:27:01 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int		g_exit_status = 0;
 int		g_signal = 1;
 char	**g_envp = NULL;
 
-void	prompt()
+void	prompt(void)
 {
 	ft_putstr_fd("minishell-", STDERR_FILENO);
 	ft_putstr_fd(VERSION, STDERR_FILENO);
 	ft_putstr_fd("$ ", STDERR_FILENO);
 }
 
-void handler(int signo)
+void	handler(int signo)
 {
 	(void)signo;
 	g_exit_status = 1;
@@ -34,16 +34,16 @@ void handler(int signo)
 		prompt();
 }
 
-int		minishell()
+int		minishell(void)
 {
 	t_list	*cmd_list;
 	char	*line;
-	
+
 	line = NULL;
 	while (1)
 	{
 		prompt();
-		if (!get_next_line(0, &line) && !ft_strlen(line))// ctrl + d
+		if (!get_next_line(0, &line) && !ft_strlen(line))
 		{
 			g_signal = 0;
 			ft_putendl_fd("exit", STDERR_FILENO);

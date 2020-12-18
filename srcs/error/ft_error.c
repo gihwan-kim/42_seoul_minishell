@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 22:51:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/15 12:32:52 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/18 21:27:25 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		command_error_int(char *comment)
 	ft_putendl_fd(comment, STDERR_FILENO);
 	return (ERROR);
 }
+
 t_list	*command_error_list(char *comment)
 {
 	ft_putendl_fd(comment, STDERR_FILENO);
@@ -55,5 +56,14 @@ void	bash_error(int type, char **program)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(program[0], STDERR_FILENO);
 		ft_putendl_fd(" not a valid identifier", STDERR_FILENO);
+	}
+	else if (type == ENOENT)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(program[0], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(program[1], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(strerror(ENOENT), STDERR_FILENO);
 	}
 }
