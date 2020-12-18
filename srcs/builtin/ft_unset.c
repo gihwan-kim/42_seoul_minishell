@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/16 23:10:40 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/18 21:46:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int			check_unset(char *str, char *envv)
 	return (FALSE);
 }
 
-
 /*
 ** envv	: name
 ** str	: name
@@ -40,19 +39,19 @@ static int	check_unset_2(char *str, char *envv)
 	int		i;
 
 	i = 0;
-	if(ft_strlen(str) != ft_strlen(envv))
+	if (ft_strlen(str) != ft_strlen(envv))
 		return (FALSE);
 	while (str[i] && envv[i] && (str[i] == envv[i]))
 		i++;
 	if (i == (int)ft_strlen(str))
 		return (TRUE);
-	return (FALSE);	
+	return (FALSE);
 }
 
 int			ft_unset(char *str, char ***envv)
 {
-	int			i;
-	int			last;
+	int	i;
+	int	last;
 
 	last = 0;
 	while (((*envv)[last]) != NULL)

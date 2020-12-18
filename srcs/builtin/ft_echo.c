@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 20:53:34 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/14 16:16:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/18 21:45:30 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ static int	option_check(char **program, int *idx)
 			i = 2;
 			while (program[(*idx)][i])
 			{
-				if(program[(*idx)][i] != 'n')
+				if (program[(*idx)][i] != 'n')
 				{
 					ret = 0;
-					break;
+					break ;
 				}
 				ret = 1;
 			}
 		}
 		else
-			break;
+			break ;
 	}
 	return (ret);
 }
 
-int ft_echo(char **program)
+int			ft_echo(char **program)
 {
 	int idx;
 	int	check;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_ptr_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihkim <gihkim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:04:49 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/11/24 09:11:05 by gihkim           ###   ########.fr       */
+/*   Updated: 2020/12/18 21:47:05 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**ft_splitjoin(char **split1, char **split2)
 {
-	char	** ret;
+	char	**ret;
 	int		i1;
 	int		i2;
 
@@ -35,7 +35,6 @@ char	**ft_splitjoin(char **split1, char **split2)
 	return (ret);
 }
 
-// 이중 배열 free 함수
 void	free_double_str(char **ptr)
 {
 	int idx;
@@ -64,7 +63,11 @@ int		double_str_len(char **str)
 	return (idx);
 }
 
-// 기존 ptr 은 free 하고 추가된 ptr 이 리턴됨
+/*
+** add str to ptr and make new ptr
+** free previous ptr
+*/
+
 char	**add_double_str(char **ptr, char *str)
 {
 	char	**ret;

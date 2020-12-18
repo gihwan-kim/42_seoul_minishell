@@ -23,13 +23,18 @@ COMMAND_SRCS = \
 				ft_redirection.c \
 				ft_semicolon.c \
 				ft_controller.c \
-				ft_command_utils.c
+				ft_command_utils.c \
+				ft_pipe_utils.c \
+				ft_pipe_utils_2.c \
+				ft_check_cmd.c \
+				ft_execute_builtin_utils.c
 COMMAND_SRCS_DIR = ./srcs/command
 
 PARSING_SRCS = \
 				ft_parsing_push.c \
 				ft_parsing_second.c \
-				ft_parsing_first.c
+				ft_parsing_first.c \
+				ft_parsing_second_utils.c
 
 PARSING_SRCS_DIR = ./srcs/parsing
 
