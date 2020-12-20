@@ -1,0 +1,208 @@
+
+
+[ TEST  NO : 0 ]
+comamnd : cd ../../../../../.. ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /
+	MINI_OUTPUT : /
+
+
+
+
+SCORE  : 1/1 FAIL : 0
+
+
+[ TEST  NO : 1 ]
+comamnd : cd /home/user42/ ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 2/2 FAIL : 0
+
+
+[ TEST  NO : 2 ]
+comamnd : cd $HOME/Bureau ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 3/3 FAIL : 0
+
+
+[ TEST  NO : 3 ]
+comamnd : unset HOME; cd ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 4/4 FAIL : 0
+
+
+[ TEST  NO : 4 ]
+comamnd : export HOME= ; cd ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 5/5 FAIL : 0
+
+
+[ TEST  NO : 5 ]
+comamnd : cd too many arguments ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 6/6 FAIL : 0
+
+
+[ TEST  NO : 6 ]
+comamnd : cd ./path_not_found ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 7/7 FAIL : 0
+
+
+[ TEST  NO : 7 ]
+comamnd : cd - ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 8/8 FAIL : 0
+
+
+[ TEST  NO : 8 ]
+comamnd : mkdir a; mkdir a/b; cd a/b; rm -r ../../a; cd .. ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 139
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell/a/b/..
+	MINI_OUTPUT : 
+
+
+
+
+SCORE  : 8/9 FAIL : 1
+
+
+[ TEST  NO : 9 ]
+comamnd : cd home/.. avec CDPATH set à / ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 9/10 FAIL : 1
+
+
+[ TEST  NO : 10 ]
+comamnd : cd home/dir avec CDPATH set à / ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 10/11 FAIL : 1
+
+
+[ TEST  NO : 11 ]
+comamnd : cd . avec CDPATH set ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+	MINI_OUTPUT : /Users/gihkim/Downloads/42_seoul_minishell
+
+
+
+
+SCORE  : 11/12 FAIL : 1
+
+
+[ TEST  NO : 12 ]
+comamnd : cd .. avec CDPATH set ; pwd
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	BASH_OUTPUT : /Users/gihkim/Downloads
+	MINI_OUTPUT : /Users/gihkim/Downloads
+
+
+
+
+SCORE  : 12/13 FAIL : 1
