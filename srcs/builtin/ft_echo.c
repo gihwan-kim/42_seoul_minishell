@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 20:53:34 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:45:30 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/20 15:33:01 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ static int	option_check(char **program, int *idx)
 			while (program[(*idx)][i])
 			{
 				if (program[(*idx)][i] != 'n')
-				{
-					ret = 0;
-					break ;
-				}
-				ret = 1;
+					return (ret);
+				i++;
 			}
+			ret = 1;
 		}
 		else
 			break ;
@@ -57,11 +55,12 @@ int			ft_echo(char **program)
 	check = option_check(program, &idx);
 	while (program[idx])
 	{
-		if (check)
-			ft_putstr_fd(program[idx], 1);
-		else
-			ft_putendl_fd(program[idx], 1);
+		ft_putstr_fd(program[idx], 1);
+		if (program[idx + 1])
+			write(1, " ", 1);
 		idx++;
 	}
+	if (!check)
+		write(1, "\n", 1);
 	return (SUCCESS);
 }

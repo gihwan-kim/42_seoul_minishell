@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:34:39 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/17 21:27:01 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/20 14:17:32 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ int		main(int argc, char **argv, char **envv)
 	signal(SIGQUIT, handler);
 	signal(SIGTERM, handler);
 	minishell();
+	return (g_exit_status);
 }

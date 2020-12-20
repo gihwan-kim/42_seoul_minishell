@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 13:39:04 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/18 15:55:55 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/20 15:47:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_pwd(void)
 		return (ERROR);
 	if (!getcwd(buf, 1000))
 		return (ERROR);
-	write(0, buf, ft_strlen(buf));
-	write(0, "\n", 1);
+	write(1, buf, ft_strlen(buf));
+	write(1, "\n", 1);
 	free(buf);
 	return (SUCCESS);
 }
