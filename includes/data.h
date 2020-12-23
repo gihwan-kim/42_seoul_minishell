@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 23:52:52 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/15 14:57:55 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 20:03:40 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ typedef struct	s_parsing_info
 	char	quote;
 	char	*buff;
 	t_cmd	*content;
+	t_list	*head;
 }				t_info;

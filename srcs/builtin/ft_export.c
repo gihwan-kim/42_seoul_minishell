@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/18 21:38:14 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 16:04:41 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	ft_export(char *str, char ***envv)
 	int		i;
 	char	**new;
 
+	if (str[0] == '=' || str[0] == '\0')
+		return (ERROR);
 	i = -1;
 	while ((*envv)[++i] != NULL)
 		if (check_env(str, (*envv)[i]))

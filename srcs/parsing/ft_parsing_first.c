@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_first.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:34:33 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:23:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 20:04:09 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	*init(t_info *info, t_list **ret, char *str)
 	info->quote = 0;
 	info->j = 0;
 	*ret = ft_lstnew(NULL);
+	info->head = *ret;
 	if (!(info->buff = ft_calloc(ft_strlen(str) + 1, sizeof(char))))
 		return (parsing_error(info, NULL, MEMORY_ERROR));
 	if (!(info->content = ft_calloc(1, sizeof(t_cmd))))

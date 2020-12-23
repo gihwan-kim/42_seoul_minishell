@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 01:17:44 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/10 14:33:19 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 17:20:42 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+extern int	g_exit_status;
 
 char
 	*path_pro(char const *s1, char const *s2)
@@ -47,9 +49,18 @@ int
 	int		ret;
 	int		i;
 	char	*origin;
+    struct stat sb;
 
 	ret = 0;
 	i = -1;
+	if (path == NULL)
+	{
+		// PATH 환경 변수가 존재하지 않고, 인자(파일) 또한 존재하지 않을 경우
+		// errno 가 2 로 설정되는데 이때 에러 문구 처리가 errno 문자열로 되어야함
+		// 수정하기 12/22
+		if (lstat(info[0], &sb) < 0)
+			return (-1);
+	}
 	ret = execve(info[0], info, envv);
 	while (path[++i])
 	{
@@ -89,6 +100,7 @@ int
 			break ;
 		}
 	result = path_run(info, path, envv);
-	free(path);
+	if (path != NULL)
+		free(path);
 	return (result);
 }

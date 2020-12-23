@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_ptr_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:04:49 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:47:05 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 19:52:11 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,24 @@ char	**ft_splitjoin(char **split1, char **split2)
 	int		i2;
 
 	i1 = 0;
-	while (split1[i1])
-		i1++;
+	if (split1)
+	{
+		while (split1[i1])
+			i1++;
+	}
 	i2 = 0;
 	while (split2[i2])
 		i2++;
 	if (!(ret = ft_calloc(i2 + i1 + 1, sizeof(char*))))
 		return (ret);
 	i1 = -1;
-	while (split1[++i1])
-		ret[i1] = ft_strdup(split1[i1]);
+	if (split1)
+	{
+		while (split1[++i1])
+			ret[i1] = ft_strdup(split1[i1]);
+	}
+	else
+		i1 = 0;
 	i2 = -1;
 	while (split2[++i2])
 		ret[i1 + i2] = ft_strdup(split2[i2]);

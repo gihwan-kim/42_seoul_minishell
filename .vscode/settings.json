@@ -4,6 +4,8 @@
 		"chrono": "c",
 		"sstream": "c",
 		"iterator": "c",
-		"cstring": "cpp"
+		"cstring": "cpp",
+		"bitset": "c",
+		"__config": "c"
 	}
 }

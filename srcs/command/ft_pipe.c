@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:07:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 20:00:13 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 13:48:36 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_list		*ft_pipe(t_list *cur_node)
 
 	if ((pipe_elem_num = count_pipe_element(cur_node)) == 1)
 		return (get_next_node(pipe_elem_num, cur_node));
+
 	if (!init_pipe_fd(pipe_elem_num, &pipe_fd))
 		return (get_next_node(pipe_elem_num, cur_node));
 	if (!init_sub_shell_arr(pipe_elem_num, &sub_shell_arr, &only_parent, &idx))

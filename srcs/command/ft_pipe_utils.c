@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:30:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 20:03:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 13:54:16 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ void		close_dont_use_pipe(int idx, int **pipe_fd, int pipe_elem_num)
 			close_pipe(pipe_fd[i]);
 	}
 }
+
+// 부모 : minishell
+
+// a b c d e
 
 void		execute_pipe(int idx, int **pipe_fd, t_list *cur_node,
 							int pipe_elem_num)

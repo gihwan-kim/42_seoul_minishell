@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_push.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 21:48:46 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:49:57 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 20:19:40 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int		push_content(t_info *info, t_list *ret, char *str, int wow)
 		ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
 		info->j = 0;
 	}
-	if ((info->content->program)[0] == 0 && info->content->flag <= 1)
+	// if ((info->content->program)[0] == 0 && info->content->flag <= 1) : 이전꺼
+	if ((info->content->program)[0] == 0 && (info->content->flag <= 1 || (info->content->flag >=2 && ft_lstsize(info->head) != 1)))
 		return (ERROR);
 	else
 	{

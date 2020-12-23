@@ -55,8 +55,6 @@
                     아무일도 없음
                 x
                     NULL, 빈문자열
-        export + something
-            envv 출력 -> echo 사용?
 
 # echo
     - Bash builtin 

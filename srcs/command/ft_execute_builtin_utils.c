@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_builtin_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:07:22 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 19:56:17 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 17:34:57 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		check_name(char *name)
 			;
 		else
 			return (FALSE);
+	if (!idx)
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -52,14 +54,43 @@ int		execute_ft_export(char **program)
 	int check;
 
 	idx = 0;
+	check = 1;
 	if (double_str_len(program) == 1)
 		check = print_export(g_envp);
 	else
 	{
 		while (program[++idx])
-			check = ft_export(program[idx], &g_envp);
+		{
+			if (ft_export(program[idx], &g_envp))
+				;
+			else
+				check = 0;
+		}
 	}
-	return (check);
+	if (check)
+		return (1);
+	else
+		return (0);
+}
+
+int		execute_ft_unset(char **program)
+{
+	int	unset;
+	int	idx;
+
+	idx = 0;
+	unset = 1;
+	while (program[++idx])
+	{
+		if (check_name(program[idx]) && ft_unset(program[idx], &g_envp))
+			;
+		else
+			unset = 0;
+	}
+	if (unset)
+		return (1);
+	else
+		return (0);
 }
 
 /*
@@ -74,7 +105,7 @@ void	set_g_exit_status(int check)
 		g_exit_status = BASH_SUCCESS;
 	else
 	{
-		if (errno == ENOENT || errno == ESRCH || errno == ENXIO ||
+		if (errno == ESRCH || errno == ENXIO ||
 			errno == ENOTDIR)
 			g_exit_status = BASH_ERR_NOF;
 		else if (errno == EACCES)
@@ -82,24 +113,4 @@ void	set_g_exit_status(int check)
 		else
 			g_exit_status = BASH_ERR_NOL;
 	}
-}
-
-int		execute_ft_unset(char **program)
-{
-	int	unset;
-	int	idx;
-
-	idx = 0;
-	unset = 1;
-	while (program[++idx])
-	{
-		if (check_name(program[idx]))
-			ft_unset(program[idx], &g_envp);
-		else
-			unset = 0;
-	}
-	if (unset)
-		return (1);
-	else
-		return (0);
 }

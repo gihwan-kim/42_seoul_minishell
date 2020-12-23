@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:15:09 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/08 23:45:45 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 17:24:42 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_env(char **envv)
 	i = 0;
 	while (envv[i])
 	{
-		write(0, envv[i], ft_strlen(envv[i]));
-		write(0, "\n", 1);
+		write(STDOUT_FILENO, envv[i], ft_strlen(envv[i]));
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 	return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:06:57 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 19:58:00 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 19:53:28 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ extern char	**g_envp;
 
 char	**final_program(t_list *cur_node, char **cur_program)
 {
+	t_cmd	*cur_cmd;
 	char	**tmp;
 	char	**program;
 	int		idx;
@@ -34,11 +35,14 @@ char	**final_program(t_list *cur_node, char **cur_program)
 		program = NULL;
 	while ((cur_node = cur_node->next))
 	{
-		cur_program = ((t_cmd*)(cur_node->content))->program;
+		cur_cmd = (t_cmd*)(cur_node->content);
+		cur_program = cur_cmd->program;
 		tmp = program;
 		program = ft_splitjoin(tmp, cur_program + 1);
 		if (idx >= 2)
 			free_double_str(tmp);
+		if (cur_cmd->flag < 2)
+			break ;
 		idx++;
 	}
 	return (program);
@@ -140,10 +144,17 @@ t_list	*redirection(t_list *cur_node)
 	cur_program = get_cur_program(1, cur_node);
 	if (!(cur_node->next))
 		program = NULL;
+		int idx = 0;
+	while (cur_program[idx])
+	{
+		printf("|%s|\n", cur_program[idx]);
+		idx++;
+	}
 	if (cur_program[0])
 		program = final_program(cur_node, cur_program);
 	else
 		program = final_program(cur_node, NULL);
+
 	if (program == NULL)
 	{
 		command_error_list(SYNTAX_ERROR);

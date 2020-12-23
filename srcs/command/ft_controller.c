@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_controller.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:03:40 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:37:45 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/23 19:41:18 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	execute_built_in(int builtin_type, char **program)
 	else if (builtin_type == 6)
 		check = ft_env(g_envp);
 	else
+	{
+		// printf("g_ %d\n", g_exit_status);
 		ft_exit(g_exit_status);
+	}
 	set_g_exit_status(check);
 }
 
@@ -66,8 +69,6 @@ t_list	*check_flag(t_list *cur_node)
 ** controller()
 ** 	execute each node of t_list
 **  1. second parsing
-**  2. check flag
-**  3. check command
 **	4. execute command
 */
 
@@ -75,13 +76,21 @@ void	controller(t_list *cmd_list)
 {
 	t_list	*cur_loc;
 	t_cmd	*cmd;
+	char	buf[1000];
 
 	cur_loc = cmd_list->next;
 	while (cur_loc)
 	{
 		cmd = (t_cmd*)(cur_loc->content);
 		cmd->program = parsing_second(cmd->program, (const char **)g_envp);
-		cur_loc = check_flag(cur_loc);
+		// ft_lstiter(cur_loc, print);
+		// if (cmd->program[0] || cmd->flag >= 2)
+			cur_loc = check_flag(cur_loc);
+		// else
+		// 	cur_loc = cur_loc->next;
+		while (NULL == getcwd(buf, 1000))
+			ft_cd("..", g_envp);
+		errno = 0;
 	}
 	ft_lstclear(&(cmd_list->next), free_program);
 }

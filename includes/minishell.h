@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:10:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/11 14:04:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 16:59:19 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <sys/stat.h>
 #include <errno.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <unistd.h>
 #include "../lib/libft/libft.h"
 #include "../lib/libft/get_next_line.h"
 #include "data.h"

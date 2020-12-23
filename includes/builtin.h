@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmai.com>             +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:58:00 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/11 12:39:38 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/21 16:58:51 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #define BUILTIN_H
 
 #include "minishell.h"
-
-// int	ft_first_envv(char ***envv);
 
 char	**ft_first_envv(char **envv);
 

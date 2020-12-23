@@ -13,6 +13,8 @@
 #include "parsing.h"
 #include "error.h"
 
+extern int	g_exit_status;
+
 static void	clear_ptr1(t_info *ptr1)
 {
 	if (ptr1->buff)
@@ -44,6 +46,11 @@ void		*parsing_error(t_info *ptr1, t_list *ptr2, char *comment)
 		ft_lstclear(&(ptr2->next), free_program);
 		free(ptr2);
 	}
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd(comment, STDERR_FILENO);
+	if (!ft_strncmp(comment, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR)))
+		g_exit_status = 2;
+	else
+		g_exit_status = 1;
 	return (NULL);
 }

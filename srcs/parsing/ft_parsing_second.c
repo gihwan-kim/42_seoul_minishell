@@ -12,6 +12,14 @@
 
 #include "parsing.h"
 
+static int	double_quote_escape(char c)
+{
+	if (c == '\'' || c == '\"' || c == '$' || c == 10)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 /*
 ** j : word index
 ** i : buff index
@@ -31,7 +39,8 @@ char	*word_parsing(char **prgm, int *idx, const char **envp, char *buf)
 			quot = 0;
 		else if (quot == 0 && (prgm[*idx][i] == '\'' || prgm[*idx][i] == '\"'))
 			quot = prgm[*idx][i];
-		else if (quot == '\"' && prgm[*idx][i] == '\\' && prgm[*idx][i + 1])
+		else if (quot == '\"' && prgm[*idx][i] == '\\' && prgm[*idx][i + 1] &&
+				double_quote_escape(prgm[*idx][i + 1]))
 			buf[j++] = prgm[*idx][++i];
 		else if (quot == 0 && prgm[*idx][i] == '\\' && prgm[*idx][i + 1])
 			buf[j++] = prgm[*idx][++i];
@@ -59,7 +68,8 @@ char	*word_parsing_splitting(char **prgm, int *idx,
 			quote = 0;
 		else if (quote == 0 && (prgm[0][i] == '\'' || prgm[0][i] == '\"'))
 			quote = prgm[0][i];
-		else if (quote == '\"' && prgm[0][i] == '\\' && prgm[0][i + 1])
+		else if (quote == '\"' && prgm[0][i] == '\\' && prgm[0][i + 1] &&
+				double_quote_escape(prgm[0][i + 1]))
 			buf[j++] = prgm[0][++i];
 		else if (quote == 0 && prgm[0][i] == '\\' && prgm[0][i + 1])
 			buf[j++] = prgm[0][++i];
@@ -67,9 +77,8 @@ char	*word_parsing_splitting(char **prgm, int *idx,
 			if (prgm[0][i + 1] == '?' && (i += 2))
 				set_exit_status_to_buf(buf);
 			else
-				check_split(&j,
-							set_env_to_buf(envp, find_env(prgm[0], &i), buf),
-							idx, quote);
+				check_split(&j, set_env_to_buf(envp, 
+						find_env(prgm[0], &i), buf), idx, quote);
 		else
 			buf[j++] = prgm[0][i];
 	free(prgm[0]);

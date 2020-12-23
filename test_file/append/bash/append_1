@@ -1,0 +1,21 @@
+void	execute_built_in(int builtin_type, char **program)
+{
+	int	check;
+
+	check = 0;
+	if (builtin_type == 1)
+		check = ft_echo(program);
+	else if (builtin_type == 2)
+		check = execute_ft_cd(program);
+	else if (builtin_type == 3)
+		check = ft_pwd();
+	else if (builtin_type == 4)
+		check = execute_ft_export(program);
+	else if (builtin_type == 5)
+		check = execute_ft_unset(program);
+	else if (builtin_type == 6)
+		check = ft_env(g_envp);
+	else
+		ft_exit(g_exit_status);
+	set_g_exit_status(check);
+}
