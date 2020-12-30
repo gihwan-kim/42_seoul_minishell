@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 21:48:46 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/23 20:19:40 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/28 14:55:49 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ int		check_next_is_space(char *str)
 	return (count);
 }
 
+static void	push_program(t_info *info)
+{
+	info->content->program[info->p_i] = ft_strdup((info->buff));
+	info->content->program[info->p_i + 1] = NULL;
+	(info->p_i)++;
+	ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
+	info->j = 0;
+}
+
 /*
 ** if ((info->content->program)[0] == 0 && info->content->flag <= 1)
 ** 	> hi echo wow	: error x,	(Ex. '>', '>>', '<' )
@@ -59,15 +68,8 @@ int		push_content(t_info *info, t_list *ret, char *str, int wow)
 		info->i++;
 	info->content->flag = wow;
 	if (*(info->buff))
-	{
-		info->content->program[info->p_i] = ft_strdup((info->buff));
-		info->content->program[info->p_i + 1] = NULL;
-		(info->p_i)++;
-		ft_bzero((info->buff), ft_strlen((info->buff)) + 1);
-		info->j = 0;
-	}
-	// if ((info->content->program)[0] == 0 && info->content->flag <= 1) : 이전꺼
-	if ((info->content->program)[0] == 0 && (info->content->flag <= 1 || (info->content->flag >=2 && ft_lstsize(info->head) != 1)))
+		push_program(info);
+	if ((info->content->program)[0] == 0 && info->content->flag <= 1)
 		return (ERROR);
 	else
 	{
@@ -77,6 +79,7 @@ int		push_content(t_info *info, t_list *ret, char *str, int wow)
 			(info->content) = ft_calloc(1, sizeof(t_cmd));
 			(info->content)->program = ft_calloc(space_count(str) + 2,
 													sizeof(char*));
+			info->head = ft_lstlast(ret);
 		}
 	}
 	info->p_i = 0;

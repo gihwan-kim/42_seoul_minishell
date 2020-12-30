@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:07:22 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/21 17:34:57 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/28 23:01:38 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ void	set_g_exit_status(int check)
 	{
 		if (errno == ESRCH || errno == ENXIO ||
 			errno == ENOTDIR)
-			g_exit_status = BASH_ERR_NOF;
+			g_exit_status = BASH_ERR_NOF * 256;
 		else if (errno == EACCES)
-			g_exit_status = BASH_ERR_EXE;
+			g_exit_status = BASH_ERR_EXE * 256;
 		else
-			g_exit_status = BASH_ERR_NOL;
+			g_exit_status = BASH_ERR_NOL * 256;
 	}
 }

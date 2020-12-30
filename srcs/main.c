@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:34:39 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/20 14:17:32 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 15:49:09 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	prompt(void)
 void	handler(int signo)
 {
 	(void)signo;
-	g_exit_status = 1;
+	g_exit_status = 256;
 	write(STDERR_FILENO, "\b\b", 2);
 	if (signo != SIGTERM)
 		write(STDERR_FILENO, "  \n", 3);

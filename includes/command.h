@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 22:43:24 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 14:36:56 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 22:11:43 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	close_pipe(int *pipe_fd);
 
 typedef struct	s_redirection_info
 {
-	int			oflag;
-	int			mode;
-	int			stream;
+	int			_stdin;
+	int			_stdout;
+	int			_copy_stdin;
+	int			_copy_stdout;
 }				t_rediret_info;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:07:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/21 13:48:36 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 23:04:50 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,8 @@ static void	wait_process(int idx, int pipe_elem_num,
 	while (++idx < pipe_elem_num)
 	{
 		waitpid(sub_shell_arr[idx], &g_exit_status, 0);
-		g_exit_status = g_exit_status / 256;
 		if (g_exit_status)
-			bash_error(g_exit_status, cmd->program);
+			bash_error(g_exit_status / 256, cmd->program);
 	}
 }
 
@@ -109,7 +108,6 @@ t_list		*ft_pipe(t_list *cur_node)
 
 	if ((pipe_elem_num = count_pipe_element(cur_node)) == 1)
 		return (get_next_node(pipe_elem_num, cur_node));
-
 	if (!init_pipe_fd(pipe_elem_num, &pipe_fd))
 		return (get_next_node(pipe_elem_num, cur_node));
 	if (!init_sub_shell_arr(pipe_elem_num, &sub_shell_arr, &only_parent, &idx))

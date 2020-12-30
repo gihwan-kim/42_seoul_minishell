@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 20:46:06 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/21 17:22:34 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/28 22:51:08 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 
 extern int	g_exit_status;
 extern char	**g_envp;
-
-/*
-** builtin 명령어가 아닐 경우 execute_external_cmd() 함수를 실행
-** 올바른 명령어가 아닐 경우 g_exit_status 을 127 로 지정
-**
-** builtin 명령어일 경우 execute_built_in() 함수 실행후
-** 해당 함수에서 g_exit_status 값 지정해줌
-*/
 
 int		execute_external_cmd(char **cur_program)
 {
@@ -33,9 +25,9 @@ int		execute_external_cmd(char **cur_program)
 	if (only_parent)
 	{
 		waitpid(only_parent, &child_status, 0);
-		g_exit_status = child_status / 256;
+		g_exit_status = child_status;
 		if (g_exit_status)
-			bash_error(g_exit_status, cur_program);
+			bash_error(g_exit_status / 256, cur_program);
 	}
 	else
 	{
@@ -55,7 +47,7 @@ t_list	*ft_semicolon(t_list *cur_node)
 	{
 		execute_built_in(check_cmd_type, cur_prgm);
 		if (g_exit_status && errno == 0)
-			bash_error(g_exit_status, ((t_cmd*)(cur_node->content))->program);
+			bash_error(g_exit_status / 256, ((t_cmd*)(cur_node->content))->program);
 		else if (g_exit_status && errno == ENOENT)
 			bash_error(ENOENT, ((t_cmd*)(cur_node->content))->program);
 	}

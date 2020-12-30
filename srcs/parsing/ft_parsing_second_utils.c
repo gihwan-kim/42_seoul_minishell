@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_second_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 19:09:00 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:48:17 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 23:00:04 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,14 @@ int			set_env_to_buf(const char **envv, char *env, char *buf)
 	return ((int)ft_strlen(buf));
 }
 
-void		set_exit_status_to_buf(char *buf)
+void		set_exit_status_to_buf(char *buf, int *j, int *i)
 {
 	char	*status;
 	int		idx;
 
 	idx = 0;
-	status = ft_itoa(g_exit_status);
+	status = ft_itoa(g_exit_status / 256);
 	ft_strlcat(buf, status, ft_strlen(buf) + ft_strlen(status) + 1);
+	*j += ft_strlen(status);
+	*i -= 1;
 }

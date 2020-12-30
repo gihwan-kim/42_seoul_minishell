@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 21:30:37 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/21 13:54:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 23:07:50 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	write_process(int idx, int *pipe_fd, t_list *cur_node)
 	if ((check_cmd_type = check_command_is_builtin((const char *)cur_prgm[0])))
 	{
 		execute_built_in(check_cmd_type, cur_prgm);
-		exit(g_exit_status);
+		exit(g_exit_status / 256);
 	}
 	else if (ft_execve(cur_prgm, g_envp) < 0)
 		exit(BASH_ERR_NOF);
@@ -79,7 +79,7 @@ static void	read_and_write_process(int idx, int **pipe_fd,
 	if ((check_cmd_type = check_command_is_builtin((const char *)cur_prgm[0])))
 	{
 		execute_built_in(check_cmd_type, cur_prgm);
-		exit(g_exit_status);
+		exit(g_exit_status / 256);
 	}
 	else if (ft_execve(cur_prgm, g_envp) < 0)
 		exit(BASH_ERR_NOF);
@@ -107,10 +107,6 @@ void		close_dont_use_pipe(int idx, int **pipe_fd, int pipe_elem_num)
 			close_pipe(pipe_fd[i]);
 	}
 }
-
-// 부모 : minishell
-
-// a b c d e
 
 void		execute_pipe(int idx, int **pipe_fd, t_list *cur_node,
 							int pipe_elem_num)

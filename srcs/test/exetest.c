@@ -81,7 +81,7 @@ int main(int argc, char **argv, char **envp)
 	else if(child_pid > 0)
 	{
 			wait(&stat_loc);
-			printf("parent! %d\n", stat_loc/256);
+			printf("parent! %d\n", stat_loc % 256);
 	}
 	else
 	{

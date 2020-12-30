@@ -46,7 +46,7 @@ char	*word_parsing(char **prgm, int *idx, const char **envp, char *buf)
 			buf[j++] = prgm[*idx][++i];
 		else if (quot != '\'' && prgm[*idx][i] == '$' && prgm[*idx][i + 1])
 			if (prgm[*idx][i + 1] == '?' && (i += 2))
-				set_exit_status_to_buf(buf);
+				set_exit_status_to_buf(buf, &j, &i);
 			else
 				j = set_env_to_buf(envp, find_env(prgm[*idx], &i), buf);
 		else
@@ -75,7 +75,7 @@ char	*word_parsing_splitting(char **prgm, int *idx,
 			buf[j++] = prgm[0][++i];
 		else if (quote != '\'' && prgm[0][i] == '$' && prgm[0][i + 1])
 			if (prgm[0][i + 1] == '?' && (i += 2))
-				set_exit_status_to_buf(buf);
+				set_exit_status_to_buf(buf, &j, &i);
 			else
 				check_split(&j, set_env_to_buf(envp, 
 						find_env(prgm[0], &i), buf), idx, quote);

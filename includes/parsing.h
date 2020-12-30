@@ -31,7 +31,7 @@ void	check_split(int *j, int z, int *idx, char quote);
 void	init_word_parsing(char *quote, int *j, int *i);
 char	*find_env(char *str, int *i);
 int		set_env_to_buf(const char **envv, char *env, char *buf);
-void	set_exit_status_to_buf(char *buf);
+void	set_exit_status_to_buf(char *buf, int *j, int *i);
 
 char	**parsing_second(char **program, const char **envp);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 21:26:34 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:26:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/28 15:11:42 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void		*parsing_error(t_info *ptr1, t_list *ptr2, char *comment)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd(comment, STDERR_FILENO);
 	if (!ft_strncmp(comment, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR)))
-		g_exit_status = 2;
+		g_exit_status = 2 * 256;
 	else
-		g_exit_status = 1;
+		g_exit_status = 1 * 256;
 	return (NULL);
 }

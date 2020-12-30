@@ -16,7 +16,9 @@ extern int g_exit_status;
 extern char	**envp;
 
 /*
-	리다이렉션 백업 파일 
+	리다이렉션 백업 파일
+
+	리다이렉션 기호가 하나일 때만 정상 작동함 
 */
 
 
