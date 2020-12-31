@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:06:57 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/28 23:56:58 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 21:04:27 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,20 @@
 
 extern int	g_exit_status;
 extern char	**g_envp;
-int			g_stream_backup = 0;
+int			g_stdin = -1;
+int			g_stdout = -1;
 
-int			_stdin = -1;
-int			_stdout = -1;
 /*
 ** command > file	: overwrite or creat new file
 ** command >> file	: append
 ** command < file	: file's data is input of command
 */
 
-// program 이 아무것도 없다면? > file arg > > > > :  에러 처리 !!! 12/26
-char	**final_program(t_list *cur_node, char **cur_program)
-{
-	t_cmd	*cur_cmd;
-	char	**tmp;
-	char	**program;
-	int		idx;
-
-	idx = 1;
-	if (cur_program)
-		program = cur_program;
-	else
-		program = NULL;
-	while ((cur_node = cur_node->next))
-	{
-		cur_cmd = (t_cmd*)(cur_node->content);
-		cur_program = cur_cmd->program;
-		if (cur_program[0] == 0)
-			return (NULL);
-		tmp = program;
-		program = ft_splitjoin(tmp, cur_program + 1);
-		if (idx >= 2)
-			free_double_str(tmp);
-		if (cur_cmd->flag < 2)
-			break ; 
-		idx++;
-	}
-	return (program);
-}
-
 int		file_open(int oflag, int mode, char *file, int flag)
 {
 	int		fd;
 	int		stream;
+
 	fd = open(file, oflag, mode);
 	if (fd < 0)
 	{
@@ -68,7 +38,7 @@ int		file_open(int oflag, int mode, char *file, int flag)
 		strerror_list(errno);
 		errno = 0;
 		return (fd);
-	}	
+	}
 	if (flag == 4)
 		stream = STDIN_FILENO;
 	else
@@ -77,7 +47,7 @@ int		file_open(int oflag, int mode, char *file, int flag)
 	return (stream);
 }
 
-t_list	*execute_redirection(t_list *node, char **program, int stream)
+t_list	*execute_redirection(t_list *node, char **program)
 {
 	int		check_cmd_type;
 
@@ -88,7 +58,6 @@ t_list	*execute_redirection(t_list *node, char **program, int stream)
 		execute_built_in(check_cmd_type, program);
 		if (g_exit_status)
 		{
-			dup2(g_stream_backup, stream);
 			if (g_exit_status && errno == 0)
 				bash_error(g_exit_status / 256, program);
 			else if (g_exit_status && errno == ENOENT)
@@ -126,14 +95,14 @@ t_list	*recursive(t_list *node, char **program, int flag, int fd)
 		fd = file_open(O_CREAT | O_RDWR | O_APPEND,
 						S_IWUSR | mode, cur_cmd->program[0], flag);
 	if (flag == 4)
-		fd = file_open(O_RDONLY ,S_IRUSR | S_IRGRP | S_IROTH,
+		fd = file_open(O_RDONLY, S_IRUSR | S_IRGRP | S_IROTH,
 						cur_cmd->program[0], flag);
 	if (fd < 0)
 		return (node);
-	if (cur_cmd->flag >=2 && node->next != NULL)
+	if (cur_cmd->flag >= 2 && node->next != NULL)
 		return (recursive(node->next, program, cur_cmd->flag, fd));
 	if (cur_cmd->flag <= 1 || node->next == NULL)
-		return (execute_redirection(node, program, fd));
+		return (execute_redirection(node, program));
 	return (NULL);
 }
 
@@ -148,19 +117,12 @@ t_list	*recursive(t_list *node, char **program, int flag, int fd)
 
 t_list	*redirection(t_list *cur_node)
 {
-	char	**cur_program;
 	char	**program;
 	t_list	*ret;
 
-	cur_program = get_cur_program(1, cur_node);
-	_stdout = dup(STDOUT_FILENO);
-	_stdin = dup(STDIN_FILENO);
-	if (!(cur_node->next))
-		program = NULL;
-	if (cur_program[0])
-		program = final_program(cur_node, cur_program);
-	else
-		program = final_program(cur_node, NULL);
+	g_stdout = dup(STDOUT_FILENO);
+	g_stdin = dup(STDIN_FILENO);
+	program = redir_set_program(cur_node, get_cur_program(1, cur_node));
 	if (program == NULL || cur_node->next == NULL)
 	{
 		g_exit_status = 2 * 256;
@@ -170,10 +132,11 @@ t_list	*redirection(t_list *cur_node)
 			cur_node = cur_node->next;
 		return (cur_node);
 	}
-	ret = recursive(cur_node->next, program, ((t_cmd*)(cur_node->content))->flag, 0);
-	if (_stdin >= 0)
-		dup2(_stdin, STDIN_FILENO);
-	if (_stdout >= 0)
-		dup2(_stdout, STDOUT_FILENO);
+	ret = recursive(cur_node->next, program,
+		((t_cmd*)(cur_node->content))->flag, 0);
+	if (g_stdin >= 0)
+		dup2(g_stdin, STDIN_FILENO);
+	if (g_stdout >= 0)
+		dup2(g_stdout, STDOUT_FILENO);
 	return (ret->next);
 }

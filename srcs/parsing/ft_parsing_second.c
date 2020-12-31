@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_second.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:34:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/18 21:43:41 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/12/31 21:08:47 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	double_quote_escape(char c)
 ** pro
 */
 
-char	*word_parsing(char **prgm, int *idx, const char **envp, char *buf)
+char		*word_parsing(char **prgm, int *idx, const char **envp, char *buf)
 {
 	char	quot;
 	int		j;
@@ -55,7 +55,7 @@ char	*word_parsing(char **prgm, int *idx, const char **envp, char *buf)
 	return (ft_strdup(buf));
 }
 
-char	*word_parsing_splitting(char **prgm, int *idx,
+char		*word_parsing_splitting(char **prgm, int *idx,
 									const char **envp, char *buf)
 {
 	char	quote;
@@ -77,7 +77,7 @@ char	*word_parsing_splitting(char **prgm, int *idx,
 			if (prgm[0][i + 1] == '?' && (i += 2))
 				set_exit_status_to_buf(buf, &j, &i);
 			else
-				check_split(&j, set_env_to_buf(envp, 
+				check_split(&j, set_env_to_buf(envp,
 						find_env(prgm[0], &i), buf), idx, quote);
 		else
 			buf[j++] = prgm[0][i];
@@ -90,7 +90,7 @@ char	*word_parsing_splitting(char **prgm, int *idx,
 ** check $, escpae
 */
 
-char	**parsing_second(char **program, const char **envp)
+char		**parsing_second(char **program, const char **envp)
 {
 	char	*tmp;
 	char	buf[100000];

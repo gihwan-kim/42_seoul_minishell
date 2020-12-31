@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:07:34 by sancho            #+#    #+#             */
-/*   Updated: 2020/12/21 16:04:41 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 20:31:53 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ int	print_export(char **envv)
 	return (SUCCESS);
 }
 
+void
+	ft_export_new(char *str, char **new, int i)
+{
+	new[i] = ft_strdup(str);
+	new[i + 1] = NULL;
+}
+
 int	ft_export(char *str, char ***envv)
 {
 	int		i;
@@ -72,8 +79,7 @@ int	ft_export(char *str, char ***envv)
 		new[i] = ft_strdup((*envv)[i]);
 		free((*envv)[i]);
 	}
-	new[i] = ft_strdup(str);
-	new[i + 1] = NULL;
+	ft_export_new(str, new, i);
 	free(*envv);
 	*envv = new;
 	return (SUCCESS);

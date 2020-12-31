@@ -1,0 +1,1964 @@
+[	ECHO	]
+
+
+
+
+[ TEST  NO : 0 ]
+
+comamnd : |echo -n fsadf echo a|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+fsadf echo a
+	[ MINI_OUTPUT ]
+fsadf echo a
+
+
+SUCCESS !!
+
+
+SCORE  : 1/1 FAIL : 0
+
+
+[ TEST  NO : 1 ]
+
+comamnd : |echo -n -nnn hello -n ; echo a|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello -na
+	[ MINI_OUTPUT ]
+hello -na
+
+
+SUCCESS !!
+
+
+SCORE  : 2/2 FAIL : 0
+
+
+[ TEST  NO : 2 ]
+
+comamnd : |echo abc; echo "single<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+abc
+single quote
+	[ MINI_OUTPUT ]
+abc
+single quote
+
+
+SUCCESS !!
+
+
+SCORE  : 3/3 FAIL : 0
+
+
+[ TEST  NO : 3 ]
+
+comamnd : |echo $PATH; echo $USER; echo $NOTHING|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+sg
+	[ MINI_OUTPUT ]
+/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+sg
+
+
+SUCCESS !!
+
+
+SCORE  : 4/4 FAIL : 0
+
+
+[ TEST  NO : 4 ]
+
+comamnd : |echo bonjour; echo hello; echo namastte|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+bonjour
+hello
+namastte
+	[ MINI_OUTPUT ]
+bonjour
+hello
+namastte
+
+
+SUCCESS !!
+
+
+SCORE  : 5/5 FAIL : 0
+
+
+[ TEST  NO : 5 ]
+
+comamnd : |echo[TAB]a|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 6/6 FAIL : 0
+
+
+[ TEST  NO : 6 ]
+
+comamnd : |echo\ a|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 7/7 FAIL : 0
+
+
+[ TEST  NO : 7 ]
+
+comamnd : |echo "\s" ; echo "\s"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+\s
+\s
+	[ MINI_OUTPUT ]
+\s
+\s
+
+
+FAIL !!
+
+
+SCORE  : 7/8 FAIL : 1
+
+
+[ TEST  NO : 8 ]
+
+comamnd : |echo "12""|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+12"
+	[ MINI_OUTPUT ]
+12"
+
+
+SUCCESS !!
+
+
+SCORE  : 8/9 FAIL : 1
+
+
+[ TEST  NO : 9 ]
+
+comamnd : |echo "bip | bip ; coyotte > < " "|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+bip | bip ; coyotte > < " 
+	[ MINI_OUTPUT ]
+bip | bip ; coyotte > < " 
+
+
+SUCCESS !!
+
+
+SCORE  : 9/10 FAIL : 1
+
+
+[ TEST  NO : 10 ]
+
+comamnd : |echo \>1|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+>1
+	[ MINI_OUTPUT ]
+>1
+
+
+SUCCESS !!
+
+
+SCORE  : 10/11 FAIL : 1
+
+
+[ TEST  NO : 11 ]
+
+comamnd : |echo $USER$var\$USER$USER\$USERtest$USER|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg$USERsg$USERtestsg
+	[ MINI_OUTPUT ]
+sg$USERsg$USERtestsg
+
+
+SUCCESS !!
+
+
+SCORE  : 11/12 FAIL : 1
+
+
+[ TEST  NO : 12 ]
+
+comamnd : |echo bonjour \|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+bonjour  
+	[ MINI_OUTPUT ]
+bonjour  
+
+
+SUCCESS !!
+
+
+SCORE  : 12/13 FAIL : 1
+
+
+[ TEST  NO : 13 ]
+
+comamnd : |echo sg|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg
+	[ MINI_OUTPUT ]
+sg
+
+
+SUCCESS !!
+
+
+SCORE  : 13/14 FAIL : 1
+
+
+[ TEST  NO : 14 ]
+
+comamnd : |echo "$USER"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg
+	[ MINI_OUTPUT ]
+sg
+
+
+SUCCESS !!
+
+
+SCORE  : 14/15 FAIL : 1
+
+
+[ TEST  NO : 15 ]
+
+comamnd : |echo $USER|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg
+	[ MINI_OUTPUT ]
+sg
+
+
+SUCCESS !!
+
+
+SCORE  : 15/16 FAIL : 1
+
+
+[ TEST  NO : 16 ]
+
+comamnd : |echo sg|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg
+	[ MINI_OUTPUT ]
+sg
+
+
+SUCCESS !!
+
+
+SCORE  : 16/17 FAIL : 1
+
+
+[ TEST  NO : 17 ]
+
+comamnd : |echo $USER=aaa|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+sg=aaa
+	[ MINI_OUTPUT ]
+sg=aaa
+
+
+SUCCESS !!
+
+
+SCORE  : 17/18 FAIL : 1
+
+
+[ TEST  NO : 18 ]
+
+comamnd : |echo $HELLO=aaa|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+=aaa
+	[ MINI_OUTPUT ]
+=aaa
+
+
+SUCCESS !!
+
+
+SCORE  : 18/19 FAIL : 1
+
+
+[ TEST  NO : 19 ]
+
+comamnd : |echo aa"bb$USER"cc|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+aabbsgcc
+	[ MINI_OUTPUT ]
+aabbsgcc
+
+
+SUCCESS !!
+
+
+SCORE  : 19/20 FAIL : 1
+
+
+[ TEST  NO : 20 ]
+
+comamnd : |echo aa"bb$USER cc"dd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+aabbsg ccdd
+	[ MINI_OUTPUT ]
+aabbsg ccdd
+
+
+SUCCESS !!
+
+
+SCORE  : 20/21 FAIL : 1
+
+
+[ TEST  NO : 21 ]
+
+comamnd : |echo aa"bb$USERcc"dd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+aabbdd
+	[ MINI_OUTPUT ]
+aabbdd
+
+
+SUCCESS !!
+
+
+SCORE  : 21/22 FAIL : 1
+
+
+[ TEST  NO : 22 ]
+
+comamnd : |echo "hello$USER_"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 22/23 FAIL : 1
+
+
+[ TEST  NO : 23 ]
+
+comamnd : |echo "hello
+man"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+man
+	[ MINI_OUTPUT ]
+hello
+man
+
+
+SUCCESS !!
+
+
+SCORE  : 23/24 FAIL : 1
+
+
+[ TEST  NO : 24 ]
+
+comamnd : |echo hello
+man|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hellonman
+	[ MINI_OUTPUT ]
+hellonman
+
+
+SUCCESS !!
+
+
+SCORE  : 24/25 FAIL : 1
+
+
+[ TEST  NO : 25 ]
+
+comamnd : |echo "hello\ man"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello\ man
+	[ MINI_OUTPUT ]
+hello\ man
+
+
+SUCCESS !!
+
+
+SCORE  : 25/26 FAIL : 1
+
+
+[ TEST  NO : 26 ]
+
+comamnd : |ec"""ho""" hello|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 26/27 FAIL : 1
+
+
+[ TEST  NO : 27 ]
+
+comamnd : |ec"ho" hello|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 27/28 FAIL : 1
+
+
+[ TEST  NO : 28 ]
+
+comamnd : |echo hello|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 28/29 FAIL : 1
+
+
+[ TEST  NO : 29 ]
+
+comamnd : |ec"ho" hello|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 29/30 FAIL : 1
+
+
+[ TEST  NO : 30 ]
+
+comamnd : |echo hello "|" grep h|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello | grep h
+	[ MINI_OUTPUT ]
+hello | grep h
+
+
+SUCCESS !!
+
+
+SCORE  : 30/31 FAIL : 1
+
+
+[ TEST  NO : 31 ]
+
+comamnd : |echo hello | grep h|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+hello
+	[ MINI_OUTPUT ]
+hello
+
+
+SUCCESS !!
+
+
+SCORE  : 31/32 FAIL : 1
+[	CD	]
+
+
+
+
+[ TEST  NO : 32 ]
+
+comamnd : |cd ../../../../../.. ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/
+	[ MINI_OUTPUT ]
+/
+
+
+SUCCESS !!
+
+
+SCORE  : 32/33 FAIL : 1
+
+
+[ TEST  NO : 33 ]
+
+comamnd : |cd /home/user42/ ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 33/34 FAIL : 1
+
+
+[ TEST  NO : 34 ]
+
+comamnd : |cd $HOME/Bureau ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 34/35 FAIL : 1
+
+
+[ TEST  NO : 35 ]
+
+comamnd : |unset HOME; cd ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 35/36 FAIL : 1
+
+
+[ TEST  NO : 36 ]
+
+comamnd : |export HOME= ; cd ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 36/37 FAIL : 1
+
+
+[ TEST  NO : 37 ]
+
+comamnd : |cd too many arguments ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 37/38 FAIL : 1
+
+
+[ TEST  NO : 38 ]
+
+comamnd : |cd ./path_not_found ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 38/39 FAIL : 1
+
+
+[ TEST  NO : 39 ]
+
+comamnd : |cd - ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 39/40 FAIL : 1
+
+
+[ TEST  NO : 40 ]
+
+comamnd : |mkdir a; mkdir a/b; cd a/b; rm -r ../../a; cd .. ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 139
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell/a/b/..
+	[ MINI_OUTPUT ]
+
+
+
+FAIL !!
+
+
+SCORE  : 39/41 FAIL : 2
+
+
+[ TEST  NO : 41 ]
+
+comamnd : |cd home/.. avec CDPATH set à / ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 40/42 FAIL : 2
+
+
+[ TEST  NO : 42 ]
+
+comamnd : |cd home/dir avec CDPATH set à / ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 41/43 FAIL : 2
+
+
+[ TEST  NO : 43 ]
+
+comamnd : |cd . avec CDPATH set ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 42/44 FAIL : 2
+
+
+[ TEST  NO : 44 ]
+
+comamnd : |cd .. avec CDPATH set ; pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp
+	[ MINI_OUTPUT ]
+/Users/sg/temp
+
+
+SUCCESS !!
+
+
+SCORE  : 43/45 FAIL : 2
+[	PWD	]
+
+
+
+
+[ TEST  NO : 45 ]
+
+comamnd : |pwd|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 44/46 FAIL : 2
+
+
+[ TEST  NO : 46 ]
+
+comamnd : |pwd lalala|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+	[ MINI_OUTPUT ]
+/Users/sg/temp/42_seoul_minishell
+
+
+SUCCESS !!
+
+
+SCORE  : 45/47 FAIL : 2
+[	EXPORT	]
+
+
+
+
+[ TEST  NO : 47 ]
+
+comamnd : |export var=a ; export $var=test ; echo $var $a|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+a test
+	[ MINI_OUTPUT ]
+a test
+
+
+SUCCESS !!
+
+
+SCORE  : 46/48 FAIL : 2
+
+
+[ TEST  NO : 48 ]
+
+comamnd : |export var=a ; export $var=test|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 47/49 FAIL : 2
+
+
+[ TEST  NO : 49 ]
+
+comamnd : |export $var=test avec var unset|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 1
+	MINI_EXIT_STATUS : 1
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 48/50 FAIL : 2
+
+
+[ TEST  NO : 50 ]
+
+comamnd : |export $not_thing=test; echo $not_thing|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 49/51 FAIL : 2
+
+
+[ TEST  NO : 51 ]
+
+comamnd : |export test=test variable=variable; echo $test $variable|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+test variable
+	[ MINI_OUTPUT ]
+test variable
+
+
+SUCCESS !!
+
+
+SCORE  : 50/52 FAIL : 2
+
+
+[ TEST  NO : 52 ]
+
+comamnd : |export var=test; echo $var|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+test
+	[ MINI_OUTPUT ]
+test
+
+
+SUCCESS !!
+
+
+SCORE  : 51/53 FAIL : 2
+
+
+[ TEST  NO : 53 ]
+
+comamnd : |export "" test=a; echo $test|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+a
+	[ MINI_OUTPUT ]
+a
+
+
+SUCCESS !!
+
+
+SCORE  : 52/54 FAIL : 2
+
+
+[ TEST  NO : 54 ]
+
+comamnd : |export "" test=a puis env; echo $test|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+a
+	[ MINI_OUTPUT ]
+a
+
+
+SUCCESS !!
+
+
+SCORE  : 53/55 FAIL : 2
+
+
+[ TEST  NO : 55 ]
+
+comamnd : |export ""  et unset ""|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 1
+	MINI_EXIT_STATUS : 1
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 54/56 FAIL : 2
+
+
+[ TEST  NO : 56 ]
+
+comamnd : |export "test=ici"=coucou ; echo $test|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+ici=coucou
+	[ MINI_OUTPUT ]
+ici=coucou
+
+
+SUCCESS !!
+
+
+SCORE  : 55/57 FAIL : 2
+
+
+[ TEST  NO : 57 ]
+
+comamnd : |export var="cat Makefile | grep >"|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 56/58 FAIL : 2
+
+
+[ TEST  NO : 58 ]
+
+comamnd : |export var="cat Makefile | grep >" ; echo $var|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+cat Makefile | grep >
+	[ MINI_OUTPUT ]
+cat Makefile | grep >
+
+
+SUCCESS !!
+
+
+SCORE  : 57/59 FAIL : 2
+[	UNSET	]
+
+
+
+
+[ TEST  NO : 59 ]
+
+comamnd : |unset PATH ; echo $PATH|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 58/60 FAIL : 2
+
+
+[ TEST  NO : 60 ]
+
+comamnd : |unset PATH ; ls|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 59/61 FAIL : 2
+
+
+[ TEST  NO : 61 ]
+
+comamnd : |unset "" test|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 1
+	MINI_EXIT_STATUS : 1
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 60/62 FAIL : 2
+
+
+[ TEST  NO : 62 ]
+
+comamnd : |unset =|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 1
+	MINI_EXIT_STATUS : 1
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 61/63 FAIL : 2
+
+
+[ TEST  NO : 63 ]
+
+comamnd : |unset PWD|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 62/64 FAIL : 2
+
+
+[ TEST  NO : 64 ]
+
+comamnd : |unset var|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 63/65 FAIL : 2
+[	ENV	]
+
+
+
+
+[ TEST  NO : 65 ]
+
+comamnd : |env|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+VSCODE_NODE_CACHED_DATA_DIR=/Users/sg/Library/Application Support/Code/CachedData/ea3859d4ba2f3e577a159bc91e3074c5d85c0523
+SHELL=/bin/zsh
+TERM=xterm-256color
+AMD_ENTRYPOINT=vs/workbench/services/extensions/node/extensionHostProcess
+TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+VSLS_SESSION_KEEPALIVE_INTERVAL=20
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+ZSH=/Users/sg/.oh-my-zsh
+USER=sg
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.4I64Rc55eg/Listeners
+__CF_USER_TEXT_ENCODING=0x1F5:0x3:0x33
+VSCODE_LOG_STACK=false
+PAGER=less
+ELECTRON_RUN_AS_NODE=1
+LSCOLORS=Gxfxcxdxbxegedabagacad
+PATH=/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+_=/usr/bin/env
+__CFBundleIdentifier=com.microsoft.VSCode
+PWD=/Users/sg/temp/42_seoul_minishell
+DOTNET_ROOT=/Users/sg/Library/Application Support/Code/User/globalStorage/ms-vsliveshare.vsliveshare/dotnet-3.1.1
+VSCODE_HANDLES_UNCAUGHT_ERRORS=true
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+HOME=/Users/sg
+SHLVL=5
+PIPE_LOGGING=true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL=true
+VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_IPC_HOOK_EXTHOST=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/vscode-ipc-61971879-f69b-49e0-9d07-ffb0acda26d8.sock
+LOGNAME=sg
+LESS=-R
+VSCODE_IPC_HOOK=/Users/sg/Library/Application Support/Code/1.52.1-main.sock
+VSCODE_PID=7661
+VERBOSE_LOGGING=true
+	[ MINI_OUTPUT ]
+VSCODE_NODE_CACHED_DATA_DIR=/Users/sg/Library/Application Support/Code/CachedData/ea3859d4ba2f3e577a159bc91e3074c5d85c0523
+TERM=xterm-256color
+SHELL=/bin/zsh
+AMD_ENTRYPOINT=vs/workbench/services/extensions/node/extensionHostProcess
+VSLS_SESSION_KEEPALIVE_INTERVAL=20
+TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+ZSH=/Users/sg/.oh-my-zsh
+USER=sg
+COMMAND_MODE=unix2003
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.4I64Rc55eg/Listeners
+__CF_USER_TEXT_ENCODING=0x1F5:0x3:0x33
+VSCODE_LOG_STACK=false
+PAGER=less
+ELECTRON_RUN_AS_NODE=1
+LSCOLORS=Gxfxcxdxbxegedabagacad
+PATH=/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+__CFBundleIdentifier=com.microsoft.VSCode
+DOTNET_ROOT=/Users/sg/Library/Application Support/Code/User/globalStorage/ms-vsliveshare.vsliveshare/dotnet-3.1.1
+PWD=/Users/sg/temp/42_seoul_minishell
+VSCODE_HANDLES_UNCAUGHT_ERRORS=true
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+SHLVL=4
+HOME=/Users/sg
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL=true
+PIPE_LOGGING=true
+VSCODE_IPC_HOOK_EXTHOST=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/vscode-ipc-61971879-f69b-49e0-9d07-ffb0acda26d8.sock
+VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+LESS=-R
+LOGNAME=sg
+VSCODE_IPC_HOOK=/Users/sg/Library/Application Support/Code/1.52.1-main.sock
+VSCODE_PID=7661
+VERBOSE_LOGGING=true
+_=./minishell
+
+
+FAIL !!
+
+
+SCORE  : 63/66 FAIL : 3
+[	VARIABLE	]
+
+
+
+
+[ TEST  NO : 66 ]
+
+comamnd : |$|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 64/67 FAIL : 3
+
+
+[ TEST  NO : 67 ]
+
+comamnd : |$LESS$VAR|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 65/68 FAIL : 3
+[	PIPE	]
+
+
+
+
+[ TEST  NO : 68 ]
+
+comamnd : |cat | cat | cat | ls|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+Makefile
+README.md
+a
+includes
+lib
+memo
+minishell
+minishell.dSYM
+not_norminatted_minishell.zip
+result.txt
+srcs
+subject
+test
+test.sh
+test_folder
+	[ MINI_OUTPUT ]
+Makefile
+README.md
+a
+includes
+lib
+memo
+minishell
+minishell.dSYM
+not_norminatted_minishell.zip
+result.txt
+srcs
+subject
+test
+test.sh
+test_folder
+
+
+SUCCESS !!
+
+
+SCORE  : 66/69 FAIL : 3
+
+
+[ TEST  NO : 69 ]
+
+comamnd : |cat Makefile | grep pr | head -n 5 | cd file_not_exit|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 1
+	MINI_EXIT_STATUS : 1
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 67/70 FAIL : 3
+
+
+[ TEST  NO : 70 ]
+
+comamnd : |cat Makefile | grep pr | head -n 5 | hello|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 127
+	MINI_EXIT_STATUS : 127
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 68/71 FAIL : 3
+
+
+[ TEST  NO : 71 ]
+
+comamnd : |ls | exit|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 69/72 FAIL : 3
+
+
+[ TEST  NO : 72 ]
+
+comamnd : |sleep 5 | exit|
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+<<<<<< OUTPUT TEST >>>>>>>
+	[ BASH_OUTPUT ]
+
+	[ MINI_OUTPUT ]
+
+
+
+SUCCESS !!
+
+
+SCORE  : 70/73 FAIL : 3
+[	REDIRECTION	]
+
+
+##	TRUNC : > 	
+
+
+
+
+[ TEST  NO : 73 ]
+
+bash comamnd : |echo test test test > ./test_file/trunc/bash/bash_1|
+
+mini comamnd : |echo test test test > ./test_file/trunc/mini/mini_1 |
+
+
+|./test_file/trunc/bash/bash_1 ./test_file/trunc/mini/mini_1|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 71/74 FAIL : 3
+
+
+[ TEST  NO : 74 ]
+
+bash comamnd : |ls -al > ./test_file/trunc/bash/bash_2 |
+
+mini comamnd : |ls -al > ./test_file/trunc/mini/mini_2|
+
+
+|./test_file/trunc/bash/bash_2 ./test_file/trunc/mini/mini_2|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 72/75 FAIL : 3
+
+
+[ TEST  NO : 75 ]
+
+bash comamnd : |echo ABC !/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin >  ./test_file/trunc/bash/bash_3_1 >  ./test_file/trunc/bash/bash_3_2|
+
+mini comamnd : |echo ABC !/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin >  ./test_file/trunc/mini/mini_3_1 >  ./test_file/trunc/mini/mini_3_2|
+
+
+|./test_file/trunc/bash/bash_3_2 ./test_file/trunc/mini/mini_3_2|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 73/76 FAIL : 3
+
+
+[ TEST  NO : 76 ]
+
+bash comamnd : |env > ./test_file/trunc/bash/bash_4 |
+
+mini comamnd : |env > ./test_file/trunc/mini/mini_4 |
+
+
+|./test_file/trunc/bash/bash_4 ./test_file/trunc/mini/mini_4|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+2d1
+< SHELL=/bin/zsh
+3a3
+> SHELL=/bin/zsh
+5d4
+< TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+6a6
+> TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+18d17
+< _=/usr/bin/env
+20d18
+< PWD=/Users/sg/temp/42_seoul_minishell
+21a20
+> PWD=/Users/sg/temp/42_seoul_minishell
+24a24
+> SHLVL=4
+26,27d25
+< SHLVL=5
+< PIPE_LOGGING=true
+29c27
+< VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+---
+> PIPE_LOGGING=true
+31c29
+< LOGNAME=sg
+---
+> VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+32a31
+> LOGNAME=sg
+35a35
+> _=./minishell
+SUCCESS !!
+
+
+SCORE  : 74/77 FAIL : 3
+
+
+[ TEST  NO : 77 ]
+
+bash comamnd : |env > ./test_file/trunc/bash/bash_trash1 > ./test_file/trunc/bash/bash_trash2 > ./test_file/trunc/bash/bash_5 |
+
+mini comamnd : |env > ./test_file/trunc/mini/mini_trash1 > ./test_file/trunc/mini/mini_trash2 > ./test_file/trunc/mini/mini_5 |
+
+
+|./test_file/trunc/bash/bash_5 ./test_file/trunc/mini/mini_5|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+2d1
+< SHELL=/bin/zsh
+3a3
+> SHELL=/bin/zsh
+5d4
+< TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+6a6
+> TMPDIR=/var/folders/jw/kq_wt28s7dzfchygdf7hxf440000gn/T/
+18d17
+< _=/usr/bin/env
+20d18
+< PWD=/Users/sg/temp/42_seoul_minishell
+21a20
+> PWD=/Users/sg/temp/42_seoul_minishell
+24a24
+> SHLVL=4
+26,27d25
+< SHLVL=5
+< PIPE_LOGGING=true
+29c27
+< VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+---
+> PIPE_LOGGING=true
+31c29
+< LOGNAME=sg
+---
+> VSCODE_NLS_CONFIG={"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+32a31
+> LOGNAME=sg
+35a35
+> _=./minishell
+SUCCESS !!
+
+
+SCORE  : 75/78 FAIL : 3
+##	APPEND : >> 	
+
+
+
+
+[ TEST  NO : 78 ]
+
+bash comamnd : |ls -al >> ./test_file/append/bash/append_1 |
+
+mini comamnd : |ls -al >> ./test_file/append/mini/append_1 |
+
+
+|./test_file/append/bash/append_1 ./test_file/append/mini/append_1|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 76/79 FAIL : 3
+
+
+[ TEST  NO : 79 ]
+
+bash comamnd : |cat Makefile >> ./test_file/append/bash/append_2 |
+
+mini comamnd : |cat Makefile >> ./test_file/append/mini/append_2 |
+
+
+|./test_file/append/bash/append_2 ./test_file/append/mini/append_2|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 77/80 FAIL : 3
+
+
+[ TEST  NO : 80 ]
+
+bash comamnd : |cat Makefile >> ./test_file/append/bash/trash_1 >> ./test_file/append/bash/trash_2 |
+
+mini comamnd : |cat Makefile >> ./test_file/append/mini/trash_1 >> ./test_file/append/mini/trash_2 |
+
+
+|./test_file/append/bash/append_3 ./test_file/append/mini/append_3|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 78/81 FAIL : 3
+##	READ : < 	
+
+
+
+
+[ TEST  NO : 81 ]
+
+bash comamnd : |cat -e < Makefile > ./test_file/read/bash/Makefile_copy|
+
+mini comamnd : |cat -e < Makefile > ./test_file/read/mini/Makefile_copy|
+
+
+| ./test_file/read/bash/Makefile_copy ./test_file/read/mini/Makefile_copy|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 79/82 FAIL : 3
+
+
+[ TEST  NO : 82 ]
+
+bash comamnd : |cat -e < Makefile < ./srcs/main.c > ./test_file/read/bash/main_c_copy|
+
+mini comamnd : |cat -e < Makefile < ./srcs/main.c > ./test_file/read/mini/main_c_copy|
+
+
+|./test_file/read/bash/main_c_copy ./test_file/read/mini/main_c_copy|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 80/83 FAIL : 3
+
+
+[ TEST  NO : 83 ]
+
+bash comamnd : |cat -e < Makefile < ./srcs/main.c < ./srcs/utils/double_ptr_utils.c > ./test_file/read/bash/double_ptr_utils_copy|
+
+mini comamnd : |cat -e < Makefile < ./srcs/main.c < ./srcs/utils/double_ptr_utils.c > ./test_file/read/mini/double_ptr_utils_copy|
+
+
+|./test_file/read/bash/double_ptr_utils_copy ./test_file/read/mini/double_ptr_utils_copy|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 81/84 FAIL : 3
+##	MULTI REDIRECTION	
+
+
+
+
+[ TEST  NO : 84 ]
+
+bash comamnd : |cat -e < test.sh > ./test_file/multi/bash/1|
+
+mini comamnd : |cat -e < test.sh > ./test_file/multi/mini/1|
+
+
+|./test_file/multi/bash/1 ./test_file/multi/mini/1|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 82/85 FAIL : 3
+
+
+[ TEST  NO : 85 ]
+
+bash comamnd : |< Makefile cat > ./test_file/multi/bash/2 |
+
+mini comamnd : |< Makefile cat > ./test_file/multi/mini/2 |
+
+
+|./test_file/multi/bash/2 ./test_file/multi/mini/2|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 83/86 FAIL : 3
+
+
+[ TEST  NO : 86 ]
+
+bash comamnd : |cat < Makefile -e > ./test_file/multi/bash/3 |
+
+mini comamnd : |cat < Makefile -e > ./test_file/multi/mini/3 |
+
+
+|./test_file/multi/bash/3 ./test_file/multi/mini/3|
+
+exit
+<<<<<<< EXIT STATUS TEST >>>>>>>
+	BASH_EXIT_STATUS : 0
+	MINI_EXIT_STATUS : 0
+
+	--check redireciton result : used 'diff' command--
+SUCCESS !!
+
+
+SCORE  : 84/87 FAIL : 3

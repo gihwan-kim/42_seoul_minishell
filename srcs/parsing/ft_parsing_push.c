@@ -6,13 +6,13 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 21:48:46 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/28 14:55:49 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 21:09:24 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int		space_count(char *str)
+int			space_count(char *str)
 {
 	int		count;
 	int		i;
@@ -28,7 +28,7 @@ int		space_count(char *str)
 	return (count);
 }
 
-int		check_next_is_space(char *str)
+int			check_next_is_space(char *str)
 {
 	int		index;
 	int		count;
@@ -62,7 +62,7 @@ static void	push_program(t_info *info)
 ** 	| cmd			: error		(Ex. ';', '|')
 */
 
-int		push_content(t_info *info, t_list *ret, char *str, int wow)
+int			push_content(t_info *info, t_list *ret, char *str, int wow)
 {
 	if (wow == 3)
 		info->i++;
@@ -78,7 +78,7 @@ int		push_content(t_info *info, t_list *ret, char *str, int wow)
 		{
 			(info->content) = ft_calloc(1, sizeof(t_cmd));
 			(info->content)->program = ft_calloc(space_count(str) + 2,
-													sizeof(char*));
+			sizeof(char*));
 			info->head = ft_lstlast(ret);
 		}
 	}
@@ -86,7 +86,7 @@ int		push_content(t_info *info, t_list *ret, char *str, int wow)
 	return (SUCCESS);
 }
 
-void	push_buff(t_info *info)
+void		push_buff(t_info *info)
 {
 	info->content->program[(info->p_i)] = ft_strdup(info->buff);
 	info->content->program[(info->p_i) + 1] = NULL;

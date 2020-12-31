@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 23:04:49 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/23 19:52:11 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 21:10:34 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ char	**ft_splitjoin(char **split1, char **split2)
 
 	i1 = 0;
 	if (split1)
-	{
 		while (split1[i1])
 			i1++;
-	}
 	i2 = 0;
 	while (split2[i2])
 		i2++;
@@ -31,10 +29,8 @@ char	**ft_splitjoin(char **split1, char **split2)
 		return (ret);
 	i1 = -1;
 	if (split1)
-	{
 		while (split1[++i1])
 			ret[i1] = ft_strdup(split1[i1]);
-	}
 	else
 		i1 = 0;
 	i2 = -1;

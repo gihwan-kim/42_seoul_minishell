@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 20:46:06 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/28 22:51:08 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 21:07:11 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_list	*ft_semicolon(t_list *cur_node)
 	{
 		execute_built_in(check_cmd_type, cur_prgm);
 		if (g_exit_status && errno == 0)
-			bash_error(g_exit_status / 256, ((t_cmd*)(cur_node->content))->program);
+			bash_error(g_exit_status / 256,
+						((t_cmd*)(cur_node->content))->program);
 		else if (g_exit_status && errno == ENOENT)
 			bash_error(ENOENT, ((t_cmd*)(cur_node->content))->program);
 	}

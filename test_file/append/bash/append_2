@@ -1,4 +1,28 @@
-NAME = minishell
+t_list	*redirection(t_list *cur_node)
+{
+	char	**cur_program;
+	char	**program;
+	t_cmd	*cur_cmd;
+	t_list	*ret;
+
+	cur_program = get_cur_program(1, cur_node);
+	if (!(cur_node->next))
+		program = NULL;
+	if (cur_program[0])
+		program = final_program(cur_node, cur_program);
+	else
+		program = final_program(cur_node, NULL);
+	if (program == NULL)
+	{
+		command_error_list(SYNTAX_ERROR);
+		return (cur_node->next);
+	}
+	cur_cmd = ((t_cmd*)(cur_node->content));
+	ret = recursive(cur_node->next, program, cur_cmd->flag);
+	if (g_exit_status && errno)
+		strerror_list(errno);
+	return (ret->next);
+}NAME = minishell
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 LIBFT_FLAGS = -lft -L./lib/libft

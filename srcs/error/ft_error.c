@@ -6,7 +6,7 @@
 /*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 22:51:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/28 15:23:32 by sancho           ###   ########.fr       */
+/*   Updated: 2020/12/31 21:07:33 by sancho           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	bash_error(int type, char **program)
 		ft_putendl_fd(strerror(ENOENT), STDERR_FILENO);
 	}
 	else if (type == BASH_ERR_NOL)
-	{	
+	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(program[0], STDERR_FILENO);
 		ft_putendl_fd(" : command execution is failed", STDERR_FILENO);
