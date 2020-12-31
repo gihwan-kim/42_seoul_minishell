@@ -254,16 +254,16 @@ SCORE  : 11/12 FAIL : 1
 
 [ TEST  NO : 12 ]
 
-comamnd : |echo bonjour \; ls|
+comamnd : |echo bonjour \|
 <<<<<<< EXIT STATUS TEST >>>>>>>
 	BASH_EXIT_STATUS : 0
 	MINI_EXIT_STATUS : 0
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-bonjour ; ls
+bonjour  
 	[ MINI_OUTPUT ]
-bonjour ; ls
+bonjour  
 
 
 SUCCESS !!
@@ -688,9 +688,9 @@ comamnd : |cd /home/user42/ ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -708,9 +708,9 @@ comamnd : |cd $HOME/Bureau ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -728,9 +728,9 @@ comamnd : |unset HOME; cd ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -748,9 +748,9 @@ comamnd : |export HOME= ; cd ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -768,9 +768,9 @@ comamnd : |cd too many arguments ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -788,9 +788,9 @@ comamnd : |cd ./path_not_found ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -808,9 +808,9 @@ comamnd : |cd - ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -828,7 +828,7 @@ comamnd : |mkdir a; mkdir a/b; cd a/b; rm -r ../../a; cd .. ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell/a/b/..
+/Users/gihkim/cs/last/a/b/..
 	[ MINI_OUTPUT ]
 
 
@@ -848,9 +848,9 @@ comamnd : |cd home/.. avec CDPATH set à / ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -868,9 +868,9 @@ comamnd : |cd home/dir avec CDPATH set à / ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -888,9 +888,9 @@ comamnd : |cd . avec CDPATH set ; pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -931,9 +931,9 @@ comamnd : |pwd|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -951,9 +951,9 @@ comamnd : |pwd lalala|
 
 <<<<<< OUTPUT TEST >>>>>>>
 	[ BASH_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 	[ MINI_OUTPUT ]
-/Users/gihkim/cs/42_seoul_minishell
+/Users/gihkim/cs/last
 
 
 SUCCESS !!
@@ -1347,21 +1347,21 @@ TMPDIR=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/
 TERM_PROGRAM_VERSION=1.51.1
 ORIGINAL_XDG_CURRENT_DESKTOP=undefined
 USER=gihkim
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.yxYVdeemig/Listeners
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.2EkwrRZzDt/Listeners
 __CF_USER_TEXT_ENCODING=0x1F5:0x3:0x33
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
 _=/usr/bin/env
-PWD=/Users/gihkim/cs/42_seoul_minishell
+PWD=/Users/gihkim/cs/last
 LANG=en_US.UTF-8
 XPC_FLAGS=0x0
 XPC_SERVICE_NAME=0
 HOME=/Users/gihkim
 SHLVL=3
-VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 LOGNAME=gihkim
-VSCODE_GIT_IPC_HANDLE=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/vscode-git-e3ce7275f5.sock
-GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
-VSCODE_GIT_ASKPASS_NODE=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+VSCODE_GIT_IPC_HANDLE=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/vscode-git-bbdb1f71e3.sock
+GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+VSCODE_GIT_ASKPASS_NODE=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
 COLORTERM=truecolor
 	[ MINI_OUTPUT ]
 TERM_PROGRAM=vscode
@@ -1371,20 +1371,20 @@ TMPDIR=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/
 TERM_PROGRAM_VERSION=1.51.1
 ORIGINAL_XDG_CURRENT_DESKTOP=undefined
 USER=gihkim
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.yxYVdeemig/Listeners
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.2EkwrRZzDt/Listeners
 __CF_USER_TEXT_ENCODING=0x1F5:0x3:0x33
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
-PWD=/Users/gihkim/cs/42_seoul_minishell
+PWD=/Users/gihkim/cs/last
 LANG=en_US.UTF-8
 XPC_FLAGS=0x0
 XPC_SERVICE_NAME=0
 SHLVL=2
 HOME=/Users/gihkim
-VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
 LOGNAME=gihkim
-VSCODE_GIT_IPC_HANDLE=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/vscode-git-e3ce7275f5.sock
-VSCODE_GIT_ASKPASS_NODE=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
-GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+VSCODE_GIT_IPC_HANDLE=/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/vscode-git-bbdb1f71e3.sock
+VSCODE_GIT_ASKPASS_NODE=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 COLORTERM=truecolor
 _=./minishell
 
@@ -1453,6 +1453,7 @@ comamnd : |cat | cat | cat | ls|
 Makefile
 README.md
 a
+cmd
 includes
 lib
 memo
@@ -1470,6 +1471,7 @@ test_folder
 Makefile
 README.md
 a
+cmd
 includes
 lib
 memo
@@ -1666,9 +1668,9 @@ exit
 17d16
 < SHLVL=3
 21d19
-< GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+< GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 22a21
-> GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+> GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 23a23
 > _=./minishell
 SUCCESS !!
@@ -1703,9 +1705,9 @@ exit
 17d16
 < SHLVL=3
 21d19
-< GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+< GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 22a21
-> GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/68D5ECEF-1F68-469F-A90D-F1B7C3249FE7/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+> GIT_ASKPASS=/private/var/folders/8t/3g0sp_1129b2lryh38bwg3gw0000gn/T/AppTranslocation/D05A2780-75C8-460E-80AD-5DDBE89A02D3/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 23a23
 > _=./minishell
 SUCCESS !!

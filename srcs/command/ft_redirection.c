@@ -81,6 +81,8 @@ t_list	*execute_redirection(t_list *node, char **program, int stream)
 {
 	int		check_cmd_type;
 
+	if (program[0] == NULL)
+		return (node);
 	if ((check_cmd_type = check_command_is_builtin((const char*)program[0])))
 	{
 		execute_built_in(check_cmd_type, program);
@@ -98,10 +100,6 @@ t_list	*execute_redirection(t_list *node, char **program, int stream)
 		if (execute_external_cmd(program) == ERROR)
 			strerror_list(errno);
 	}
-	if (_stdin >= 0)
-		dup2(_stdin, STDIN_FILENO);
-	if (_stdin >= 0)
-		dup2(_stdout, STDOUT_FILENO);
 	return (node);
 }
 
@@ -173,5 +171,9 @@ t_list	*redirection(t_list *cur_node)
 		return (cur_node);
 	}
 	ret = recursive(cur_node->next, program, ((t_cmd*)(cur_node->content))->flag, 0);
+	if (_stdin >= 0)
+		dup2(_stdin, STDIN_FILENO);
+	if (_stdout >= 0)
+		dup2(_stdout, STDOUT_FILENO);
 	return (ret->next);
 }

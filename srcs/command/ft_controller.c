@@ -141,7 +141,6 @@ void	controller(t_list *cmd_list)
 		cmd = (t_cmd *)(cur_loc->content);
 		cmd->program = parsing_second(cmd->program, (const char **)g_envp);
 		pipe_redir_parsing_second(cur_loc, cmd);
-		// ft_lstiter(cur_loc, print);
 		if (cmd->program[0] || cmd->flag >= 2)
 			cur_loc = check_flag(cur_loc);
 		else

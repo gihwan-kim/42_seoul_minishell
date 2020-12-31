@@ -281,31 +281,33 @@ function file() {
 
     printf "##\tMULTI REDIRECTION\t\n\n\n"
 
-    test_redirection "cat -e < redirection.c > $multi_bash/1" "cat -e < redirection.c > $multi_mini/1" "$multi_bash/1" "$multi_mini/1"
+    test_redirection "cat -e < test.sh > $multi_bash/1" "cat -e < test.sh > $multi_mini/1" "$multi_bash/1" "$multi_mini/1"
     test_redirection "< Makefile cat > $multi_bash/2 " "< Makefile cat > $multi_mini/2 " "$multi_bash/2" "$multi_mini/2"
     test_redirection "cat < Makefile -e > $multi_bash/3 " "cat < Makefile -e > $multi_mini/3 " "$multi_bash/3" "$multi_mini/3"
 
     # SYNTAX ERROR
-    # printf "[\tSYNTAX ERROR\t]\n\n\n"
+    # bash, minishell 에 접속해서 테스트하기
 
-    # SEMICOLON ERROR
-    # | test
+    ## SEMICOLON ERROR
+    # 'echo ; ; ; ;;;;'
 
-    # REDIRECTION ERROR
-    # echo > <
-    # echo | |
-    # <
-    # echo SYNTAX_ERROR > > out
-    # echo SYNTAX_ERROR > $test
-    # echo SYNTAX_ERROR > $test w/ test="o1 o2"
-    # echo SYNTAX_ERROR >>> test
+    # ## built in error
+    # 'cd not found'
 
-    # PARSING ERROR
+    # ## REDIRECTION ERROR
+    # ' echo > <'
+    # 'echo | |'
+    # '<'
+    # 'echo SYNTAX_ERROR > > out'
+    # 'echo SYNTAX_ERROR > '
+    # 'echo SYNTAX_ERROR >>> test'
+
+    # ## PARSING ERROR
     # echo hello ' wow my name is "
 
-    # PIPE ERROR
-    # echo SYNTAX_ERROR | |
-
+    # ## PIPE ERROR
+    # 'echo SYNTAX_ERROR | |'
+    # '| test'
 
     # echo 'qqq\'
 
