@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_second_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 19:09:00 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/28 23:00:04 by sancho           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:25:00 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int			set_env_to_buf(const char **envv, char *env, char *buf)
 void		set_exit_status_to_buf(char *buf, int *j, int *i)
 {
 	char	*status;
-	int		idx;
+	// int		idx;
 
-	idx = 0;
+	// idx = 0;
 	status = ft_itoa(g_exit_status / 256);
 	ft_strlcat(buf, status, ft_strlen(buf) + ft_strlen(status) + 1);
 	*j += ft_strlen(status);

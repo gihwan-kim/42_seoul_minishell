@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sancho <sancho@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 22:51:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/12/31 21:07:33 by sancho           ###   ########.fr       */
+/*   Updated: 2022/03/04 17:25:33 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_list	*command_error_list(char *comment)
 
 void	bash_error(int type, char **program)
 {
-	int	idx;
+	// int	idx;
 
-	idx = 0;
+	// idx = 0;
 	if (type == BASH_ERR_NOF)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
