@@ -1,6 +1,8 @@
 # minishell
 Simple minishell (mini bash).
 
+[![Video Label](http://img.youtube.com/vi/uMszRFxpIVg/0.jpg)](https://youtu.be/uMszRFxpIVg)
+
 
 # Project directory
 
